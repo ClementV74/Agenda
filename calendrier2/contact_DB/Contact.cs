@@ -11,5 +11,10 @@ public partial class Contact
 
     public string? Nom { get; set; }
 
+    public string? Email { get; set; }
+
+    public string? Tel { get; set; }
+
+
     public virtual ICollection<ContactReseauxSociaux> ContactReseauxSociauxes { get; set; } = new List<ContactReseauxSociaux>();
 }

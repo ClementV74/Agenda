@@ -119,11 +119,11 @@
                 <DataGrid Grid.Row="1" Margin="20" AutoGenerateColumns="False" CanUserAddRows="False" ItemsSource="{Binding Contacts}">
 
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="#" Binding="{Binding Id}" Width="50"/>
-                        <DataGridTextColumn Header="Member" Binding="{Binding Name}" Width="*"/>
+                        <DataGridTextColumn Header="#" Binding="{Binding IdContact}" Width="20"/>
+                        <DataGridTextColumn Header="Nom" Binding="{Binding Nom}" Width="*"/>
                         <DataGridTextColumn Header="Prenom" Binding="{Binding Prenom}" Width="*"/>
                         <DataGridTextColumn Header="Email Address" Binding="{Binding Email}" Width="200"/>
-                        <DataGridTextColumn Header="Phone Number" Binding="{Binding Phone}" Width="150"/>
+                        <DataGridTextColumn Header="Téléphone" Binding="{Binding Tel}" Width="150"/>
 
                         <!-- Add more columns as necessary -->
                     </DataGrid.Columns>
