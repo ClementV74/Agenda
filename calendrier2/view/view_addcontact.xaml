@@ -1,12 +1,15 @@
-﻿<UserControl x:Class="calendrier2.view.view_contact"
+﻿<UserControl x:Class="calendrier2.view.view_addcontact"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:controls="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+             xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
+
              xmlns:local="clr-namespace:calendrier2.view"
+             
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-
     <UserControl.Resources>
         <!-- Dégradé de couleur -->
         <LinearGradientBrush x:Key="BackgroundGradient" StartPoint="0,0" EndPoint="1,1">
@@ -35,9 +38,9 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Border Background="{TemplateBinding Background}"
-                  BorderBrush="{TemplateBinding BorderBrush}"
-                  BorderThickness="{TemplateBinding BorderThickness}"
-                  Padding="{TemplateBinding Padding}">
+                 BorderBrush="{TemplateBinding BorderBrush}"
+                 BorderThickness="{TemplateBinding BorderThickness}"
+                 Padding="{TemplateBinding Padding}">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
                     </ControlTemplate>
@@ -89,7 +92,7 @@
             <Border Background="{StaticResource BackgroundGradient}" Grid.Column="0">
                 <StackPanel>
                     <TextBlock Text="Clément Vabre" FontSize="24" Padding="20" Foreground="{StaticResource IconColor}"/>
-                    <TextBlock Text="Administrateur, Annecy" Padding="20,0,20,20" Foreground="{StaticResource IconColor}"/>
+                    <TextBlock Text="Members, Annecy" Padding="20,0,20,20" Foreground="{StaticResource IconColor}"/>
                     <Separator Background="{StaticResource DividerColor}"/>
                     <Button Content="Dashboard" Style="{StaticResource MenuButtonStyle}" Click="BTN_Dashboard_Click"/>
                     <Button Content="Contacts" Style="{StaticResource MenuButtonStyle}" />
@@ -103,7 +106,7 @@
             </Border>
 
             <!-- Main Content -->
-            <Grid Grid.Column="1" Background="{StaticResource LightBackgroundColor}"  >
+            <Grid Grid.Column="1" Background="{StaticResource LightBackgroundColor}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
@@ -114,33 +117,45 @@
                 <StackPanel Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Bottom">
                     <TextBlock Text="Contacts" Style="{StaticResource HeaderTextBlockStyle}"/>
                     <Button Content="+ Ajouter un contact" Style="{StaticResource ButtonStyle}" Click="BTN_AddContact_Click"/>
-                    <Button Content="- Supprimer" Style="{StaticResource ButtonStyle}" Click="BTN_Supp_Click"></Button>
-                    <Button Content="Modifier" Style="{StaticResource ButtonStyle}" Click="BTN_Modifier_CLick"></Button>
-                    <!-- Search bar and other header elements would go here -->
+                
                 </StackPanel>
-                <DataGrid Grid.Row="1" Margin="20" AutoGenerateColumns="False" CanUserAddRows="False" ItemsSource="{Binding Contacts}" x:Name="DataGridContacts">
-
-                    <DataGrid.Columns >
-                        <DataGridTextColumn Header="#" Binding="{Binding IdContact}" Width="20"/>
-                        <DataGridTextColumn Header="Nom" Binding="{Binding Nom}" Width="*"/>
-                        <DataGridTextColumn Header="Prenom" Binding="{Binding Prenom}" Width="*"/>
-                        <DataGridTextColumn Header="Email Address" Binding="{Binding Email}" Width="200"/>
-                        <DataGridTextColumn Header="Téléphone" Binding="{Binding Tel}" Width="150"/>
-
-                        <!-- Add more columns as necessary -->
-                    </DataGrid.Columns>
 
 
-                </DataGrid>
+                <StackPanel Grid.Row="1" Margin="20">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="10"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="10"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="10"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
 
-                <!-- Footer with Pagination -->
-                <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,20">
-                    <Button Content="&lt;&lt;" Style="{StaticResource ButtonStyle}" />
-                    <Button Content="&lt;" Style="{StaticResource ButtonStyle}" />
-                    <!-- Pagination number buttons would go here -->
-                    <Button Content="&gt;" Style="{StaticResource ButtonStyle}" />
-                    <Button Content="&gt;&gt;" Style="{StaticResource ButtonStyle}" />
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="Nom" Foreground="{StaticResource TextColor}" VerticalAlignment="Center"/>
+                        <TextBox x:Name="NomTextBox"  Grid.Row="0" Grid.Column="2" Margin="0,0,10,0" Width="150"/>
+
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="Prénom" Foreground="{StaticResource TextColor}" VerticalAlignment="Center"/>
+                        <TextBox x:Name="PrenomTextBox"  Grid.Row="1" Grid.Column="2" Margin="0,0,10,0" Width="150"/>
+
+                        <TextBlock Grid.Row="2" Grid.Column="0" Text="Email" Foreground="{StaticResource TextColor}" VerticalAlignment="Center"/>
+                        <TextBox x:Name="EmailTextBox"  Grid.Row="2" Grid.Column="2" Margin="0,0,10,0" Width="150"/>
+
+                        <TextBlock Grid.Row="3" Grid.Column="0" Text="Téléphone" Foreground="{StaticResource TextColor}" VerticalAlignment="Center"/>
+                        <TextBox x:Name="TelTextBox"  Grid.Row="3" Grid.Column="2" Margin="0,0,10,0" Width="150"/>
+                    </Grid>
                 </StackPanel>
+
+
+
             </Grid>
         </Grid>
     </Border>

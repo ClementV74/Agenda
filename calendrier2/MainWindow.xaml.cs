@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -15,6 +16,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using static System.Net.Mime.MediaTypeNames;
+using static System.Windows.RoutedEventArgs;
+
 
 namespace calendrier2
 {
@@ -31,7 +34,8 @@ namespace calendrier2
 
 
 
-        private void BTN_Login_Click(object sender, RoutedEventArgs e)
+
+    private void BTN_Login_Click(object sender, RoutedEventArgs e)
         {
             // Vérifie le nom d'utilisateur et le mot de passe
             if (TB_Username.Text == "clem" && TB_Password.Password == "clem")
@@ -50,6 +54,16 @@ namespace calendrier2
             {
                 // Affiche un message d'erreur
                 MessageBox.Show("Accès refusé. Nom d'utilisateur ou mot de passe incorrect.", "Erreur d'authentification", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+
+        }
+
+        private void enter_press(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                BTN_Login_Click(sender, e);
             }
         }
 
