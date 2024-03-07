@@ -76,7 +76,14 @@ namespace calendrier2.view
             _dbContext.Contacts.Add(newContact);
             _dbContext.SaveChanges();
 
-         
+            var contactview = new view_contact(); // Assurez-vous de remplacer DashboardView par le nom de votre classe de vue du tableau de bord
+
+            // Remplace le contenu des deux parties de la grille
+            Ecran_Contact.Children.Clear(); // Efface tout contenu existant dans la grille
+            Grid.SetColumnSpan(contactview, 2);
+            Ecran_Contact.Children.Add(contactview);
+
+
         }
 
       

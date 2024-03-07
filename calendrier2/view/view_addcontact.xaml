@@ -119,9 +119,7 @@
                     <Button Content="+ Ajouter un contact" Style="{StaticResource ButtonStyle}" Click="BTN_AddContact_Click"/>
                 
                 </StackPanel>
-
-
-                <StackPanel Grid.Row="1" Margin="20">
+                <StackPanel Grid.Row="1" Margin="20" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
@@ -141,19 +139,18 @@
                         </Grid.RowDefinitions>
 
                         <TextBlock Grid.Row="0" Grid.Column="0" Text="Nom" Foreground="{StaticResource TextColor}" VerticalAlignment="Center"/>
-                        <TextBox x:Name="NomTextBox"  Grid.Row="0" Grid.Column="2" Margin="0,0,10,0" Width="150"/>
+                        <TextBox x:Name="NomTextBox"  Grid.Row="0" Grid.Column="2" Margin="0,0,10,10" Width="200" Height="40" BorderBrush="{StaticResource AccentColor}" BorderThickness="1" HorizontalAlignment="Stretch"/>
 
                         <TextBlock Grid.Row="1" Grid.Column="0" Text="Prénom" Foreground="{StaticResource TextColor}" VerticalAlignment="Center"/>
-                        <TextBox x:Name="PrenomTextBox"  Grid.Row="1" Grid.Column="2" Margin="0,0,10,0" Width="150"/>
+                        <TextBox x:Name="PrenomTextBox"  Grid.Row="1" Grid.Column="2" Margin="0,0,10,10" Width="200" Height="40" BorderBrush="{StaticResource AccentColor}" BorderThickness="1" HorizontalAlignment="Stretch"/>
 
                         <TextBlock Grid.Row="2" Grid.Column="0" Text="Email" Foreground="{StaticResource TextColor}" VerticalAlignment="Center"/>
-                        <TextBox x:Name="EmailTextBox"  Grid.Row="2" Grid.Column="2" Margin="0,0,10,0" Width="150"/>
+                        <TextBox x:Name="EmailTextBox"  Grid.Row="2" Grid.Column="2" Margin="0,0,10,10" Width="200" Height="40" BorderBrush="{StaticResource AccentColor}" BorderThickness="1" HorizontalAlignment="Stretch"/>
 
                         <TextBlock Grid.Row="3" Grid.Column="0" Text="Téléphone" Foreground="{StaticResource TextColor}" VerticalAlignment="Center"/>
-                        <TextBox x:Name="TelTextBox"  Grid.Row="3" Grid.Column="2" Margin="0,0,10,0" Width="150"/>
+                        <TextBox x:Name="TelTextBox"  Grid.Row="3" Grid.Column="2" Margin="0,0,10,10" Width="200" Height="40" BorderBrush="{StaticResource AccentColor}" BorderThickness="1" HorizontalAlignment="Stretch"/>
                     </Grid>
                 </StackPanel>
-
 
 
             </Grid>

@@ -1,13 +1,18 @@
 ﻿using calendrier2.contact_DB;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Media;
 
 namespace calendrier2.view
 {
     public partial class view_contact : UserControl
     {
+
+        private Contact _selectedContact;
         private ContactContext _dbContext = new ContactContext();
 
         // Propriété pour la liste des contacts
@@ -99,6 +104,46 @@ namespace calendrier2.view
             }
         }
 
+       
+
+        
+
+        private void TB_Search(object sender, TextChangedEventArgs e)
+        {
+            string searchText = SearchTextBox.Text.ToLower(); // Convertissez le texte en minuscules pour une comparaison insensible à la casse
+            ICollectionView cv = CollectionViewSource.GetDefaultView(DataGridContacts.ItemsSource);
+            if (string.IsNullOrEmpty(searchText))
+            {
+                cv.Filter = null;
+            }
+            else
+            {
+                cv.Filter = o =>
+                {
+                    // Vérifiez si le texte de recherche correspond à l'un des champs dans la ligne de la DataGrid
+                    var contact = o as Contact; // Remplacez YourContactClass par la classe réelle de vos contacts
+                    return contact.Nom.ToLower().Contains(searchText) ||
+                           contact.Prenom.ToLower().Contains(searchText) ||
+                           contact.Email.ToLower().Contains(searchText) ||
+                           contact.Tel.ToLower().Contains(searchText);
+                };
+            }
+        }
+
+        private void BTN_Details_Click(object sender, RoutedEventArgs e)
+        {
+            if (DataGridContacts.SelectedItem is Contact selectedContact)
+            {
+                var detailview = new view_DetailUser(selectedContact);
+                Ecran_Contact.Children.Clear();
+                Grid.SetColumnSpan(detailview, 2);
+                Ecran_Contact.Children.Add(detailview);
+            }
+            else
+            {
+                MessageBox.Show("Veuillez sélectionner un contact pour afficher les détails.", "Avertissement", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+        }
 
 
 
