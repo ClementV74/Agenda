@@ -1,5 +1,6 @@
 ﻿using calendrier2.contact_DB;
 using calendrier2.service.DAO;
+using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
@@ -81,32 +82,35 @@ namespace calendrier2.view
 
 
         private void BTN_Modifier_CLick(object sender, RoutedEventArgs e)
-{
-    if (DataGridContacts.SelectedItem is Contact contactAModifier)
-    {
-        int selectedIndex = DataGridContacts.SelectedIndex;
-        Contact contactModifie = Contacts[selectedIndex];
+        {
+            if (DataGridContacts.SelectedItem is Contact contactAModifier)
+            {
+                // Récupérer le contact à modifier depuis la base de données
+                Contact contactModifie = _dbContext.Contacts.FirstOrDefault(c => c.IdContact == contactAModifier.IdContact);
 
-        // Mettez à jour les propriétés du contact avec les valeurs de la ligne sélectionnée
-        contactModifie.Nom = contactAModifier.Nom;
-        contactModifie.Prenom = contactAModifier.Prenom;
-        contactModifie.Email = contactAModifier.Email;
-        contactModifie.Tel = contactAModifier.Tel;
+                if (contactModifie != null)
+                {
+                    // Mettez à jour les propriétés du contact avec les valeurs de la ligne sélectionnée
+                    contactModifie.Nom = contactAModifier.Nom;
+                    contactModifie.Prenom = contactAModifier.Prenom;
+                    contactModifie.Email = contactAModifier.Email;
+                    contactModifie.Tel = contactAModifier.Tel;
 
-        // Utilisez la classe DAO pour mettre à jour le contact dans la base de données
-        _daoContact.UpdateContact(contactModifie);
+  
 
-        // Rafraîchir la liste des contacts après la mise à jour
-        RefreshContacts();
-    }
-    else
-    {
-        MessageBox.Show("Veuillez sélectionner un contact à modifier.", "Avertissement", MessageBoxButton.OK, MessageBoxImage.Warning);
-    }
-}
+                    // Rafraîchir la liste des contacts après la mise à jour
+                    RefreshContacts();
+                }
+                else
+                {
+                    MessageBox.Show("Le contact sélectionné n'existe pas dans la base de données.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            
+        }
 
-// Méthode pour rafraîchir la liste des contacts
-private void RefreshContacts()
+        // Méthode pour rafraîchir la liste des contacts
+        private void RefreshContacts()
 {
     Contacts.Clear();
     foreach (var contact in _dbContext.Contacts.ToList())
