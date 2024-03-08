@@ -26,7 +26,7 @@ namespace calendrier2.view
     public partial class view_addcontact : UserControl
     {
         private ContactContext _dbContext = new ContactContext();
-        private DAO_contact _daoContact = new DAO_contact(); // Instanciez votre objet DAO_contact
+        private DAO_contact _daoContact = new DAO_contact(); // instance objet DAO_contact
 
         // Propriété pour la liste des contacts
         public ObservableCollection<Contact> Contacts { get; set; } = new ObservableCollection<Contact>();

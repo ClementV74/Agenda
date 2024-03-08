@@ -65,8 +65,13 @@ namespace calendrier2.view
         {
             if (DataGridContacts.SelectedItem is Contact contactASupprimer)
             {
-                _daoContact.DeleteContact(contactASupprimer.IdContact);
-                Contacts.Remove(contactASupprimer);
+                MessageBoxResult result = MessageBox.Show("Voulez-vous vraiment supprimer ce contact ?", "Confirmation de suppression", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    _daoContact.DeleteContact(contactASupprimer.IdContact);
+                    Contacts.Remove(contactASupprimer);
+                }
             }
             else
             {
@@ -74,7 +79,8 @@ namespace calendrier2.view
             }
         }
 
-      private void BTN_Modifier_CLick(object sender, RoutedEventArgs e)
+
+        private void BTN_Modifier_CLick(object sender, RoutedEventArgs e)
 {
     if (DataGridContacts.SelectedItem is Contact contactAModifier)
     {

@@ -16,7 +16,7 @@
 
         <!-- Couleurs -->
         <SolidColorBrush x:Key="PrimaryColor" Color="#673AB7"/>
-        <SolidColorBrush x:Key="AccentColor" Color="#FF4081"/>
+        <SolidColorBrush x:Key="AccentColor" Color="#6741D9"/>
         <SolidColorBrush x:Key="TextColor" Color="#333"/>
         <SolidColorBrush x:Key="IconColor" Color="#FFFFFF"/>
         <SolidColorBrush x:Key="LightBackgroundColor" Color="#EEEEEE"/>
@@ -91,14 +91,14 @@
                     <TextBlock Text="Clément Vabre" FontSize="24" Padding="20" Foreground="{StaticResource IconColor}"/>
                     <TextBlock Text="Members, Annecy" Padding="20,0,20,20" Foreground="{StaticResource IconColor}"/>
                     <Separator Background="{StaticResource DividerColor}"/>
-                    <Button Content="Dashboard" Style="{StaticResource MenuButtonStyle}" Click="BTN_Dashboard_Click"/>
-                    <Button Content="Contacts" Style="{StaticResource MenuButtonStyle}" />
-                   
-                    <Button Content="Calendrier" Style="{StaticResource MenuButtonStyle}" Click="BTN_Calendrier_Click"/>
+                    <Button Content="🏠 Dashboard" Style="{StaticResource MenuButtonStyle}" Click="BTN_Dashboard_Click"/>
+                    <Button Content="📞 Contacts" Style="{StaticResource MenuButtonStyle}" />
+
+                    <Button Content="📅 Calendrier" Style="{StaticResource MenuButtonStyle}" Click="BTN_Calendrier_Click"/>
 
                     <Separator Background="{StaticResource DividerColor}" Margin="0,10"/>
 
-                    <Button Content="Logout" Style="{StaticResource MenuButtonStyle}" Click="BTN_Logout_Click"/>
+                    <Button Content="🔒 Logout" Style="{StaticResource MenuButtonStyle}" Click="BTN_Logout_Click"/>
 
                 </StackPanel>
             </Border>
@@ -114,7 +114,7 @@
                 <!-- Header -->
                 <StackPanel Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Bottom">
                     <TextBlock Text="Contacts" Style="{StaticResource HeaderTextBlockStyle}"/>
-                    <Button Content="Retour" Style="{StaticResource ButtonStyle}" Click="BTN_retour_Click"/>
+                    <Button Content="Retour" Style="{StaticResource addButton}" Click="BTN_retour_Click" />
 
                 </StackPanel>
                 <StackPanel Grid.Row="1" Margin="20" HorizontalAlignment="Center" VerticalAlignment="Center">
