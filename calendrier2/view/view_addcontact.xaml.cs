@@ -1,4 +1,5 @@
 ﻿using calendrier2.contact_DB;
+using calendrier2.service.DAO;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -25,6 +26,7 @@ namespace calendrier2.view
     public partial class view_addcontact : UserControl
     {
         private ContactContext _dbContext = new ContactContext();
+        private DAO_contact _daoContact = new DAO_contact(); // Instanciez votre objet DAO_contact
 
         // Propriété pour la liste des contacts
         public ObservableCollection<Contact> Contacts { get; set; } = new ObservableCollection<Contact>();
@@ -72,21 +74,18 @@ namespace calendrier2.view
                 Tel = TelTextBox.Text
             };
 
-            // Ajouter le nouveau contact à la base de données
-            _dbContext.Contacts.Add(newContact);
-            _dbContext.SaveChanges();
+            // Ajouter le nouveau contact à la base de données via la classe DAO_contact
+            _daoContact.AddContact(newContact);
 
-            var contactview = new view_contact(); // Assurez-vous de remplacer DashboardView par le nom de votre classe de vue du tableau de bord
+            var contactview = new view_contact(); // Assurez-vous de remplacer DashboardView par le nom de votre classe de vue de contact
 
             // Remplace le contenu des deux parties de la grille
             Ecran_Contact.Children.Clear(); // Efface tout contenu existant dans la grille
             Grid.SetColumnSpan(contactview, 2);
             Ecran_Contact.Children.Add(contactview);
-
-
         }
 
-      
+
 
     }
 

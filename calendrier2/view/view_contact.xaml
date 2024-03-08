@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:calendrier2.view"
+             xmlns:local="clr-namespace:calendrier2.view" xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
@@ -16,7 +16,7 @@
 
         <!-- Couleurs -->
         <SolidColorBrush x:Key="PrimaryColor" Color="#673AB7"/>
-        <SolidColorBrush x:Key="AccentColor" Color="#FF4081"/>
+        <SolidColorBrush x:Key="AccentColor" Color="#6741D9"/>
         <SolidColorBrush x:Key="TextColor" Color="#333"/>
         <SolidColorBrush x:Key="IconColor" Color="#FFFFFF"/>
         <SolidColorBrush x:Key="LightBackgroundColor" Color="#EEEEEE"/>
@@ -64,6 +64,18 @@
             <Setter Property="FontSize" Value="14"/>
             <Setter Property="Margin" Value="10"/>
             <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="HorizontalAlignment" Value="Right" />
+            <Setter Property="Grid.Row" Value="1" />
+            <Setter Property="Template" >
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="7">
+                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
 
         <!-- Style for the header text -->
@@ -91,13 +103,15 @@
                     <TextBlock Text="Clément Vabre" FontSize="24" Padding="20" Foreground="{StaticResource IconColor}"/>
                     <TextBlock Text="Administrateur, Annecy" Padding="20,0,20,20" Foreground="{StaticResource IconColor}"/>
                     <Separator Background="{StaticResource DividerColor}"/>
-                    <Button Content="Dashboard" Style="{StaticResource MenuButtonStyle}" Click="BTN_Dashboard_Click"/>
-                    <Button Content="Contacts" Style="{StaticResource MenuButtonStyle}" />
-                    <Button Content="Calendrier" Style="{StaticResource MenuButtonStyle}" Click="BTN_Calendrier_Click"/>
+                    <Button Content="🏠 Dashboard" Style="{StaticResource MenuButtonStyle}" Click="BTN_Dashboard_Click"/>
+
+                    <Button Content="📞 Contacts" Style="{StaticResource MenuButtonStyle}" />
+
+                    <Button Content="📅 Calendrier" Style="{StaticResource MenuButtonStyle}" Click="BTN_Calendrier_Click"/>
 
                     <Separator Background="{StaticResource DividerColor}" Margin="0,10"/>
 
-                    <Button Content="Logout" Style="{StaticResource MenuButtonStyle}" Click="BTN_Logout_Click"/>
+                    <Button Content="🔒 Logout" Style="{StaticResource MenuButtonStyle}" Click="BTN_Logout_Click"/>
 
                 </StackPanel>
             </Border>
@@ -114,9 +128,9 @@
                 
                 <StackPanel Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Bottom">
                     <TextBlock Text="Contacts" Style="{StaticResource HeaderTextBlockStyle}"/>
-                    <Button Content="+ Ajouter un contact" Style="{StaticResource ButtonStyle}" Click="BTN_AddContact_Click"/>
-                    <Button Content="- Supprimer" Style="{StaticResource ButtonStyle}" Click="BTN_Supp_Click"></Button>
-                    <Button Content="Modifier" Style="{StaticResource ButtonStyle}" Click="BTN_Modifier_CLick"></Button>
+                    <Button Content="+ Ajouter un contact" Style="{StaticResource addButton}" Click="BTN_AddContact_Click"/>
+                    <Button Content="Supprimer" Style="{StaticResource ButtonStyle}" Click="BTN_Supp_Click" Width="79"></Button>
+                    <Button Content="Modifier" Style="{StaticResource ButtonStyle}" Click="BTN_Modifier_CLick" Width="64"></Button>
                     <!-- Search bar and other header elements would go here -->
                 </StackPanel>
                 <DataGrid Grid.Row="1" Margin="20" AutoGenerateColumns="False" CanUserAddRows="False" ItemsSource="{Binding Contacts}" x:Name="DataGridContacts">
@@ -142,7 +156,7 @@
                         <Label Content="Recherche" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         <TextBox x:Name="SearchTextBox" TextChanged="TB_Search" Margin="10" Width="93" />
 
-                        <Button Content="Details" Style="{StaticResource ButtonStyle}" Click="BTN_Details_Click"/>
+                        <Button Content="Details" Style="{StaticResource ButtonStyle}" Click="BTN_Details_Click" Width="49" Height="22"/>
                     </StackPanel>
                 </StackPanel>
 

@@ -1,4 +1,5 @@
 ﻿using calendrier2.contact_DB;
+using calendrier2.service.DAO;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace calendrier2.view
 {
     public partial class view_contact : UserControl
     {
-
+        private DAO_contact _daoContact = new DAO_contact(); // Initialisez votre objet DAO_contact
         private Contact _selectedContact;
         private ContactContext _dbContext = new ContactContext();
 
@@ -28,8 +29,6 @@ namespace calendrier2.view
             // Charger les contacts depuis la base de données
             Contacts = new ObservableCollection<Contact>(_dbContext.Contacts.ToList());
         }
-
-       
 
         private void BTN_Dashboard_Click(object sender, RoutedEventArgs e)
         {
@@ -56,7 +55,6 @@ namespace calendrier2.view
 
         private void BTN_AddContact_Click(object sender, RoutedEventArgs e)
         {
-
             var addcontactview = new view_addcontact();
             Ecran_Contact.Children.Clear();
             Grid.SetColumnSpan(addcontactview, 2);
@@ -67,11 +65,7 @@ namespace calendrier2.view
         {
             if (DataGridContacts.SelectedItem is Contact contactASupprimer)
             {
-                // Supprimer le contact de la base de données
-                _dbContext.Contacts.Remove(contactASupprimer);
-                _dbContext.SaveChanges();
-
-                // Supprimer le contact de la liste des contacts liée à l'interface utilisateur
+                _daoContact.DeleteContact(contactASupprimer.IdContact);
                 Contacts.Remove(contactASupprimer);
             }
             else
@@ -80,33 +74,41 @@ namespace calendrier2.view
             }
         }
 
-        private void BTN_Modifier_CLick(object sender, RoutedEventArgs e)
-        {
-            if (DataGridContacts.SelectedItem is Contact contactAModifier)
-            {
-                // Obtenez l'index de la ligne sélectionnée dans le DataGrid
-                int selectedIndex = DataGridContacts.SelectedIndex;
+      private void BTN_Modifier_CLick(object sender, RoutedEventArgs e)
+{
+    if (DataGridContacts.SelectedItem is Contact contactAModifier)
+    {
+        int selectedIndex = DataGridContacts.SelectedIndex;
+        Contact contactModifie = Contacts[selectedIndex];
 
-                // Mettez à jour les propriétés du contact avec les valeurs de la ligne sélectionnée
-                Contact contactModifie = Contacts[selectedIndex];
-                contactModifie.Nom = contactAModifier.Nom;
-                contactModifie.Prenom = contactAModifier.Prenom;
-                contactModifie.Email = contactAModifier.Email;
-                contactModifie.Tel = contactAModifier.Tel;
+        // Mettez à jour les propriétés du contact avec les valeurs de la ligne sélectionnée
+        contactModifie.Nom = contactAModifier.Nom;
+        contactModifie.Prenom = contactAModifier.Prenom;
+        contactModifie.Email = contactAModifier.Email;
+        contactModifie.Tel = contactAModifier.Tel;
 
-                // Enregistrez les modifications dans la base de données
-                _dbContext.SaveChanges();
+        // Utilisez la classe DAO pour mettre à jour le contact dans la base de données
+        _daoContact.UpdateContact(contactModifie);
 
-            }
-            else
-            {
-                MessageBox.Show("Veuillez sélectionner un contact à modifier.", "Avertissement", MessageBoxButton.OK, MessageBoxImage.Warning);
-            }
-        }
+        // Rafraîchir la liste des contacts après la mise à jour
+        RefreshContacts();
+    }
+    else
+    {
+        MessageBox.Show("Veuillez sélectionner un contact à modifier.", "Avertissement", MessageBoxButton.OK, MessageBoxImage.Warning);
+    }
+}
 
-       
+// Méthode pour rafraîchir la liste des contacts
+private void RefreshContacts()
+{
+    Contacts.Clear();
+    foreach (var contact in _dbContext.Contacts.ToList())
+    {
+        Contacts.Add(contact);
+    }
+}
 
-        
 
         private void TB_Search(object sender, TextChangedEventArgs e)
         {
@@ -121,7 +123,7 @@ namespace calendrier2.view
                 cv.Filter = o =>
                 {
                     // Vérifiez si le texte de recherche correspond à l'un des champs dans la ligne de la DataGrid
-                    var contact = o as Contact; // Remplacez YourContactClass par la classe réelle de vos contacts
+                    var contact = o as Contact;
                     return contact.Nom.ToLower().Contains(searchText) ||
                            contact.Prenom.ToLower().Contains(searchText) ||
                            contact.Email.ToLower().Contains(searchText) ||
@@ -144,8 +146,5 @@ namespace calendrier2.view
                 MessageBox.Show("Veuillez sélectionner un contact pour afficher les détails.", "Avertissement", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
-
-
-
     }
 }
