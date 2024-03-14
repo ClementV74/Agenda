@@ -198,11 +198,13 @@ namespace calendrier2.view
                 Ecran_Contact.Children.Clear();
                 Grid.SetColumnSpan(detailview, 2);
                 Ecran_Contact.Children.Add(detailview);
+
             }
             else
             {
                 MessageBox.Show("Veuillez sélectionner un contact pour afficher les détails.", "Avertissement", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
+
         }
     }
 }

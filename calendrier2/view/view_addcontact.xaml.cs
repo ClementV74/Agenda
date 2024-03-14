@@ -88,6 +88,7 @@ namespace calendrier2.view
                 newContact.Status += "Travail, ";
             }
 
+
             // Supprimer la virgule supplémentaire à la fin de la chaîne de statut
             if (!string.IsNullOrEmpty(newContact.Status))
             {

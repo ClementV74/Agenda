@@ -1,18 +1,25 @@
 ﻿using calendrier2.contact_DB;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace calendrier2.service.DAO
+public class DAO_tache
 {
-    class DAO_tache
+    public List<Tache> GetRappels()
     {
-        // Méthode pour récupérer la liste des tâches depuis la base de données
-        public List<Tache> GetTaskList()
+        using (var context = new ContactContext())
         {
-            using (var dbContext = new ContactContext()) // Utilisation du contexte de base de données ContactContext
-            {
-                return dbContext.Taches.ToList(); // Récupération de la liste des tâches
-            }
+            return context.Taches.Include(t => t.TodolistIdtodolistNavigation).ToList();
+        }
+    }
+
+
+    public void AjouterTache(Tache nouvelleTache)
+    {
+        using (var context = new ContactContext())
+        {
+            context.Taches.Add(nouvelleTache);
+            context.SaveChanges();
         }
     }
 }

@@ -128,6 +128,11 @@
                 </StackPanel>
 
                 <!-- Contenu du tableau de bord -->
+
+                <TextBox Grid.Row="1" x:Name="txtRappels" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"/>
+
+
+
                 <!-- Vous pouvez ajouter des graphiques, des statistiques, etc. -->
                 <TextBlock Grid.Row="1" Text="Bienvenue sur le tableau de bord!" Style="{StaticResource HeaderTextBlockStyle}" Margin="20"/>
 
