@@ -26,26 +26,26 @@ namespace calendrier2.view
 
         }
 
-        public void AfficherRappels()
+ public void AfficherRappels()
+{
+    try
+    {
+        var rappels = daoTache.GetRappels();
+
+        StringBuilder sb = new StringBuilder();
+        foreach (var rappel in rappels)
         {
-            try
-            {
-                var rappels = daoTache.GetRappels();
-
-                StringBuilder sb = new StringBuilder();
-                foreach (var rappel in rappels)
-                {
-                    string etatTache = rappel.Fait == true ? "✔" : "❌"; // Utilisation de symboles pour représenter l'état de la tâche
-                    sb.AppendLine($"Tâche: {rappel.TodolistIdtodolistNavigation?.Name} - {etatTache} - Heure: {rappel.Temps}");
-                }
-
-                txtRappels.Text = sb.ToString();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Une erreur s'est produite lors du chargement des rappels : {ex.Message}");
-            }
+            string etatTache = rappel.Fait == true ? "✔" : "❌"; // Utilisation de symboles pour représenter l'état de la tâche
+            sb.AppendLine($"📃 Tâche: {rappel.TodolistIdtodolistNavigation?.Name} - {etatTache} - ⏰ Temps: {rappel.Temps} - 📍 Lieu: {rappel.Lieux} - 📰 Description: {rappel.Description}");
         }
+
+        txtRappels.Text = sb.ToString();
+    }
+    catch (Exception ex)
+    {
+        MessageBox.Show($"Une erreur s'est produite lors du chargement des rappels : {ex.Message}");
+    }
+}
 
 
 
@@ -76,9 +76,13 @@ namespace calendrier2.view
 
         }
 
-    
-
-
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var addtodolistview = new view_addtodolist(); // Assurez-vous de remplacer DashboardView par le nom de votre classe de vue du tableau de bord
+            Ecran_Principale.Children.Clear(); // Efface tout contenu existant dans la grille
+            Grid.SetColumnSpan(addtodolistview, 2);
+            Ecran_Principale.Children.Add(addtodolistview);
+        }
     }
 }
 

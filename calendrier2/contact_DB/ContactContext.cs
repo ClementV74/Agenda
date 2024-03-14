@@ -110,7 +110,9 @@ public partial class ContactContext : DbContext
             entity.HasIndex(e => e.TodolistIdtodolist, "fk_tache_todolist1_idx");
 
             entity.Property(e => e.Idtache).HasColumnName("idtache");
+            entity.Property(e => e.Description).HasMaxLength(150);
             entity.Property(e => e.Fait).HasColumnName("fait");
+            entity.Property(e => e.Lieux).HasMaxLength(40);
             entity.Property(e => e.Temps)
                 .HasColumnType("time")
                 .HasColumnName("temps");

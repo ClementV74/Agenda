@@ -131,10 +131,13 @@
 
                 <TextBox Grid.Row="1" x:Name="txtRappels" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"/>
 
+                <Button Content="ajouter un rappel" Grid.Row="1" Style="{StaticResource addButton}" Click="Button_Click"/>
+
 
 
                 <!-- Vous pouvez ajouter des graphiques, des statistiques, etc. -->
                 <TextBlock Grid.Row="1" Text="Bienvenue sur le tableau de bord!" Style="{StaticResource HeaderTextBlockStyle}" Margin="20"/>
+                
 
 
                 <!-- Pied de page (le cas échéant) -->

@@ -114,7 +114,7 @@
                     <!-- Header -->
                     <StackPanel Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Bottom">
                         <TextBlock Text="Contacts" Style="{StaticResource HeaderTextBlockStyle}"/>
-                        <Button Content="+ Ajouter un contact" Style="{StaticResource addButton}" Click="BTN_AddContact_Click"/>
+                        <Button Content="+ Ajouter un rappel" Style="{StaticResource addButton}" Click="BTN_AddRappel_Click"/>
                       
 
                     </StackPanel>
@@ -138,9 +138,12 @@
                                 <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
 
-                            <TextBlock Grid.Row="0" Grid.Column="0" Text="Nom" Foreground="{StaticResource TextColor}" VerticalAlignment="Center"/>
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="Titre" Foreground="{StaticResource TextColor}" VerticalAlignment="Center"/>
                             <TextBox x:Name="TB_Titre"  Grid.Row="0" Grid.Column="2" Margin="0,0,10,10" Width="200" Height="40" BorderBrush="{StaticResource AccentColor}" BorderThickness="1" HorizontalAlignment="Stretch"/>
 
+                            <TextBlock Grid.Row="3" Grid.Column="0" Text="Description" Foreground="{StaticResource TextColor}" VerticalAlignment="Center"/>
+                            <TextBox x:Name="TB_Description"  Grid.Row="3" Grid.Column="2" Margin="0,0,10,10" Width="200" Height="40" BorderBrush="{StaticResource AccentColor}" BorderThickness="1" HorizontalAlignment="Stretch"/>
+                            
                             <TextBlock Grid.Row="1" Grid.Column="0" Text="Heure" Foreground="{StaticResource TextColor}" VerticalAlignment="Center"/>
                             <TextBox x:Name="TB_Heure"  Grid.Row="1" Grid.Column="2" Margin="0,0,10,10" Width="200" Height="40" BorderBrush="{StaticResource AccentColor}" BorderThickness="1" HorizontalAlignment="Stretch"/>
 
