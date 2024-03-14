@@ -118,6 +118,9 @@
                     <!-- Vous pouvez ajouter des lignes supplémentaires si nécessaire -->
                 </Grid.RowDefinitions>
 
+
+
+
                 <!-- En-tête -->
                 <StackPanel Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Bottom">
                     <TextBlock Text="Dashboard" Style="{StaticResource HeaderTextBlockStyle}"/>
@@ -127,6 +130,22 @@
                 <!-- Contenu du tableau de bord -->
                 <!-- Vous pouvez ajouter des graphiques, des statistiques, etc. -->
                 <TextBlock Grid.Row="1" Text="Bienvenue sur le tableau de bord!" Style="{StaticResource HeaderTextBlockStyle}" Margin="20"/>
+
+                <ListBox Grid.Row="1" ItemsSource="{Binding Taches}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
+    <ListBox.ItemTemplate>
+        <DataTemplate>
+            <Grid Margin="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <CheckBox Grid.Column="0" IsChecked="{Binding Fait}" VerticalAlignment="Center"/>
+                <TextBlock Grid.Column="1" Text="{Binding Temps}" VerticalAlignment="Center"/>
+            </Grid>
+        </DataTemplate>
+    </ListBox.ItemTemplate>
+</ListBox>
+
 
                 <!-- Pied de page (le cas échéant) -->
 

@@ -88,6 +88,25 @@
 
         <!-- DataGrid Styles would go here -->
 
+        <Style x:Key="ListBoxItemStyle" TargetType="ListBoxItem">
+            <Setter Property="Foreground" Value="{StaticResource AccentColor}"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <!-- Ajout de cette ligne pour supprimer la bordure -->
+            <Style.Triggers>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="{StaticResource AccentColor}"/>
+                    <Setter Property="Foreground" Value="{StaticResource IconColor}"/>
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="{StaticResource PrimaryColor}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+
+
     </UserControl.Resources>
 
     <Border Background="{StaticResource BackgroundGradient}" CornerRadius="20">
@@ -117,7 +136,7 @@
             </Border>
 
             <!-- Main Content -->
-            <Grid Grid.Column="1" Background="{StaticResource LightBackgroundColor}"  >
+            <Grid Grid.Column="1" Background="{DynamicResource LightBackgroundColor}"  >
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
@@ -131,8 +150,20 @@
                     <Button Content="+ Ajouter un contact" Style="{StaticResource addButton}" Click="BTN_AddContact_Click"/>
                     <Button Content="Supprimer" Style="{StaticResource ButtonStyle}" Click="BTN_Supp_Click" Width="79"></Button>
                     <Button Content="Modifier" Style="{StaticResource ButtonStyle}" Click="BTN_Modifier_CLick" Width="64"></Button>
+
+                    <ListBox x:Name="StatusFilterListBox" SelectionChanged="StatusFilterListBox_SelectionChanged" 
+         ItemContainerStyle="{StaticResource ListBoxItemStyle}"
+         SelectionMode="Single"
+         SelectedValue="{Binding Status, Mode=TwoWay}" Background="#FFEEEEEE" BorderBrush="#FFEEEEEE">
+                     
+                    </ListBox>
+
+
+
                     <!-- Search bar and other header elements would go here -->
                 </StackPanel>
+                
+                
                 <DataGrid Grid.Row="1" Margin="20" AutoGenerateColumns="False" CanUserAddRows="False" ItemsSource="{Binding Contacts}" x:Name="DataGridContacts">
                     <DataGrid.Resources>
                         <!-- Style pour le survol de la ligne -->
@@ -171,6 +202,8 @@
                         <TextBox x:Name="SearchTextBox" TextChanged="TB_Search" Margin="10" Width="93" />
 
                         <Button Content="Details" Style="{StaticResource ButtonStyle}" Click="BTN_Details_Click" Width="49" Height="22"/>
+                        
+                        
                     </StackPanel>
                 </StackPanel>
 

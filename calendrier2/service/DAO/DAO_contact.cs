@@ -13,8 +13,17 @@ namespace calendrier2.service.DAO
         // Méthode pour ajouter un nouveau contact
         public void AddContact(Contact newContact)
         {
-            _dbContext.Contacts.Add(newContact);
-            _dbContext.SaveChanges();
+            try
+            {
+                _dbContext.Contacts.Add(newContact);
+                _dbContext.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                // Gérer les exceptions
+                Console.WriteLine("Erreur lors de l'ajout du contact : " + ex.Message);
+                // Vous pouvez choisir de lever une exception, d'enregistrer l'erreur dans un journal, ou d'effectuer toute autre action appropriée.
+            }
         }
 
         // Méthode pour mettre à jour un contact existant
@@ -53,7 +62,19 @@ namespace calendrier2.service.DAO
                 // Vous pouvez choisir de lever une exception ou d'effectuer toute autre action appropriée.
             }
         }
+        public List<string> GetStatusList()
+        {
+            List<string> statusList = new List<string>();
 
-      
+            // Ajoutez tous les statuts possibles à la liste
+            statusList.Add("Tous");
+            statusList.Add("Famille");
+            statusList.Add("Travail");
+            statusList.Add("Ami");
+           
+
+            return statusList;
+        }
+
     }
 }

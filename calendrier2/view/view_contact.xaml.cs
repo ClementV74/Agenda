@@ -1,24 +1,25 @@
 ﻿using calendrier2.contact_DB;
 using calendrier2.service.DAO;
-using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Media;
 
 namespace calendrier2.view
 {
     public partial class view_contact : UserControl
     {
         private DAO_contact _daoContact = new DAO_contact(); // Initialisez votre objet DAO_contact
+        private List<string> _statusList;
         private Contact _selectedContact;
         private ContactContext _dbContext = new ContactContext();
 
         // Propriété pour la liste des contacts
         public ObservableCollection<Contact> Contacts { get; set; } = new ObservableCollection<Contact>();
+
 
         public view_contact()
         {
@@ -26,10 +27,57 @@ namespace calendrier2.view
 
             // Lier le DataContext de votre UserControl à lui-même pour utiliser le Binding
             this.DataContext = this;
-
+            LoadStatusList();
             // Charger les contacts depuis la base de données
             Contacts = new ObservableCollection<Contact>(_dbContext.Contacts.ToList());
+
         }
+
+        private void LoadStatusList()
+        {
+            _statusList = _daoContact.GetStatusList(); // Appel de la méthode dans votre DAO pour récupérer la liste des statuts
+            StatusFilterListBox.ItemsSource = _statusList; // Liaison de la ListBox avec la liste des statuts
+        }
+
+
+
+
+        // Déclarez une liste pour stocker toutes les catégories sélectionnées
+        private void StatusFilterListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // Effacez les contacts actuellement affichés
+            Contacts.Clear();
+
+            // Vérifiez si l'option "Tous" est sélectionnée
+            if (StatusFilterListBox.SelectedItems.Contains("Tous"))
+            {
+                // Si "Tous" est sélectionné, affichez tous les contacts
+                foreach (var contact in _dbContext.Contacts)
+                {
+                    Contacts.Add(contact);
+                }
+            }
+            else
+            {
+                // Parcourez toutes les catégories sélectionnées
+                foreach (string selectedCategory in StatusFilterListBox.SelectedItems)
+                {
+                    // Filtrer les contacts en fonction de la catégorie sélectionnée
+                    List<Contact> filteredContacts = _dbContext.Contacts.Where(c => c.Status == selectedCategory).ToList();
+
+                    // Ajouter les contacts filtrés à la liste des contacts
+                    foreach (var contact in filteredContacts)
+                    {
+                        Contacts.Add(contact);
+                    }
+                }
+            }
+        }
+
+
+
+
+
 
         private void BTN_Dashboard_Click(object sender, RoutedEventArgs e)
         {
@@ -96,7 +144,7 @@ namespace calendrier2.view
                     contactModifie.Email = contactAModifier.Email;
                     contactModifie.Tel = contactAModifier.Tel;
 
-  
+
 
                     // Rafraîchir la liste des contacts après la mise à jour
                     RefreshContacts();
@@ -106,18 +154,18 @@ namespace calendrier2.view
                     MessageBox.Show("Le contact sélectionné n'existe pas dans la base de données.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
-            
+
         }
 
         // Méthode pour rafraîchir la liste des contacts
         private void RefreshContacts()
-{
-    Contacts.Clear();
-    foreach (var contact in _dbContext.Contacts.ToList())
-    {
-        Contacts.Add(contact);
-    }
-}
+        {
+            Contacts.Clear();
+            foreach (var contact in _dbContext.Contacts.ToList())
+            {
+                Contacts.Add(contact);
+            }
+        }
 
 
         private void TB_Search(object sender, TextChangedEventArgs e)

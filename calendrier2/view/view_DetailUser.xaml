@@ -152,8 +152,8 @@
                         <TextBlock Grid.Row="3" Grid.Column="0" Text="Téléphone" Foreground="{StaticResource TextColor}" VerticalAlignment="Center"/>
                         <TextBox x:Name="TelTextBox"  Grid.Row="3" Grid.Column="2" Margin="0,0,10,10" Width="200" Height="40" BorderBrush="{StaticResource AccentColor}" BorderThickness="1" HorizontalAlignment="Stretch"/>
 
-                        <TextBlock Grid.Row="4" Grid.Column="0" Text="Réseau" Foreground="{StaticResource TextColor}" VerticalAlignment="Center"/>
-                        <TextBox x:Name="ReseauTextBox"  Grid.Row="4" Grid.Column="2" Margin="0,0,10,10" Width="200" Height="40" BorderBrush="{StaticResource AccentColor}" BorderThickness="1" HorizontalAlignment="Stretch"/>
+                        <TextBlock Grid.Row="4" Grid.Column="0" Text="Status" Foreground="{StaticResource TextColor}" VerticalAlignment="Center"/>
+                        <TextBox x:Name="StatusBox"  Grid.Row="4" Grid.Column="2" Margin="0,0,10,10" Width="200" Height="40" BorderBrush="{StaticResource AccentColor}" BorderThickness="1" HorizontalAlignment="Stretch"/>
                     </Grid>
                 </StackPanel>
 

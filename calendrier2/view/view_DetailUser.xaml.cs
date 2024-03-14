@@ -31,7 +31,9 @@ namespace calendrier2.view
             PrenomTextBox.Text = selectedContact.Prenom;
             EmailTextBox.Text = selectedContact.Email;
             TelTextBox.Text = selectedContact.Tel;
-           
+            StatusBox.Text = selectedContact.Status;
+
+
         }
 
         private void BTN_Dashboard_Click(object sender, RoutedEventArgs e)

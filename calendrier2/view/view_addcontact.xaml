@@ -136,6 +136,7 @@
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
+                            <RowDefinition Height=" Auto"/>
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
 
@@ -150,6 +151,15 @@
 
                         <TextBlock Grid.Row="3" Grid.Column="0" Text="Téléphone" Foreground="{StaticResource TextColor}" VerticalAlignment="Center"/>
                         <TextBox x:Name="TelTextBox"  Grid.Row="3" Grid.Column="2" Margin="0,0,10,10" Width="200" Height="40" BorderBrush="{StaticResource AccentColor}" BorderThickness="1" HorizontalAlignment="Stretch"/>
+                        <TextBlock Grid.Row="4" Grid.Column="0" Text="Status" Foreground="{StaticResource TextColor}" VerticalAlignment="Center"/>
+
+                        <StackPanel Grid.Row="4" Grid.Column="2" Orientation="Horizontal" Margin="0,0,10,10">
+                            <CheckBox x:Name="FamilleCheckBox" Content="Famille" />
+                            <CheckBox x:Name="AmiCheckBox" Content="Ami" />
+                            <CheckBox x:Name="TravailCheckBox" Content="Travail"  />
+                        </StackPanel>
+
+
                     </Grid>
                 </StackPanel>
 

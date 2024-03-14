@@ -65,25 +65,47 @@ namespace calendrier2.view
 
         private void BTN_AddContact_Click(object sender, RoutedEventArgs e)
         {
-            // Créer un nouveau contact avec les valeurs des TextBox
-            var newContact = new Contact
+            // Créer un nouveau contact en fonction des valeurs des champs
+            Contact newContact = new Contact
             {
-                Nom = NomTextBox.Text,
                 Prenom = PrenomTextBox.Text,
+                Nom = NomTextBox.Text,
                 Email = EmailTextBox.Text,
                 Tel = TelTextBox.Text
             };
 
-            // Ajouter le nouveau contact à la base de données via la classe DAO_contact
-            _daoContact.AddContact(newContact);
+            // Ajouter les catégories sélectionnées au contact
+            if (FamilleCheckBox.IsChecked == true)
+            {
+                newContact.Status += "Famille, ";
+            }
+            if (AmiCheckBox.IsChecked == true)
+            {
+                newContact.Status += "Ami, ";
+            }
+            if (TravailCheckBox.IsChecked == true)
+            {
+                newContact.Status += "Travail, ";
+            }
 
-            var contactview = new view_contact(); // Assurez-vous de remplacer DashboardView par le nom de votre classe de vue de contact
+            // Supprimer la virgule supplémentaire à la fin de la chaîne de statut
+            if (!string.IsNullOrEmpty(newContact.Status))
+            {
+                newContact.Status = newContact.Status.Remove(newContact.Status.Length - 2);
+            }
+
+            // Ajouter le contact en utilisant le DAO_contact
+            DAO_contact dao = new DAO_contact();
+            dao.AddContact(newContact);
+
+            var contactview = new view_contact(); // Assurez-vous de remplacer DashboardView par le nom de votre classe de vue du tableau de bord
 
             // Remplace le contenu des deux parties de la grille
             Ecran_Contact.Children.Clear(); // Efface tout contenu existant dans la grille
             Grid.SetColumnSpan(contactview, 2);
             Ecran_Contact.Children.Add(contactview);
         }
+
 
 
 

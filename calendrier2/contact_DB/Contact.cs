@@ -15,6 +15,7 @@ public partial class Contact
 
     public string? Tel { get; set; }
 
+    public string Status { get; set; } = null!;
 
     public virtual ICollection<ContactReseauxSociaux> ContactReseauxSociauxes { get; set; } = new List<ContactReseauxSociaux>();
 }

@@ -42,12 +42,21 @@ public partial class ContactContext : DbContext
             entity.ToTable("contact");
 
             entity.Property(e => e.IdContact).HasColumnName("id_contact");
+            entity.Property(e => e.Email)
+                .HasMaxLength(50)
+                .HasColumnName("email");
             entity.Property(e => e.Nom)
                 .HasMaxLength(50)
                 .HasColumnName("nom");
             entity.Property(e => e.Prenom)
                 .HasMaxLength(50)
                 .HasColumnName("prenom");
+            entity.Property(e => e.Status)
+                .HasColumnType("enum('famille','ami','travail')")
+                .HasColumnName("status");
+            entity.Property(e => e.Tel)
+                .HasMaxLength(30)
+                .HasColumnName("tel");
         });
 
         modelBuilder.Entity<ContactReseauxSociaux>(entity =>
