@@ -7,7 +7,7 @@ public partial class Tache
 {
     public int Idtache { get; set; }
 
-    public sbyte? Fait { get; set; }
+    public bool? Fait { get; set; }
 
     public TimeOnly? Temps { get; set; }
 

@@ -106,9 +106,14 @@ namespace calendrier2.view
             Ecran_Contact.Children.Add(contactview);
         }
 
+        private void BTN_retour_Click(object sender, RoutedEventArgs e)
+        {
+            var contactview = new view_contact();
+            Ecran_Contact.Children.Clear();
+            Grid.SetColumnSpan(contactview, 2);
+            Ecran_Contact.Children.Add(contactview);
 
-
-
+        }
     }
 
 

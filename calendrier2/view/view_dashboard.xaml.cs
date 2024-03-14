@@ -13,7 +13,7 @@ namespace calendrier2.view
         public view_dashboard()
         {
             InitializeComponent();
-            DataContext = new DashboardViewModel();
+            
         }
 
 

@@ -1,22 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using calendrier2.contact_DB;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace calendrier2.service.DAO
+namespace calendrier2.service
 {
-    public class DAO_todolist
+    class DAO_todolist
     {
-        private readonly ContactContext _dbContext;
-
-        public DAO_todolist(ContactContext dbContext)
-        {
-            _dbContext = dbContext;
-        }
-
-        public List<Todolist> GetAllTodolists()
-        {
-            return _dbContext.Todolists.ToList();
-        }
-
     }
 }
