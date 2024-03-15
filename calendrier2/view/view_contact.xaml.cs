@@ -18,7 +18,7 @@ namespace calendrier2.view
         private ContactContext _dbContext = new ContactContext();
 
         // Propriété pour la liste des contacts
-        public ObservableCollection<Contact> Contacts { get; set; } = new ObservableCollection<Contact>();
+        public ObservableCollection<Contact> Contacts { get; set; } = new ObservableCollection<Contact>(); // Créez une liste observable pour stocker les contacts
 
 
         public view_contact()
