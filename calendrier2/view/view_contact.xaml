@@ -155,7 +155,7 @@
                     <TextBlock Text="Contacts" Style="{StaticResource HeaderTextBlockStyle}"/>
                     
                     <Button Content="+ Ajouter un contact" Style="{StaticResource addButton}" Click="BTN_AddContact_Click"/>
-                    <Button Content="Supprimer" Style="{StaticResource ButtonStyle}" Click="BTN_Supp_Click" Width="79"></Button>
+                   
                     <Button Content="Modifier" Style="{StaticResource ButtonStyle}" Click="BTN_Modifier_CLick" Width="64"></Button>
 
                    
@@ -164,9 +164,9 @@
 
                     <!-- Search bar and other header elements would go here -->
                 </StackPanel>
-                
-                
-                <DataGrid Grid.Row="1" Margin="20" AutoGenerateColumns="False" CanUserAddRows="False" ItemsSource="{Binding Contacts}" x:Name="DataGridContacts">
+
+
+                <DataGrid Grid.Row="1" Margin="10" AutoGenerateColumns="False" CanUserAddRows="False" ItemsSource="{Binding Contacts}" x:Name="DataGridContacts">
                     <DataGrid.Resources>
                         <!-- Style pour le survol de la ligne -->
                         <Style TargetType="DataGridRow">
@@ -182,19 +182,23 @@
                         </Style>
                     </DataGrid.Resources>
 
-                    <DataGrid.Columns >
-               
+                    <DataGrid.Columns>
                         <DataGridTextColumn Header="Nom" Binding="{Binding Nom}" Width="*"/>
                         <DataGridTextColumn Header="Prenom" Binding="{Binding Prenom}" Width="*"/>
                         <DataGridTextColumn Header="Email Address" Binding="{Binding Email}" Width="200"/>
                         <DataGridTextColumn Header="Téléphone" Binding="{Binding Tel}" Width="150"/>
 
-                        <!-- Add more columns as necessary -->
+                        <!-- Colonne pour le bouton "Delete" -->
+                        <DataGridTemplateColumn Width="Auto">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Content="🗑️" Click="BTN_Supp_Click" Style="{StaticResource topButton}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
                     </DataGrid.Columns>
-
-
                 </DataGrid>
-                
+
                 <!-- Footer with Pagination -->
 
                 <StackPanel Grid.Row="2" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20,20">
