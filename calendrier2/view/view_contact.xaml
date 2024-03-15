@@ -166,7 +166,7 @@
                 </StackPanel>
 
 
-                <DataGrid Grid.Row="1" Margin="10" AutoGenerateColumns="False" CanUserAddRows="False" ItemsSource="{Binding Contacts}" x:Name="DataGridContacts">
+                <DataGrid Grid.Row="1" Margin="10" AutoGenerateColumns="False" CanUserAddRows="False" ItemsSource="{Binding Contacts}" x:Name="DataGridContacts" >
                     <DataGrid.Resources>
                         <!-- Style pour le survol de la ligne -->
                         <Style TargetType="DataGridRow">

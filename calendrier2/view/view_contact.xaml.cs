@@ -157,6 +157,8 @@ namespace calendrier2.view
 
         }
 
+
+
         // Méthode pour rafraîchir la liste des contacts
         private void RefreshContacts()
         {
