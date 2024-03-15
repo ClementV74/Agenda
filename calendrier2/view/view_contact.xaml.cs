@@ -186,6 +186,7 @@ namespace calendrier2.view
                            contact.Prenom.ToLower().Contains(searchText) ||
                            contact.Email.ToLower().Contains(searchText) ||
                            contact.Tel.ToLower().Contains(searchText);
+
                 };
             }
         }

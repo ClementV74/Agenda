@@ -18,7 +18,7 @@
 
         <!-- Couleurs et styles -->
         <SolidColorBrush x:Key="PrimaryColor" Color="#673AB7"/>
-        <SolidColorBrush x:Key="AccentColor" Color="#FF4081"/>
+        <SolidColorBrush x:Key="AccentColor" Color="#673AB7"/>
         <SolidColorBrush x:Key="TextColor" Color="#333"/>
         <SolidColorBrush x:Key="IconColor" Color="#FFFFFF"/>
         <SolidColorBrush x:Key="LightBackgroundColor" Color="#EEEEEE"/>
@@ -98,10 +98,10 @@
                     <Button Content="🏠 Dashboard" Style="{StaticResource MenuButtonStyle}"/>
                     <Button Content="📞 Contacts" Style="{StaticResource MenuButtonStyle}" Click="BTN_Contact_Click"/>
                     <Button Content="📅 Calendrier" Style="{StaticResource MenuButtonStyle}" Click="BTN_Calendrier_Click"/>
-
+                    
                     <Separator Background="{StaticResource DividerColor}" Margin="0,10"/>
 
-
+                   
 
                     <Button Content="🔒 Logout" Style="{StaticResource MenuButtonStyle}" Click="BTN_Logout_Click"/>
 
@@ -122,16 +122,21 @@
 
 
                 <!-- En-tête -->
-                <StackPanel Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Bottom">
-                    <TextBlock Text="Dashboard" Style="{StaticResource HeaderTextBlockStyle}"/>
+                <Grid Grid.Row="0" VerticalAlignment="Bottom">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Dashboard" Style="{StaticResource HeaderTextBlockStyle}" Margin="20"/>
+                    <Button Grid.Column="1" Content="⚙️" Click="BTN_Settings_Click" Style="{StaticResource addButton}" Margin="124,0,0,37" HorizontalAlignment="Left" Width="43"/>
                     <!-- Ajoutez d'autres éléments d'en-tête si nécessaire -->
-                </StackPanel>
+                </Grid>
 
                 <!-- Contenu du tableau de bord -->
 
-                <TextBox Grid.Row="1" x:Name="txtRappels" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"/>
+                <TextBox Grid.Row="1" x:Name="txtRappels" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Background="#FFEEEEEE"/>
 
-                <Button Content="ajouter un rappel" Grid.Row="1" Style="{StaticResource addButton}" Click="Button_Click"/>
+                <Button Content="ajouter un rappel" Grid.Row="1" Style="{StaticResource addButton}" Click="Button_addRappelClick"/>
 
 
 

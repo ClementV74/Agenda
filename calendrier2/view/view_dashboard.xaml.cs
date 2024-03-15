@@ -30,20 +30,20 @@ namespace calendrier2.view
 {
     try
     {
-        var rappels = daoTache.GetRappels();
+        var rappels = daoTache.GetRappels(); // Appel de la méthode dans votre DAO pour récupérer les rappels
 
-        StringBuilder sb = new StringBuilder();
-        foreach (var rappel in rappels)
+        StringBuilder sb = new StringBuilder(); // Utilisez un StringBuilder pour concaténer les chaînes de caractères
+        foreach (var rappel in rappels) //parcours la liste des rappels
         {
             string etatTache = rappel.Fait == true ? "✔" : "❌"; // Utilisation de symboles pour représenter l'état de la tâche
-            sb.AppendLine($"📃 Tâche: {rappel.TodolistIdtodolistNavigation?.Name} - {etatTache} - ⏰ Temps: {rappel.Temps} - 📍 Lieu: {rappel.Lieux} - 📰 Description: {rappel.Description}");
+            sb.AppendLine($"📃 Tâche: {rappel.TodolistIdtodolistNavigation?.Name} - {etatTache} - ⏰ Temps: {rappel.Temps} - 📍 Lieu: {rappel.Lieux} - 📰 Description: {rappel.Description}"); // Ajoutez les informations du rappel au StringBuilder
         }
 
         txtRappels.Text = sb.ToString();
     }
     catch (Exception ex)
     {
-        MessageBox.Show($"Une erreur s'est produite lors du chargement des rappels : {ex.Message}");
+        MessageBox.Show($"Une erreur s'est produite lors du chargement des rappels : {ex.Message}"); // Affichez un message d'erreur si une exception est levée
     }
 }
 
@@ -76,12 +76,20 @@ namespace calendrier2.view
 
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Button_addRappelClick(object sender, RoutedEventArgs e)
         {
             var addtodolistview = new view_addtodolist(); // Assurez-vous de remplacer DashboardView par le nom de votre classe de vue du tableau de bord
             Ecran_Principale.Children.Clear(); // Efface tout contenu existant dans la grille
             Grid.SetColumnSpan(addtodolistview, 2);
             Ecran_Principale.Children.Add(addtodolistview);
+        }
+
+        private void BTN_Settings_Click(object sender, RoutedEventArgs e)
+        {
+            var settingsview = new view_settings(); // Assurez-vous de remplacer DashboardView par le nom de votre classe de vue du tableau de bord
+            Ecran_Principale.Children.Clear(); // Efface tout contenu existant dans la grille
+            Grid.SetColumnSpan(settingsview, 2);
+            Ecran_Principale.Children.Add(settingsview);
         }
     }
 }

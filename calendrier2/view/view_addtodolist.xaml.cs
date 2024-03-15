@@ -28,12 +28,12 @@ namespace calendrier2.view
 
         }
 
-        private void BTN_retour_Click(object sender, RoutedEventArgs e)
+        private void BTN_retour_Click(object sender, RoutedEventArgs e) 
         {
-            var contactview = new view_contact();
+            var dashboardView = new view_dashboard();
             Ecran_Contact.Children.Clear();
-            Grid.SetColumnSpan(contactview, 2);
-            Ecran_Contact.Children.Add(contactview);
+            Grid.SetColumnSpan(dashboardView, 2);
+            Ecran_Contact.Children.Add(dashboardView);
 
         }
 
@@ -89,7 +89,6 @@ namespace calendrier2.view
             // Appeler la méthode AjouterEvenement
             daoTache.AjouterEvenement(titre, description, heure, lieu);
 
-            //retourner sur la page todolist
             var contactview = new view_contact();
             Ecran_Contact.Children.Clear();
             Grid.SetColumnSpan(contactview, 2);

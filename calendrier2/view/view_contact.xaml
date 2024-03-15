@@ -153,6 +153,7 @@
                 
                 <StackPanel Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Bottom">
                     <TextBlock Text="Contacts" Style="{StaticResource HeaderTextBlockStyle}"/>
+                    
                     <Button Content="+ Ajouter un contact" Style="{StaticResource addButton}" Click="BTN_AddContact_Click"/>
                     <Button Content="Supprimer" Style="{StaticResource ButtonStyle}" Click="BTN_Supp_Click" Width="79"></Button>
                     <Button Content="Modifier" Style="{StaticResource ButtonStyle}" Click="BTN_Modifier_CLick" Width="64"></Button>

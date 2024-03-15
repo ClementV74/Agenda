@@ -7,7 +7,7 @@ namespace calendrier2.service.DAO
 {
     public class DAO_contact
     {
-        private ContactContext _dbContext = new ContactContext();
+        private ContactContext _dbContext = new ContactContext(); // Contexte de la base de données
 
 
         // Méthode pour ajouter un nouveau contact
@@ -15,8 +15,8 @@ namespace calendrier2.service.DAO
         {
             try
             {
-                _dbContext.Contacts.Add(newContact);
-                _dbContext.SaveChanges();
+                _dbContext.Contacts.Add(newContact); // Ajouter le nouveau contact au contexte
+                _dbContext.SaveChanges(); // Enregistrer les modifications dans la base de données
             }
             catch (Exception ex)
             {
@@ -27,18 +27,18 @@ namespace calendrier2.service.DAO
         }
 
         // Méthode pour mettre à jour un contact existant
-        public void UpdateContact(Contact updatedContact)
+        public void UpdateContact(Contact updatedContact) // Prend en paramètre un objet Contact mis à jour
         {
-            var existingContact = _dbContext.Contacts.FirstOrDefault(c => c.IdContact == updatedContact.IdContact);
-            if (existingContact != null)
+            var existingContact = _dbContext.Contacts.FirstOrDefault(c => c.IdContact == updatedContact.IdContact); // Rechercher le contact existant dans la base de données
+            if (existingContact != null) // Si le contact existe
             {
                 // Mettre à jour les propriétés du contact existant
-                existingContact.Prenom = updatedContact.Prenom;
-                existingContact.Nom = updatedContact.Nom;
-                existingContact.Email = updatedContact.Email;
-                existingContact.Tel = updatedContact.Tel;
+                existingContact.Prenom = updatedContact.Prenom; // Mettre à jour le prénom
+                existingContact.Nom = updatedContact.Nom; // Mettre à jour le nom
+                existingContact.Email = updatedContact.Email; // Mettre à jour l'email
+                existingContact.Tel = updatedContact.Tel; // Mettre à jour le numéro de téléphone
 
-                _dbContext.SaveChanges();
+                _dbContext.SaveChanges(); // Enregistrer les modifications dans la base de données
             }
             else
             {
@@ -48,13 +48,13 @@ namespace calendrier2.service.DAO
         }
 
         // Méthode pour supprimer un contact
-        public void DeleteContact(int contactId)
-        {
-            var contactToDelete = _dbContext.Contacts.FirstOrDefault(c => c.IdContact == contactId);
-            if (contactToDelete != null)
+        public void DeleteContact(int contactId) // Prend en paramètre l'ID du contact à supprimer
+        { 
+            var contactToDelete = _dbContext.Contacts.FirstOrDefault(c => c.IdContact == contactId); // Rechercher le contact à supprimer dans la base de données
+            if (contactToDelete != null) // Si le contact existe
             {
-                _dbContext.Contacts.Remove(contactToDelete);
-                _dbContext.SaveChanges();
+                _dbContext.Contacts.Remove(contactToDelete); // Supprimer le contact du contexte
+                _dbContext.SaveChanges(); // Enregistrer les modifications dans la base de données
             }
             else
             {
@@ -62,7 +62,7 @@ namespace calendrier2.service.DAO
                 // Vous pouvez choisir de lever une exception ou d'effectuer toute autre action appropriée.
             }
         }
-        public List<string> GetStatusList()
+        public List<string> GetStatusList() 
         {
             List<string> statusList = new List<string>();
 
@@ -73,7 +73,12 @@ namespace calendrier2.service.DAO
             statusList.Add("Ami");
            
 
-            return statusList;
+            return statusList; // Retourne la liste des statuts
+        }
+
+        public bool IsDatabase_existe()
+        {
+            return _dbContext.Database.CanConnect();
         }
 
     }

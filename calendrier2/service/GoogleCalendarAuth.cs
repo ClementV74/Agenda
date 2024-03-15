@@ -14,32 +14,32 @@ namespace calendrier2.service
 {
     public class GoogleCalendarAuth
     {
-        private static string[] Scopes = { CalendarService.Scope.Calendar };
-        private static string ApplicationName = "calendrier";
+        private static string[] Scopes = { CalendarService.Scope.Calendar }; // Autorisations requises pour accéder au calendrier
+        private static string ApplicationName = "calendrier"; // Nom de l'application
 
-        public static CalendarService GetCalendarService()
+        public static CalendarService GetCalendarService()  
         {
-            UserCredential credential;
+            UserCredential credential; // Créer un objet UserCredential pour stocker les informations d'authentification
 
-            string credentialsPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "service", "credentials.json");
-
-            using (var stream = new FileStream(credentialsPath, FileMode.Open, FileAccess.Read))
+            string credentialsPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "service", "credentials.json"); // Chemin d'accès au fichier de clés
+             
+            using (var stream = new FileStream(credentialsPath, FileMode.Open, FileAccess.Read)) 
             {
-                string credPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "service", "token.json");
+                string credPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "service", "token.json");     // Chemin d'accès au fichier de jetons
 
-                credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
-                    GoogleClientSecrets.FromStream(stream).Secrets,
-                    Scopes,
-                    "user",
-                    CancellationToken.None,
-                    new FileDataStore(credPath, true)).Result;
+                credential = GoogleWebAuthorizationBroker.AuthorizeAsync( // Autoriser l'accès au calendrier
+                    GoogleClientSecrets.FromStream(stream).Secrets, // Charger les informations d'identification du client
+                    Scopes, // Autorisations requises
+                    "user", // Identifiant de l'utilisateur
+                    CancellationToken.None, // Annulation
+                    new FileDataStore(credPath, true)).Result;  // Stockage des jetons d'accès
             }
 
             // Créer le service Calendar à partir des informations d'authentification
             var service = new CalendarService(new BaseClientService.Initializer()
             {
-                HttpClientInitializer = credential,
-                ApplicationName = ApplicationName,
+                HttpClientInitializer = credential, // Informations d'authentification
+                ApplicationName = ApplicationName, // Nom de l'application
             });
 
             return service;

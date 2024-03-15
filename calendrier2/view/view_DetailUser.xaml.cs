@@ -25,10 +25,10 @@ namespace calendrier2.view
         public view_DetailUser(Contact selectedContact)
         {
             InitializeComponent();
-            _selectedContact = selectedContact;
+            _selectedContact = selectedContact; // Récupérer le contact sélectionné
 
-            NomTextBox.Text = selectedContact.Nom;
-            PrenomTextBox.Text = selectedContact.Prenom;
+            NomTextBox.Text = selectedContact.Nom; // Afficher les informations du contact dans les TextBox
+            PrenomTextBox.Text = selectedContact.Prenom; 
             EmailTextBox.Text = selectedContact.Email;
             TelTextBox.Text = selectedContact.Tel;
             StatusBox.Text = selectedContact.Status;
@@ -62,7 +62,7 @@ namespace calendrier2.view
       
         private void BTN_retour_Click(object sender, RoutedEventArgs e)
         {
-            var contactview = new view_contact();
+            var contactview = new view_contact(); 
             Ecran_Contact.Children.Clear();
             Grid.SetColumnSpan(contactview, 2);
             Ecran_Contact.Children.Add(contactview);
