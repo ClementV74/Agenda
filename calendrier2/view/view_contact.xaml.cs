@@ -19,7 +19,7 @@ namespace calendrier2.view
 
         // Propriété pour la liste des contacts
         public ObservableCollection<Contact> Contacts { get; set; } = new ObservableCollection<Contact>(); // Créez une liste observable pour stocker les contacts
-
+    
 
         public view_contact()
         {
@@ -27,9 +27,19 @@ namespace calendrier2.view
 
             // Lier le DataContext de votre UserControl à lui-même pour utiliser le Binding
             this.DataContext = this;
-            LoadStatusList();
+           
             // Charger les contacts depuis la base de données
             Contacts = new ObservableCollection<Contact>(_dbContext.Contacts.ToList());
+
+            if (_daoContact.IsDatabase_existe())
+            {
+                LoadStatusList();
+              
+            }
+            else
+            {
+                MessageBox.Show("Impossible de se connecter à la base de données.", "Erreur de Connexion", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
 
         }
 
@@ -209,6 +219,10 @@ namespace calendrier2.view
             {
                 MessageBox.Show("Veuillez sélectionner un contact pour afficher les détails.", "Avertissement", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
+
+            
+
+
 
         }
     }

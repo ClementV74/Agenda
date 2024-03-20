@@ -154,7 +154,12 @@
 
                         <TextBlock Grid.Row="4" Grid.Column="0" Text="Status" Foreground="{StaticResource TextColor}" VerticalAlignment="Center"/>
                         <TextBox x:Name="StatusBox"  Grid.Row="4" Grid.Column="2" Margin="0,0,10,10" Width="200" Height="40" BorderBrush="{StaticResource AccentColor}" BorderThickness="1" HorizontalAlignment="Stretch"/>
+
+                        <Button Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="4" Content="Afficher Réseaux Sociaux" Style="{StaticResource ButtonStyle}" Click="BTN_AfficherReseauxSociaux_Click"/>
+
+
                     </Grid>
+                    
                 </StackPanel>
 
 

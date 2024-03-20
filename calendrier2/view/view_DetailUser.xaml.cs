@@ -1,4 +1,5 @@
 ﻿using calendrier2.contact_DB;
+using calendrier2.service.DAO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -68,5 +69,22 @@ namespace calendrier2.view
             Ecran_Contact.Children.Add(contactview);
 
         }
+
+           private void BTN_AfficherReseauxSociaux_Click(object sender, RoutedEventArgs e)
+        {
+            // Instancier la classe DAO_Reseaux avec le contexte approprié
+            DAO_Reseaux daoReseaux = new DAO_Reseaux(new ContactContext());
+
+            // Récupérer les réseaux sociaux du contact sélectionné
+            List<ContactReseauxSociaux> reseauxSociaux = daoReseaux.GetContactReseauxSociauxByContact(_selectedContact);
+
+            // Créer une instance de la fenêtre pop-up en lui passant les réseaux sociaux obtenus
+            PopupReseauxSociaux popup = new PopupReseauxSociaux(reseauxSociaux);
+
+            // Afficher la fenêtre pop-up
+            popup.ShowDialog(); // Utilisation de ShowDialog pour bloquer l'interaction avec la fenêtre parent jusqu'à ce que la pop-up soit fermée
+        }
     }
-}
+    }
+
+
