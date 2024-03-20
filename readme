@@ -5,7 +5,7 @@ Bienvenue dans notre projet d'agenda ultra pratique ! Ce projet est développé 
 
 🗓️ Calendrier Google
 Dans cet onglet, vous pouvez accéder à votre calendrier Google directement depuis notre application. Suivez vos événements, rendez-vous et anniversaires sans quitter notre interface.
-![Capture d'écran 1](image_readme/calendar.png)
+![Calendrier Google](image_for_readme/calendar.png)
 
 📇 Onglet Contacts
 Gérez tous vos contacts à partir de cette section. Ajoutez, supprimez et modifiez facilement vos contacts à l'aide d'une data grid intuitive.
