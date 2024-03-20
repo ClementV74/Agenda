@@ -18,9 +18,7 @@ Dans cet onglet, vous pouvez accéder à votre calendrier Google directement dep
 📇 Onglet Contacts
 Gérez tous vos contacts à partir de cette section. Ajoutez, supprimez et modifiez facilement vos contacts à l'aide d'une data grid intuitive.
 
-
-<img width="592" alt="calendar" src="https://github.com/ClementVABRE/calendrier2/assets/45317801/0664b95b-c6c7-461f-aed1-70752e54028a">
-
+<img width="587" alt="contact" src="https://github.com/ClementVABRE/calendrier2/assets/45317801/ffcb7222-bfbd-4632-8737-50d39ac69070">
 
 📋 Liste de Tâches
 Organisez-vous avec notre liste de tâches ! Ne manquez plus jamais une échéance importante. Ajoutez des tâches, cochez-les lorsque vous les avez accomplies et restez sur la bonne voie.
