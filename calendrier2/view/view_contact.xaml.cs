@@ -37,7 +37,9 @@ namespace calendrier2.view
         {
             _statusList = _daoContact.GetStatusList(); // Appel de la méthode dans votre DAO pour récupérer la liste des statuts
             StatusFilterListBox.ItemsSource = _statusList; // Liaison de la ListBox avec la liste des statuts
+            //test
         }
+
 
 
 
