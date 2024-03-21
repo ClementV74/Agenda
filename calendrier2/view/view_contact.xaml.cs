@@ -156,18 +156,20 @@ namespace calendrier2.view
                     contactModifie.Email = contactAModifier.Email;
                     contactModifie.Tel = contactAModifier.Tel;
 
-
+                    // Appeler la méthode UpdateContact pour enregistrer les modifications dans la base de données
+                    _daoContact.UpdateContact(contactModifie);
 
                     // Rafraîchir la liste des contacts après la mise à jour
                     RefreshContacts();
+                    MessageBox.Show("Le contact a été mis à jour avec succès.", "Succès", MessageBoxButton.OK, MessageBoxImage.Information);    
                 }
                 else
                 {
                     MessageBox.Show("Le contact sélectionné n'existe pas dans la base de données.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
-
         }
+
 
 
 

@@ -8,9 +8,9 @@
         Title="PopupReseauxSociaux" Height="450" Width="800">
     <DataGrid x:Name="DataGrid" AutoGenerateColumns="False">
         <DataGrid.Columns>
-            <DataGridTextColumn Header="Nom Réseau" Binding="{Binding IdReseauNavigation.NomReseau}" />
-            <DataGridTextColumn Header="Pseudo" Binding="{Binding Pseudo}" />
-            <DataGridTextColumn Header="URL" Binding="{Binding Url}" />
+            <DataGridTextColumn Header="Nom Réseau" Binding="{Binding IdReseauNavigation.NomReseau}"  Width="*"/>
+            <DataGridTextColumn Header="Pseudo" Binding="{Binding Pseudo}"  Width="*" />
+            <DataGridTextColumn Header="URL" Binding="{Binding Url}"   Width="*"/>
         </DataGrid.Columns>
     </DataGrid>
 
