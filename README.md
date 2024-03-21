@@ -1,4 +1,5 @@
 
+
 Projet Agenda 🗓️
 
 Bienvenue dans notre projet d'agenda ultra pratique ! Ce projet est développé en C# avec WPF et .NET 7.0, utilisant Entity Framework pour la gestion de la base de données. Voici un aperçu rapide des fonctionnalités :
@@ -16,6 +17,8 @@ Dans cet onglet, vous pouvez accéder à votre calendrier Google directement dep
 
 📇 Onglet Contacts
 Gérez tous vos contacts à partir de cette section. Ajoutez, supprimez et modifiez facilement vos contacts à l'aide d'une data grid intuitive.
+
+<img width="587" alt="contact" src="https://github.com/ClementVABRE/calendrier2/assets/45317801/ffcb7222-bfbd-4632-8737-50d39ac69070">
 
 📋 Liste de Tâches
 Organisez-vous avec notre liste de tâches ! Ne manquez plus jamais une échéance importante. Ajoutez des tâches, cochez-les lorsque vous les avez accomplies et restez sur la bonne voie.
