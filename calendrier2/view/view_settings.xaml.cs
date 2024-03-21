@@ -2,8 +2,8 @@
 using Google.Apis.Calendar.v3;
 using Google.Apis.Util.Store;
 using System;
-using System.Threading;
 using System.Diagnostics;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -81,14 +81,23 @@ namespace calendrier2.view
                 };
                 Process.Start(psi); // Ouvrir la page
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 MessageBox.Show($"Une erreur s'est produite lors de l'ouverture de la page Google : {ex.Message}"); // Affichez un message d'erreur si une exception est levée
-            } 
+            }
         }
 
+        private void BTN_Reseau_Click(object sender, RoutedEventArgs e)
+        {
+            var reseauview = new view_addSocialMedia();
+            Ecran_Principale.Children.Clear();
+            Grid.SetColumnSpan(reseauview, 2);
+            Ecran_Principale.Children.Add(reseauview);
+
+
+        }
     }
-    }
+}
 
 
 

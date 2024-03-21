@@ -135,6 +135,7 @@
                     <!-- Bouton de déconnexion de Google Calendar -->
                     <Button Content="Déconnecter Google Calendar" Style="{StaticResource ButtonStyle}" Click="BTN_DeconnexionGoogle_Click"/>
                     <Button Content="Réglage base de données" Style="{StaticResource ButtonStyle}" Click="BTN_Database_Click"/>
+                    <Button Content="Ajouter un réseau social" Style="{StaticResource ButtonStyle}" Click="BTN_Reseau_Click"/>
 
 
                     <!-- Vous pouvez ajouter d'autres options de paramètres ici -->

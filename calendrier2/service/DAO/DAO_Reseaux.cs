@@ -39,6 +39,26 @@ namespace calendrier2.service.DAO
             _context.SaveChanges();
         }
 
+
+        public void SaveChangesAndUpdateReseaux(List<ContactReseauxSociaux> reseauxSociaux)
+        {
+            using (var context = new ContactContext())
+            {
+                foreach (var reseau in reseauxSociaux)
+                {
+                    // Vérifier si l'objet est déjà attaché au contexte
+                    if (context.Entry(reseau).State == EntityState.Detached)
+                        context.Set<ContactReseauxSociaux>().Attach(reseau);
+
+                    // Marquer l'objet comme modifié pour qu'il soit enregistré dans la base de données
+                    context.Entry(reseau).State = EntityState.Modified;
+                }
+
+                // Enregistrer les modifications dans la base de données
+                context.SaveChanges();
+            }
+        }
+
         public void RemoveReseauSocialFromContact(Contact contact, ReseauxSociauxList reseau)
         {
             // Recherche de l'entrée pour le contact et le réseau social
