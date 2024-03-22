@@ -76,7 +76,7 @@ namespace calendrier2.view
             {
                 ProcessStartInfo psi = new ProcessStartInfo // Ouvrir phpMyAdmin
                 {
-                    FileName = "http://localhost/phpmyadmin/", // Remplacez localhost par l'adresse de votre serveur si nécessaire
+                    FileName = "https://phpmyadmin.alwaysdata.com/", 
                     UseShellExecute = true // Ouvrir dans le navigateur par défaut
                 };
                 Process.Start(psi); // Ouvrir la page

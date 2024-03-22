@@ -153,7 +153,8 @@
                 
                 <StackPanel Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Bottom">
                     <TextBlock Text="Contacts" Style="{StaticResource HeaderTextBlockStyle}"/>
-                    
+
+
                     <Button Content="+ Ajouter un contact" Style="{StaticResource addButton}" Click="BTN_AddContact_Click"/>
                    
                     <Button Content="Modifier" Style="{StaticResource ButtonStyle}" Click="BTN_Modifier_CLick" Width="64"></Button>
@@ -163,6 +164,24 @@
 
 
                     <!-- Search bar and other header elements would go here -->
+                    <ListBox x:Name="StatusFilterListBox" SelectionChanged="StatusFilterListBox_SelectionChanged" 
+ItemContainerStyle="{StaticResource ListBoxItemStyle}"
+SelectionMode="Single"
+SelectedValue="{Binding Status, Mode=TwoWay}" 
+Background="#FFEEEEEE" BorderBrush="#FFEEEEEE"
+HorizontalContentAlignment="Stretch" 
+               HorizontalAlignment="Stretch"
+               
+               ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal"/>
+
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+
+                    </ListBox>
                 </StackPanel>
 
 
@@ -211,24 +230,7 @@
                         
                         
                     </StackPanel>
-                    <ListBox x:Name="StatusFilterListBox" SelectionChanged="StatusFilterListBox_SelectionChanged" 
-         ItemContainerStyle="{StaticResource ListBoxItemStyle}"
-         SelectionMode="Single"
-         SelectedValue="{Binding Status, Mode=TwoWay}" 
-         Background="#FFEEEEEE" BorderBrush="#FFEEEEEE"
-         HorizontalContentAlignment="Stretch" 
-                        HorizontalAlignment="Stretch"
-                        
-                        ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-                      
-                        <ListBox.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <StackPanel Orientation="Horizontal"/>
-                           
-                            </ItemsPanelTemplate>
-                        </ListBox.ItemsPanel>
-                    
-                    </ListBox>
+                   
 
                 </StackPanel>
 
