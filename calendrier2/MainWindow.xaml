@@ -31,11 +31,27 @@
         <Style TargetType="Button" x:Key="StyledButton">
             <Setter Property="Margin" Value="10"/>
             <Setter Property="Padding" Value="10"/>
-            <Setter Property="Background" Value="#FF4081"/>
+            <Setter Property="Background" Value="#7B5CD6"/>
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="Height" Value="40"/>
-            <!-- Ajoutez ici des setters supplémentaires pour le style -->
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            
+
+
+
+
         </Style>
 
 

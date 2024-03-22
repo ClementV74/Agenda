@@ -78,7 +78,7 @@
     </UserControl.Resources>
 
     <Border Background="{StaticResource BackgroundGradient}" CornerRadius="20">
-        <Grid x:Name="Ecran_Contact">
+        <Grid x:Name="Ecran_AddReseau">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="250"/>
                 <ColumnDefinition Width="*"/>
@@ -92,7 +92,7 @@
 
                     <Separator Background="{StaticResource DividerColor}"/>
                     <Button Content="🏠 Dashboard" Style="{StaticResource MenuButtonStyle}" Click="BTN_Dashboard_Click"/>
-                    <Button Content="📞 Contacts" Style="{StaticResource MenuButtonStyle}" Click="Button_Click" />
+                    <Button Content="📞 Contacts" Style="{StaticResource MenuButtonStyle}" Click="Button_Contact_Click" />
                     <Button Content="📅 Calendrier" Style="{StaticResource MenuButtonStyle}" Click="BTN_Calendrier_Click"/>
 
                     <Separator Background="{StaticResource DividerColor}" Margin="0,10"/>
@@ -138,13 +138,9 @@
                         </Grid.RowDefinitions>
 
                         <TextBlock Grid.Row="0" Grid.Column="0" Text="Nom" Foreground="{StaticResource TextColor}" VerticalAlignment="Center"/>
-                        <TextBox x:Name="NomTextBox"  Grid.Row="0" Grid.Column="2" Margin="0,0,10,10" Width="200" Height="40" BorderBrush="{StaticResource AccentColor}" BorderThickness="1" HorizontalAlignment="Stretch"/>
+                        <TextBox x:Name="TB_NomReseau"  Grid.Row="0" Grid.Column="2" Margin="0,0,10,10" Width="200" Height="40" BorderBrush="{StaticResource AccentColor}" BorderThickness="1" HorizontalAlignment="Stretch"/>
 
-                        <ListBox Grid.Row="1">
-                            <ListBoxItem>test</ListBoxItem>
-                            <ListBoxItem>test</ListBoxItem>
-                            <ListBoxItem>test</ListBoxItem>
-                        </ListBox>
+                      
                     
                       
                        

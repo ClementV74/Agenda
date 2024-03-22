@@ -21,7 +21,7 @@
 
         <DataGrid x:Name="DataGridReseaux" AutoGenerateColumns="False" Grid.Row="1">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Nom Réseau" Binding="{Binding IdReseauNavigation.NomReseau}" Width="*"/>
+                <DataGridTextColumn Header="Nom Réseau" Binding="{Binding IdReseauNavigation.NomReseau}" Width="*" IsReadOnly="True"/>
                 <DataGridTextColumn Header="Pseudo" Binding="{Binding Pseudo}" Width="*" />
                 <DataGridTextColumn Header="URL" Binding="{Binding Url}" Width="*"/>
             </DataGrid.Columns>

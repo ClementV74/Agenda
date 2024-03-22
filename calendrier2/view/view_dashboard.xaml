@@ -132,9 +132,30 @@
                     <!-- Ajoutez d'autres éléments d'en-tête si nécessaire -->
                 </Grid>
 
+             
                 <!-- Contenu du tableau de bord -->
+                <ListView Grid.Row="1" x:Name="lstRappels" Background="#FFEEEEEE" BorderBrush="Transparent" IsEnabled="False">
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Horizontal" />
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Border BorderBrush="Gray" BorderThickness="1" Margin="5" Padding="5">
+                                <StackPanel>
+                                    <TextBlock Text="{Binding TodolistIdtodolistNavigation.Name}" FontWeight="Bold"/>
+                                    <TextBlock Text="{Binding Description}"/>
+                                    <TextBlock Text="{Binding Temps}"/>
+                                    <TextBlock Text="{Binding Lieux}"/>
+                                    <!-- Ajoutez d'autres informations si nécessaire -->
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
 
-                <TextBox Grid.Row="1" x:Name="txtRappels" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Background="#FFEEEEEE"/>
+
 
                 <Button Content="ajouter un rappel" Grid.Row="1" Style="{StaticResource addButton}" Click="Button_addRappelClick"/>
 
