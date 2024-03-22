@@ -27,12 +27,12 @@ public partial class ContactContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseMySql("server=localhost;port=3306;user=root;database=contact", Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.2.0-mysql"));
+        => optionsBuilder.UseMySql("server=mysql-clementvabre.alwaysdata.net;port=3306;user=352900_clement;password=Clementvabre74;database=clementvabre_contact", Microsoft.EntityFrameworkCore.ServerVersion.Parse("10.6.17-mariadb"));
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder
-            .UseCollation("utf8mb4_0900_ai_ci")
+            .UseCollation("utf8mb4_general_ci")
             .HasCharSet("utf8mb4");
 
         modelBuilder.Entity<Contact>(entity =>
@@ -41,7 +41,9 @@ public partial class ContactContext : DbContext
 
             entity.ToTable("contact");
 
-            entity.Property(e => e.IdContact).HasColumnName("id_contact");
+            entity.Property(e => e.IdContact)
+                .HasColumnType("int(11)")
+                .HasColumnName("id_contact");
             entity.Property(e => e.Email)
                 .HasMaxLength(50)
                 .HasColumnName("email");
@@ -69,8 +71,12 @@ public partial class ContactContext : DbContext
 
             entity.HasIndex(e => e.IdReseau, "id_reseau");
 
-            entity.Property(e => e.IdContact).HasColumnName("id_contact");
-            entity.Property(e => e.IdReseau).HasColumnName("id_reseau");
+            entity.Property(e => e.IdContact)
+                .HasColumnType("int(11)")
+                .HasColumnName("id_contact");
+            entity.Property(e => e.IdReseau)
+                .HasColumnType("int(11)")
+                .HasColumnName("id_reseau");
             entity.Property(e => e.Pseudo)
                 .HasMaxLength(50)
                 .HasColumnName("pseudo");
@@ -95,7 +101,9 @@ public partial class ContactContext : DbContext
 
             entity.ToTable("reseaux_sociaux_list");
 
-            entity.Property(e => e.IdReseau).HasColumnName("id_reseau");
+            entity.Property(e => e.IdReseau)
+                .HasColumnType("int(11)")
+                .HasColumnName("id_reseau");
             entity.Property(e => e.NomReseau)
                 .HasMaxLength(50)
                 .HasColumnName("nom_reseau");
@@ -109,14 +117,18 @@ public partial class ContactContext : DbContext
 
             entity.HasIndex(e => e.TodolistIdtodolist, "fk_tache_todolist1_idx");
 
-            entity.Property(e => e.Idtache).HasColumnName("idtache");
+            entity.Property(e => e.Idtache)
+                .HasColumnType("int(11)")
+                .HasColumnName("idtache");
             entity.Property(e => e.Description).HasMaxLength(150);
             entity.Property(e => e.Fait).HasColumnName("fait");
             entity.Property(e => e.Lieux).HasMaxLength(40);
             entity.Property(e => e.Temps)
                 .HasColumnType("time")
                 .HasColumnName("temps");
-            entity.Property(e => e.TodolistIdtodolist).HasColumnName("todolist_idtodolist");
+            entity.Property(e => e.TodolistIdtodolist)
+                .HasColumnType("int(11)")
+                .HasColumnName("todolist_idtodolist");
 
             entity.HasOne(d => d.TodolistIdtodolistNavigation).WithMany(p => p.Taches)
                 .HasForeignKey(d => d.TodolistIdtodolist)
@@ -130,7 +142,9 @@ public partial class ContactContext : DbContext
 
             entity.ToTable("todolist");
 
-            entity.Property(e => e.Idtodolist).HasColumnName("idtodolist");
+            entity.Property(e => e.Idtodolist)
+                .HasColumnType("int(11)")
+                .HasColumnName("idtodolist");
             entity.Property(e => e.Name)
                 .HasMaxLength(45)
                 .HasColumnName("name");
