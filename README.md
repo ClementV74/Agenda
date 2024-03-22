@@ -35,7 +35,8 @@ Configurez les paramètres de connexion à Google Calendar dans l'onglet appropr
 
 Utilisez la commande suivante pour générer les classes de modèle à partir de la base de données :
 
-Scaffold-DbContext "server=localhost;port=3306;user=root;password=;database=contact" Pomelo.EntityFrameworkCore.MySql -OutputDir contact_DB -f
+Scaffold-DbContext "mysql-clementvabre.alwaysdata.net;port=3306;user=352900_clement;password=Clementvabre74;database=clementvabre_contact" Pomelo.EntityFrameworkCore.MySql -OutputDir contact_DB -f
+
 Lancez l'application et profitez-en pour rester organisé !
 
 🛠️ Technologies Utilisées
