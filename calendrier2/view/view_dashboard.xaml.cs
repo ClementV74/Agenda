@@ -62,15 +62,16 @@ namespace calendrier2.view
 
             if (selectedRappel != null)
             {
-                string selectedDescription = selectedRappel.Description;
+                int selectedTodolistId = selectedRappel.TodolistIdtodolist; // Obtenez l'ID de la liste de tâches sélectionnée
                 var detailView = new view_Details_Todolist();
                 detailView.DataContext = selectedRappel;
-                detailView.AfficherRappels(selectedDescription); // Passer selectedDescription comme paramètre
+                detailView.AfficherRappels(selectedTodolistId); // Transmettez l'ID de la liste de tâches sélectionnée
                 Ecran_Principale.Children.Clear();
                 Grid.SetColumnSpan(detailView, 2);
                 Ecran_Principale.Children.Add(detailView);
             }
         }
+
 
 
 

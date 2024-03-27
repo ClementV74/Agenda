@@ -32,12 +32,11 @@ namespace calendrier2.view
 
 
 
-
-        public void AfficherRappels(string selectedDescription = null)
+        public void AfficherRappels(int selectedTodolistId)
         {
             try
             {
-                var rappels = daoTache.GetInfo();
+                var rappels = daoTache.GetInfo().Where(t => t.TodolistIdtodolist == selectedTodolistId).ToList(); // Filtrer les tâches en fonction de l'ID de la todolist sélectionnée
                 lstRappels.ItemsSource = rappels; // Liaison des données filtrées à la ListView
             }
             catch (Exception ex)
@@ -47,6 +46,7 @@ namespace calendrier2.view
         }
 
 
+
         private void BTN_Supp_Click(object sender, RoutedEventArgs e)
         {
             Button button = (Button)sender;
@@ -54,12 +54,16 @@ namespace calendrier2.view
             // Obtenez l'élément de données (rappel) associé à ce bouton
             Tache rappel = (Tache)button.DataContext;
 
+            // Obtenez l'ID de la liste de tâches associée au rappel
+            int selectedTodolistId = rappel.TodolistIdtodolist;
+
             // Supprimez cet élément de la liste
             daoTache.SupprimerEvenement(rappel.Idtache);
 
-            // Appelez AfficherRappels sans argument
-            AfficherRappels();
+            // Appelez AfficherRappels avec l'ID de la liste de tâches
+            AfficherRappels(selectedTodolistId);
         }
+
 
 
         private void BTN_Contact_Click(object sender, RoutedEventArgs e)

@@ -39,23 +39,30 @@ namespace calendrier2.view
                 // Récupérer les informations de la vue
                 string description = TB_Description.Text;
                 string lieu = TB_Lieux.Text;
-
-                // Récupérer l'élément sélectionné dans la ListBox (Todolist)
-                Todolist selectedTodolist = (Todolist)ListBox_Todolists.SelectedItem;
+                string heureStr = TB_Heure.Text; // Récupérer l'heure saisie par l'utilisateur
 
                 // Vérifier si une Todolist est sélectionnée
+                Todolist selectedTodolist = (Todolist)ListBox_Todolists.SelectedItem;
                 if (selectedTodolist == null)
                 {
                     MessageBox.Show("Veuillez sélectionner une Todolist.");
                     return;
                 }
 
-                // Créer une nouvelle tâche
+                // Convertir la chaîne de caractères de l'heure en une valeur de type TimeOnly
+                if (!TimeOnly.TryParse(heureStr, out TimeOnly heure))
+                {
+                    MessageBox.Show("Format d'heure invalide. Veuillez saisir une heure valide au format HH:mm:ss");
+                    return;
+                }
+
+                // Créer une nouvelle tâche avec l'heure spécifiée
                 Tache newTask = new Tache
                 {
                     Description = description,
                     Lieux = lieu,
-                    TodolistIdtodolist = selectedTodolist.Idtodolist // Affecter l'ID de la Todolist sélectionnée à la nouvelle tâche
+                    Temps = heure, // Ajouter l'heure à la nouvelle tâche
+                    TodolistIdtodolist = selectedTodolist.Idtodolist
                 };
 
                 // Ajouter la nouvelle tâche à la base de données
@@ -68,11 +75,11 @@ namespace calendrier2.view
                 // Afficher un message de succès
                 MessageBox.Show("Tâche ajoutée avec succès.");
 
-                // Recharger la vue de contact après l'ajout de la tâche
-                var contactview = new view_contact();
+                // Recharger la vue du tableau de bord après l'ajout de la tâche
+                var dashboardView = new view_dashboard();
                 Ecran_Principale.Children.Clear();
-                Grid.SetColumnSpan(contactview, 2);
-                Ecran_Principale.Children.Add(contactview);
+                Grid.SetColumnSpan(dashboardView, 2);
+                Ecran_Principale.Children.Add(dashboardView);
             }
             catch (Exception ex)
             {
@@ -81,11 +88,11 @@ namespace calendrier2.view
             }
         }
 
-    
 
 
 
-    private void BTN_Contact_Click(object sender, RoutedEventArgs e)
+
+        private void BTN_Contact_Click(object sender, RoutedEventArgs e)
         {
             var contactview = new view_contact(); // Assurez-vous de remplacer DashboardView par le nom de votre classe de vue du tableau de bord
 
@@ -138,12 +145,18 @@ namespace calendrier2.view
 
         private void BTN_Dashboard_Click(object sender, RoutedEventArgs e)
         {
-
+            var dashboardView = new view_dashboard();
+            Ecran_Principale.Children.Clear();
+            Grid.SetColumnSpan(dashboardView, 2);
+            Ecran_Principale.Children.Add(dashboardView);
         }
 
         private void BTN_retour_Click(object sender, RoutedEventArgs e)
         {
-
+            var dashboardView = new view_dashboard();
+            Ecran_Principale.Children.Clear();
+            Grid.SetColumnSpan(dashboardView, 2);
+            Ecran_Principale.Children.Add(dashboardView);
         }
     }
 }
