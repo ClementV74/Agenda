@@ -64,36 +64,52 @@ namespace calendrier2.view
         private void BTN_AddRappel_Click(object sender, RoutedEventArgs e)
         {
             // Récupérer les informations des TextBox
-            string titre = TB_Titre.Text;
             string description = TB_Description.Text;
-            TimeOnly? heure;
+            TimeOnly? temps;
 
-            // Essayer de convertir le texte de la TextBox en un objet DateTime
-            if (TimeOnly.TryParse(TB_Heure.Text, out TimeOnly heureSaisie))
+            // Essayer de convertir le texte de la TextBox en un objet TimeOnly
+            if (!TimeOnly.TryParse(TB_Heure.Text, out TimeOnly heure))
             {
-                // La conversion a réussi, utilisez la valeur convertie
-                heure = heureSaisie;
+                // La conversion a échoué, afficher un message à l'utilisateur et quitter la méthode
+                MessageBox.Show("Format d'heure invalide. Veuillez saisir une heure valide au format HH:mm:ss");
+                return;
             }
             else
             {
-                // La conversion a échoué, vous pouvez gérer cette situation en affichant un message à l'utilisateur
-                MessageBox.Show("Format d'heure invalide. Veuillez saisir une heure valide au format HH:mm:ss");
-                return; // Sortir de la méthode sans rien faire de plus
+                // La conversion a réussi, utiliser la valeur convertie
+                temps = heure;
             }
 
             string lieu = TB_Lieux.Text;
 
-            // Créer une instance de DAO_tache
-            DAO_tache daoTache = new DAO_tache();
+            try
+            {
+                // Créer une instance de la classe Tache et ajouter la nouvelle tâche à la base de données
+                Tache nouvelleTache = new Tache
+                {
+                    Description = description,
+                    Temps = temps,
+                    Lieux = lieu
+                    // Ajoutez d'autres propriétés si nécessaire
+                };
 
-            // Appeler la méthode AjouterEvenement
-            daoTache.AjouterEvenement(titre, description, heure, lieu);
+                // Ajouter la nouvelle tâche en utilisant votre DAO
+                DAO_tache daoTache = new DAO_tache();
+                daoTache.AjouterTache(nouvelleTache);
 
-            var contactview = new view_contact();
-            Ecran_Contact.Children.Clear();
-            Grid.SetColumnSpan(contactview, 2);
-            Ecran_Contact.Children.Add(contactview);
+                // Rediriger l'utilisateur vers la vue view_contact
+                var contactview = new view_contact();
+                Ecran_Contact.Children.Clear();
+                Grid.SetColumnSpan(contactview, 2);
+                Ecran_Contact.Children.Add(contactview);
+            }
+            catch (Exception ex)
+            {
+                // Gérer toute exception qui pourrait survenir lors de l'ajout de la tâche
+                MessageBox.Show($"Une erreur s'est produite lors de l'ajout de la tâche : {ex.Message}", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
+
 
 
 

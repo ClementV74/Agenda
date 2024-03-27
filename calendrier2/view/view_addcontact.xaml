@@ -93,7 +93,7 @@
                 <StackPanel>
                     <TextBlock Text="Clément Vabre" FontSize="24" Padding="20" Foreground="{StaticResource IconColor}"/>
                     <TextBlock Text="Members, Annecy" Padding="20,0,20,20" Foreground="{StaticResource IconColor}"/>
-                    
+
                     <Separator Background="{StaticResource DividerColor}"/>
                     <Button Content="🏠 Dashboard" Style="{StaticResource MenuButtonStyle}" Click="BTN_Dashboard_Click"/>
                     <Button Content="📞 Contacts" Style="{StaticResource MenuButtonStyle}" />
@@ -129,7 +129,7 @@
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="10"/>
                             <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="10"/>
+
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
 
@@ -137,24 +137,32 @@
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
-                            <RowDefinition Height=" Auto"/>
+                            <RowDefinition Height="1.716"/>
+                            <controls:RowDefinition Height="48.284"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
 
-                        <TextBlock Grid.Row="0" Grid.Column="0" Text="Nom" Foreground="{StaticResource TextColor}" VerticalAlignment="Center"/>
-                        <TextBox x:Name="NomTextBox"  Grid.Row="0" Grid.Column="2" Margin="0,0,10,10" Width="200" Height="40" BorderBrush="{StaticResource AccentColor}" BorderThickness="1" HorizontalAlignment="Stretch"/>
+                        <TextBlock Grid.Column="0" Text="Nom" Foreground="{StaticResource TextColor}" VerticalAlignment="Center" controls:Grid.ColumnSpan="2" Margin="0,0,10,0"/>
+                        <TextBox x:Name="NomTextBox"  Grid.Row="0" Grid.Column="2" Margin="0,0,10,10" Width="200" Height="40" BorderBrush="{StaticResource AccentColor}" BorderThickness="1"/>
 
-                        <TextBlock Grid.Row="1" Grid.Column="0" Text="Prénom" Foreground="{StaticResource TextColor}" VerticalAlignment="Center"/>
-                        <TextBox x:Name="PrenomTextBox"  Grid.Row="1" Grid.Column="2" Margin="0,0,10,10" Width="200" Height="40" BorderBrush="{StaticResource AccentColor}" BorderThickness="1" HorizontalAlignment="Stretch"/>
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="Prénom" Foreground="{StaticResource TextColor}" VerticalAlignment="Center" controls:Grid.ColumnSpan="2" Margin="0,0,10,0"/>
+                        <TextBox x:Name="PrenomTextBox"  Grid.Row="1" Grid.Column="2" Margin="0,0,10,10" Width="200" Height="40" BorderBrush="{StaticResource AccentColor}" BorderThickness="1"/>
 
-                        <TextBlock Grid.Row="2" Grid.Column="0" Text="Email" Foreground="{StaticResource TextColor}" VerticalAlignment="Center"/>
-                        <TextBox x:Name="EmailTextBox"  Grid.Row="2" Grid.Column="2" Margin="0,0,10,10" Width="200" Height="40" BorderBrush="{StaticResource AccentColor}" BorderThickness="1" HorizontalAlignment="Stretch"/>
+                        <TextBlock Grid.Row="2" Grid.Column="0" Text="Email" Foreground="{StaticResource TextColor}" VerticalAlignment="Center" controls:Grid.ColumnSpan="2" Margin="0,0,10,0"/>
+                        <TextBox x:Name="EmailTextBox"  Grid.Row="2" Grid.Column="2" Margin="0,0,10,10" Width="200" Height="40" BorderBrush="{StaticResource AccentColor}" BorderThickness="1"/>
 
-                        <TextBlock Grid.Row="3" Grid.Column="0" Text="Téléphone" Foreground="{StaticResource TextColor}" VerticalAlignment="Center"/>
-                        <TextBox x:Name="TelTextBox"  Grid.Row="3" Grid.Column="2" Margin="0,0,10,10" Width="200" Height="40" BorderBrush="{StaticResource AccentColor}" BorderThickness="1" HorizontalAlignment="Stretch"/>
-                        <TextBlock Grid.Row="4" Grid.Column="0" Text="Status" Foreground="{StaticResource TextColor}" VerticalAlignment="Center"/>
+                        <TextBlock controls:Grid.Row="4" Grid.Column="0" Text="Téléphone" Foreground="{StaticResource TextColor}" VerticalAlignment="Center" controls:Grid.ColumnSpan="2" Margin="0,0,10,0"/>
+                        <TextBox x:Name="TelTextBox"  Grid.Row="3" Grid.Column="2" Margin="0,0,10,10" Width="200" Height="40" BorderBrush="{StaticResource AccentColor}" BorderThickness="1" controls:Grid.RowSpan="2"/>
+                        <TextBlock controls:Grid.Row="5" Grid.Column="0" Text="Status" Foreground="{StaticResource TextColor}" VerticalAlignment="Center" controls:Grid.ColumnSpan="2" Margin="0,0,10,0"/>
 
-                        <StackPanel Grid.Row="4" Grid.Column="2" Orientation="Horizontal" Margin="20,10,10,10">
+                       
+
+
+
+                        <StackPanel controls:Grid.Row="5" Grid.Column="2" Orientation="Horizontal" Margin="20,10,10,10">
                             <CheckBox x:Name="FamilleCheckBox" Content="Famille" />
                             <CheckBox x:Name="AmiCheckBox" Content="Ami" />
                             <CheckBox x:Name="TravailCheckBox" Content="Travail"  />

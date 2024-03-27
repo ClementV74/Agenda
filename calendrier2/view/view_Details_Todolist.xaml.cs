@@ -1,49 +1,54 @@
 ﻿using calendrier2.contact_DB;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
 
 namespace calendrier2.view
 {
     /// <summary>
-    /// Logique d'interaction pour view_dashboard.xaml
+    /// Logique d'interaction pour view_Details_Todolist.xaml
     /// </summary>
-    /// 
-
-    public partial class view_dashboard : UserControl
+    public partial class view_Details_Todolist : UserControl
     {
         public DAO_tache daoTache = new DAO_tache(); // Assurez-vous d'avoir une instance de DAO_tache
-
-        public view_dashboard()
+        private Todolist selectedCategory;
+        public view_Details_Todolist()
         {
             InitializeComponent();
-            AfficherRappels();
-
+          
 
         }
 
 
 
 
-        public void AfficherRappels()
+        public void AfficherRappels(string selectedDescription = null)
         {
             try
             {
-                var rappels = daoTache.GetRappels(); // Appel de la méthode dans votre DAO pour récupérer les rappels
-
-                lstRappels.ItemsSource = rappels; // Liaison des données à la ListView
+                var rappels = daoTache.GetInfo();
+                lstRappels.ItemsSource = rappels; // Liaison des données filtrées à la ListView
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Une erreur s'est produite lors du chargement des rappels : {ex.Message}"); // Affichez un message d'erreur si une exception est levée
+                MessageBox.Show($"Une erreur s'est produite lors du chargement des rappels : {ex.Message}");
             }
         }
 
 
-        private void BTN_SupprimerButton_Click(object sender, RoutedEventArgs e)
+        private void BTN_Supp_Click(object sender, RoutedEventArgs e)
         {
-            // Obtenez le bouton sur lequel l'utilisateur a cliqué
             Button button = (Button)sender;
 
             // Obtenez l'élément de données (rappel) associé à ce bouton
@@ -52,27 +57,9 @@ namespace calendrier2.view
             // Supprimez cet élément de la liste
             daoTache.SupprimerEvenement(rappel.Idtache);
 
-            // Mettez à jour l'affichage des rappels
+            // Appelez AfficherRappels sans argument
             AfficherRappels();
         }
-
-        private void lstRappels_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            Tache selectedRappel = (Tache)lstRappels.SelectedItem;
-
-            if (selectedRappel != null)
-            {
-                string selectedDescription = selectedRappel.Description;
-                var detailView = new view_Details_Todolist();
-                detailView.DataContext = selectedRappel;
-                detailView.AfficherRappels(selectedDescription); // Passer selectedDescription comme paramètre
-                Ecran_Principale.Children.Clear();
-                Grid.SetColumnSpan(detailView, 2);
-                Ecran_Principale.Children.Add(detailView);
-            }
-        }
-
-
 
 
         private void BTN_Contact_Click(object sender, RoutedEventArgs e)
@@ -117,6 +104,26 @@ namespace calendrier2.view
             Grid.SetColumnSpan(settingsview, 2);
             Ecran_Principale.Children.Add(settingsview);
         }
+
+        private void Button_Retour_Click(object sender, RoutedEventArgs e)
+        {
+            var dashboardView = new view_dashboard();
+            Ecran_Principale.Children.Clear();
+            Grid.SetColumnSpan(dashboardView, 2);
+            Ecran_Principale.Children.Add(dashboardView);
+        }
+
+        private void Button_addTaskClick(object sender, RoutedEventArgs e)
+        {
+            var addtaskview = new view_addtask(); // Assurez-vous de remplacer DashboardView par le nom de votre classe de vue du tableau de bord
+            Ecran_Principale.Children.Clear(); // Efface tout contenu existant dans la grille
+            Grid.SetColumnSpan(addtaskview, 2);
+            Ecran_Principale.Children.Add(addtaskview);
+
+        }
+
+        
     }
 }
+
 

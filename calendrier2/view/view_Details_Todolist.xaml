@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="calendrier2.view.view_dashboard"
+﻿<UserControl x:Class="calendrier2.view.view_Details_Todolist"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -127,16 +127,17 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
-                 
+
                     <Button Grid.Column="1" Content="⚙️" Click="BTN_Settings_Click" Style="{StaticResource addButton}" Margin="124,0,0,37" HorizontalAlignment="Left" Width="43"/>
                     <!-- Ajoutez d'autres éléments d'en-tête si nécessaire -->
-                    <Button Content="ajouter un rappel" Style="{StaticResource AddRappelButtonStyle}" Click="Button_addRappelClick" />
+                    <Button Content="Ajouter une tâche" Style="{StaticResource AddRappelButtonStyle}" Click="Button_addTaskClick" />
+                    <Button Content="Retour"  Style="{StaticResource AddRappelButtonStyle}" Click="Button_Retour_Click" Margin="170,10,0,0" />
                 </Grid>
 
 
 
                 <!-- Contenu du tableau de bord -->
-                <ListView Grid.Row="1" x:Name="lstRappels" Background="#FFEEEEEE" BorderBrush="Transparent" SelectionMode="Single" MouseDoubleClick="lstRappels_MouseDoubleClick">
+                <ListView Grid.Row="1" x:Name="lstRappels" Background="#FFEEEEEE" BorderBrush="Transparent" SelectionMode="Single">
                     <ListView.ItemsPanel>
                         <ItemsPanelTemplate>
                             <WrapPanel Orientation="Horizontal" />
@@ -146,10 +147,12 @@
                         <DataTemplate>
                             <Border BorderBrush="Gray" BorderThickness="1" Margin="5" Padding="5">
                                 <StackPanel>
-                                    <TextBlock Text="{Binding TodolistIdtodolistNavigation.Name}" FontWeight="Bold"/>
-                                   
+                                 
+                                    <TextBlock Text="{Binding Description}"/>
+                                    <TextBlock Text="{Binding Temps}"/>
+                                    <TextBlock Text="{Binding Lieux}"/>
                                     <!-- Ajoutez d'autres informations si nécessaire -->
-                                    <Button Content="Supprimer" Click="BTN_SupprimerButton_Click" Style="{StaticResource SmallListViewButtonStyle}"/>
+                                    <Button Content="Supprimer" Click="BTN_Supp_Click" Style="{StaticResource SmallListViewButtonStyle}"/>
                                 </StackPanel>
                             </Border>
                         </DataTemplate>

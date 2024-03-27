@@ -7,10 +7,24 @@ using System.Linq;
 public class DAO_tache
 {
     // Méthode pour récupérer les rappels de la base de données
-    public List<Tache> GetRappels()  
-
+    public List<Tache> GetRappels()
     {
-        using (var context = new ContactContext()) 
+        using (var context = new ContactContext())
+        {
+            // Requête pour récupérer les tâches avec leurs Todolist associées, en filtrant les Todolists en fonction de leur nom ou de leur ID
+            var rappels = context.Taches
+                .Include(t => t.TodolistIdtodolistNavigation)
+                .GroupBy(t => new { t.TodolistIdtodolist, t.TodolistIdtodolistNavigation.Name }) // Regrouper par ID Todolist et nom Todolist
+                .Select(g => g.First()) // Sélectionner le premier élément de chaque groupe
+                .ToList();
+
+            return rappels;
+        }
+    }
+
+    public List<Tache> GetInfo()
+    {
+         using (var context = new ContactContext()) 
         {
             return context.Taches.Include(t => t.TodolistIdtodolistNavigation).ToList(); // Récupération de toutes les tâches avec leur Todolist associée
         }
@@ -33,9 +47,9 @@ public class DAO_tache
             }
 
             // Création d'un nouvel objet Tache avec les informations fournies
-            Tache nouvelEvenement = new Tache 
+            Tache nouvelEvenement = new Tache
             {
-                Description = description, 
+                Description = description,
                 Temps = heure,
                 Lieux = lieu,
                 TodolistIdtodolist = todolist.Idtodolist
@@ -45,9 +59,9 @@ public class DAO_tache
             context.Taches.Add(nouvelEvenement);
             context.SaveChanges();
         }
-    }
+        }
 
-    public void ModifierEvenement(int id, string titre, string description, TimeOnly? heure, string lieu) // Ajoutez les paramètres nécessaires
+        public void ModifierEvenement(int id, string titre, string description, TimeOnly? heure, string lieu) // Ajoutez les paramètres nécessaires
     {
         using (var context = new ContactContext())
         {
@@ -94,10 +108,12 @@ public class DAO_tache
         }
     }
 
-
-
-  
-
-
-
+    public void AjouterTache(Tache nouvelleTache)
+    {
+        using (var context = new ContactContext())
+        {
+            context.Taches.Add(nouvelleTache);
+            context.SaveChanges();
+        }
+    }
 }
