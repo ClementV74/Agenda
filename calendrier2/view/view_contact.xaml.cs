@@ -1,5 +1,6 @@
 ﻿using calendrier2.contact_DB;
 using calendrier2.service.DAO;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -19,35 +20,67 @@ namespace calendrier2.view
 
         // Propriété pour la liste des contacts
         public ObservableCollection<Contact> Contacts { get; set; } = new ObservableCollection<Contact>(); // Créez une liste observable pour stocker les contacts
-    
+
 
         public view_contact()
         {
             InitializeComponent();
 
+
+
+
             // Lier le DataContext de votre UserControl à lui-même pour utiliser le Binding
             this.DataContext = this;
-           
-            // Charger les contacts depuis la base de données
-            Contacts = new ObservableCollection<Contact>(_dbContext.Contacts.ToList());
 
+            // Vérifier si la base de données est accessible
+            _daoContact = new DAO_contact();
             if (_daoContact.IsDatabase_existe())
             {
-                LoadStatusList();
-              
+                try
+                {
+
+                    // Charger les contacts depuis la base de données
+                    Contacts = new ObservableCollection<Contact>(_dbContext.Contacts.ToList());
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erreur lors du chargement des contacts : " + ex.Message, "Erreur de Chargement", MessageBoxButton.OK, MessageBoxImage.Error);
+                    // Quittez le constructeur si une erreur se produit lors du chargement des contacts
+                    return;
+                }
+
+                try
+                {
+                    // Charger la liste des statuts
+                    LoadStatusList();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erreur lors du chargement des statuts : " + ex.Message, "Erreur de Chargement", MessageBoxButton.OK, MessageBoxImage.Error);
+                    // Ici, vous pouvez choisir de désactiver certaines fonctionnalités de l'application ou de proposer à l'utilisateur de réessayer la connexion, etc.
+                }
             }
             else
             {
                 MessageBox.Show("Impossible de se connecter à la base de données.", "Erreur de Connexion", MessageBoxButton.OK, MessageBoxImage.Error);
+                // Ici vous pouvez choisir de désactiver certaines fonctionnalités de l'application, ou de proposer à l'utilisateur de réessayer la connexion, etc.
             }
 
         }
 
+
         private void LoadStatusList()
         {
-            _statusList = _daoContact.GetStatusList(); // Appel de la méthode dans votre DAO pour récupérer la liste des statuts
-            StatusFilterListBox.ItemsSource = _statusList; // Liaison de la ListBox avec la liste des statuts
-            //tests
+            try
+            {
+                _statusList = _daoContact.GetStatusList(); // Appel de la méthode dans votre DAO pour récupérer la liste des statuts
+                StatusFilterListBox.ItemsSource = _statusList; // Liaison de la ListBox avec la liste des statuts
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erreur lors du chargement des statuts : " + ex.Message, "Erreur de Chargement", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
         }
 
 
@@ -161,7 +194,7 @@ namespace calendrier2.view
 
                     // Rafraîchir la liste des contacts après la mise à jour
                     RefreshContacts();
-                    MessageBox.Show("Le contact a été mis à jour avec succès.", "Succès", MessageBoxButton.OK, MessageBoxImage.Information);    
+                    MessageBox.Show("Le contact a été mis à jour avec succès.", "Succès", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 else
                 {
@@ -222,7 +255,7 @@ namespace calendrier2.view
                 MessageBox.Show("Veuillez sélectionner un contact pour afficher les détails.", "Avertissement", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
 
-            
+
 
 
 

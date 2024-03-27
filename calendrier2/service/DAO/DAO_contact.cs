@@ -1,4 +1,5 @@
 ﻿using calendrier2.contact_DB;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -78,8 +79,19 @@ namespace calendrier2.service.DAO
 
         public bool IsDatabase_existe()
         {
-            return _dbContext.Database.CanConnect();
+            try
+            {
+                _dbContext.Database.GetConnectionString();
+                _dbContext.Database.CanConnect();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Erreur lors de la vérification de la connexion à la base de données : " + ex.Message);
+                return false;
+            }
         }
+
 
     }
 }
