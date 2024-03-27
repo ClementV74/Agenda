@@ -25,9 +25,11 @@ public partial class ContactContext : DbContext
 
     public virtual DbSet<Todolist> Todolists { get; set; }
 
+    public virtual DbSet<Utilisateur> Utilisateurs { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseMySql("server=mysql-clementvabre.alwaysdata.net;port=3306;user=352900_clement;password=Clementvabre74;database=clementvabre_contact", Microsoft.EntityFrameworkCore.ServerVersion.Parse("10.6.17-mariadb"));
+        => optionsBuilder.UseMySql("server=mysql-clementvabre.alwaysdata.net;port=3306;user=352900;password=Clementvabre74;database=clementvabre_contact", Microsoft.EntityFrameworkCore.ServerVersion.Parse("10.6.17-mariadb"));
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -148,6 +150,23 @@ public partial class ContactContext : DbContext
             entity.Property(e => e.Name)
                 .HasMaxLength(45)
                 .HasColumnName("name");
+        });
+
+        modelBuilder.Entity<Utilisateur>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PRIMARY");
+
+            entity.HasIndex(e => e.Username, "username").IsUnique();
+
+            entity.Property(e => e.Id)
+                .HasColumnType("int(11)")
+                .HasColumnName("id");
+            entity.Property(e => e.Password)
+                .HasMaxLength(100)
+                .HasColumnName("password");
+            entity.Property(e => e.Username)
+                .HasMaxLength(50)
+                .HasColumnName("username");
         });
 
         OnModelCreatingPartial(modelBuilder);

@@ -1,4 +1,6 @@
-﻿using calendrier2.view;
+﻿using calendrier2.contact_DB;
+using calendrier2.service.DAO;
+using calendrier2.view;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -35,19 +37,19 @@ namespace calendrier2
 
 
 
-    private void BTN_Login_Click(object sender, RoutedEventArgs e)
+        private void BTN_Login_Click(object sender, RoutedEventArgs e)
         {
-            // Vérifie le nom d'utilisateur et le mot de passe
-            if (TB_Username.Text == "clem" && TB_Password.Password == "clem")
+            string username = TB_Username.Text;
+            string password = TB_Password.Password;
+
+            DAO_Utilisateur daoUtilisateur = new DAO_Utilisateur(new ContactContext());
+
+            if (daoUtilisateur.VerifyCredentials(username, password))
             {
-                // Crée la vue du tableau de bord
-                var dashboardView = new view_dashboard(); // Assurez-vous de remplacer DashboardView par le nom de votre classe de vue du tableau de bord
-
-                // Remplace le contenu des deux parties de la grille
-                Ecran.Children.Clear(); // Efface tout contenu existant dans la grille
-
+                // Les informations d'identification sont correctes, redirigez l'utilisateur vers le tableau de bord
+                var dashboardView = new view_dashboard();
+                Ecran.Children.Clear();
                 Grid.SetColumnSpan(dashboardView, 2);
-
                 Ecran.Children.Add(dashboardView);
             }
             else
@@ -55,9 +57,8 @@ namespace calendrier2
                 // Affiche un message d'erreur
                 MessageBox.Show("Accès refusé. Nom d'utilisateur ou mot de passe incorrect.", "Erreur d'authentification", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-
-
         }
+
 
         private void enter_press(object sender, KeyEventArgs e)
         {
@@ -68,7 +69,13 @@ namespace calendrier2
         }
 
 
-
+        private void Register_Click(object sender, MouseButtonEventArgs e)
+        {
+            var registerView = new view_register(new ContactContext());
+            Ecran.Children.Clear();
+            Grid.SetColumnSpan(registerView, 2);
+            Ecran.Children.Add(registerView);
+        }
 
 
     }
