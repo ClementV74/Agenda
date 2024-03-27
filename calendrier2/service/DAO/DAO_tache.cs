@@ -7,6 +7,34 @@ using System.Linq;
 public class DAO_tache
 {
     // Méthode pour récupérer les rappels de la base de données
+
+    public Todolist GetTodolistByTitle(string titre)
+    {
+        using (var context = new ContactContext())
+        {
+            return context.Todolists.FirstOrDefault(t => t.Name == titre);
+        }
+    }
+
+    public Todolist AjouterTodolist(string titre)
+    {
+        using (var context = new ContactContext())
+        {
+            // Création d'une nouvelle Todolist avec le titre spécifié
+            Todolist todolist = new Todolist { Name = titre };
+
+            // Ajout de la Todolist à la base de données
+            context.Todolists.Add(todolist);
+
+            // Enregistrement des modifications dans la base de données
+            context.SaveChanges();
+
+            // Retour de la Todolist nouvellement créée
+            return todolist;
+        }
+    }
+
+
     public List<Tache> GetRappels()
     {
         using (var context = new ContactContext())
@@ -59,9 +87,9 @@ public class DAO_tache
             context.Taches.Add(nouvelEvenement);
             context.SaveChanges();
         }
-        }
+    }
 
-        public void ModifierEvenement(int id, string titre, string description, TimeOnly? heure, string lieu) // Ajoutez les paramètres nécessaires
+    public void ModifierEvenement(int id, string titre, string description, TimeOnly? heure, string lieu) // Ajoutez les paramètres nécessaires
     {
         using (var context = new ContactContext())
         {

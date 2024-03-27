@@ -28,6 +28,7 @@ namespace calendrier2
     /// </summary>
     public partial class MainWindow : Window
     {
+
         public MainWindow()
         {
             InitializeComponent();
@@ -41,6 +42,10 @@ namespace calendrier2
         {
             string username = TB_Username.Text;
             string password = TB_Password.Password;
+
+
+
+          
 
             DAO_Utilisateur daoUtilisateur = new DAO_Utilisateur(new ContactContext());
 

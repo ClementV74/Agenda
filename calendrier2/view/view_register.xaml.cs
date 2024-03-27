@@ -42,6 +42,10 @@ namespace calendrier2.view
                 TB_Username.Text = "";
                 TB_Password.Password = "";
                 TB_ConfirmPassword.Password = "";
+
+                MainWindow mainWindow = new MainWindow();
+                mainWindow.Show();
+                Window.GetWindow(this).Close();
             }
             catch (Exception ex)
             {

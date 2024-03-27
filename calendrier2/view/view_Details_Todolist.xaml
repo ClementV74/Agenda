@@ -137,23 +137,35 @@
 
 
                 <!-- Contenu du tableau de bord -->
-                <ListView Grid.Row="1" x:Name="lstRappels" Background="#FFEEEEEE" BorderBrush="Transparent" SelectionMode="Single">
-                    <ListView.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <WrapPanel Orientation="Horizontal" />
-                        </ItemsPanelTemplate>
-                    </ListView.ItemsPanel>
+                <ListView Grid.Row="1" x:Name="lstRappels" Background="{StaticResource LightBackgroundColor}" BorderBrush="{x:Null}" SelectionMode="Single">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="Margin" Value="5"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="ListViewItem">
+                                        <Border Background="{TemplateBinding Background}" BorderBrush="Transparent" BorderThickness="1" CornerRadius="5">
+                                            <ContentPresenter/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </ListView.ItemContainerStyle>
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <Border BorderBrush="Gray" BorderThickness="1" Margin="5" Padding="5">
-                                <StackPanel>
-                                 
-                                    <TextBlock Text="{Binding Description}"/>
-                                    <TextBlock Text="{Binding Temps}"/>
-                                    <TextBlock Text="{Binding Lieux}"/>
-                                    <!-- Ajoutez d'autres informations si nécessaire -->
-                                    <Button Content="Supprimer" Click="BTN_Supp_Click" Style="{StaticResource SmallListViewButtonStyle}"/>
-                                </StackPanel>
+                            <Border BorderBrush="{StaticResource DividerColor}" BorderThickness="1" Margin="0,0,0,10" Padding="10" CornerRadius="5">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Grid.Row="0" Text="{Binding Description}" FontWeight="Bold" VerticalAlignment="Center"/>
+                                    <TextBlock Grid.Row="1" Text="{Binding Temps}" VerticalAlignment="Center"/>
+                                    <TextBlock Grid.Row="2" Text="{Binding Lieux}" VerticalAlignment="Center"/>
+                                    <Button Grid.Row="3" Content="Supprimer" Click="BTN_Supp_Click" Style="{StaticResource SmallListViewButtonStyle}" HorizontalAlignment="Right"/>
+                                </Grid>
                             </Border>
                         </DataTemplate>
                     </ListView.ItemTemplate>
@@ -166,8 +178,8 @@
 
 
 
-                <!-- Vous pouvez ajouter des graphiques, des statistiques, etc. -->
-                <TextBlock Grid.Row="1" Text="Bienvenue sur le tableau de bord!" Style="{StaticResource HeaderTextBlockStyle}" Margin="20"/>
+
+
 
 
 

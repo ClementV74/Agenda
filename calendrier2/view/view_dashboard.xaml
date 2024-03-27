@@ -93,6 +93,8 @@
             <Border Background="{StaticResource BackgroundGradient}" Grid.Column="0">
                 <StackPanel>
                     <TextBlock Text="Clément Vabre" FontSize="24" Padding="20" Foreground="{StaticResource IconColor}"/>
+
+
                     <TextBlock Text="Members, Annecy" Padding="20,0,20,20" Foreground="{StaticResource IconColor}"/>
                     <Separator Background="{StaticResource DividerColor}"/>
                     <Button Content="🏠 Dashboard" Style="{StaticResource MenuButtonStyle}"/>
@@ -136,25 +138,37 @@
 
 
                 <!-- Contenu du tableau de bord -->
-                <ListView Grid.Row="1" x:Name="lstRappels" Background="#FFEEEEEE" BorderBrush="Transparent" SelectionMode="Single" MouseDoubleClick="lstRappels_MouseDoubleClick">
-                    <ListView.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <WrapPanel Orientation="Horizontal" />
-                        </ItemsPanelTemplate>
-                    </ListView.ItemsPanel>
+                <ListView Grid.Row="1" x:Name="lstRappels" Background="{StaticResource LightBackgroundColor}" BorderBrush="{x:Null}" SelectionMode="Single" MouseDoubleClick="lstRappels_MouseDoubleClick">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="Margin" Value="5"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="ListViewItem">
+                                        <Border Background="{TemplateBinding Background}" BorderBrush="Transparent" BorderThickness="1" CornerRadius="5">
+                                            <ContentPresenter/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </ListView.ItemContainerStyle>
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <Border BorderBrush="Gray" BorderThickness="1" Margin="5" Padding="5">
-                                <StackPanel>
-                                    <TextBlock Text="{Binding TodolistIdtodolistNavigation.Name}" FontWeight="Bold"/>
-                                   
-                                    <!-- Ajoutez d'autres informations si nécessaire -->
-                                    <Button Content="Supprimer" Click="BTN_SupprimerButton_Click" Style="{StaticResource SmallListViewButtonStyle}"/>
-                                </StackPanel>
+                            <Border BorderBrush="{StaticResource DividerColor}" BorderThickness="1" Margin="0,0,0,10" Padding="10" CornerRadius="5">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" Text="{Binding TodolistIdtodolistNavigation.Name}" FontWeight="Bold" VerticalAlignment="Center"/>
+                                    <Button Grid.Column="1" Content="Supprimer" Click="BTN_SupprimerButton_Click" Style="{StaticResource SmallListViewButtonStyle}" HorizontalAlignment="Right"/>
+                                </Grid>
                             </Border>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
+
 
 
 
