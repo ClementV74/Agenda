@@ -48,6 +48,11 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
+       
+        <Storyboard x:Key="FadeIn">
+            <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:0.5"/>
+        </Storyboard>
     </Window.Resources>
 
     <Grid x:Name="Ecran">
