@@ -109,6 +109,19 @@ namespace calendrier2.service.DAO
             }
         }
 
+        public void RemoveReseauxSociauxFromContact(Contact contact)
+        {
+            // Recherche des réseaux sociaux liés au contact
+            var reseauxSociaux = _context.ContactReseauxSociauxes
+                .Where(crs => crs.IdContact == contact.IdContact)
+                .ToList();
+
+            // Suppression des réseaux sociaux associés au contact
+            _context.ContactReseauxSociauxes.RemoveRange(reseauxSociaux);
+            _context.SaveChanges();
+        }
+
+
 
     }
 }

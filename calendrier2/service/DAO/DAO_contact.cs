@@ -55,6 +55,8 @@ namespace calendrier2.service.DAO
             if (contactToDelete != null) // Si le contact existe
             {
                 _dbContext.Contacts.Remove(contactToDelete); // Supprimer le contact du contexte
+               
+                
                 _dbContext.SaveChanges(); // Enregistrer les modifications dans la base de données
             }
             else

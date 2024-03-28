@@ -163,6 +163,11 @@ namespace calendrier2.view
 
                 if (result == MessageBoxResult.Yes)
                 {
+                    // Supprimer tous les réseaux sociaux liés à ce contact
+                    DAO_Reseaux daoReseaux = new DAO_Reseaux(_dbContext);
+                    daoReseaux.RemoveReseauxSociauxFromContact(contactASupprimer);
+
+                    // Supprimer le contact lui-même
                     _daoContact.DeleteContact(contactASupprimer.IdContact);
                     Contacts.Remove(contactASupprimer);
                 }
@@ -172,6 +177,7 @@ namespace calendrier2.view
                 MessageBox.Show("Veuillez sélectionner un contact à supprimer.", "Avertissement", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
+
 
 
         private void BTN_Modifier_CLick(object sender, RoutedEventArgs e)
