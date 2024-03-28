@@ -166,6 +166,9 @@
                                     <TextBlock Grid.Row="1" Text="{Binding Temps}" VerticalAlignment="Center"/>
                                     <TextBlock Grid.Row="2" Text="{Binding Lieux}" VerticalAlignment="Center"/>
                                     <CheckBox Grid.Row="3" IsChecked="{Binding Fait, Mode=TwoWay}" Click="CheckBox_Click" Style="{StaticResource CheckBoxStyle1}"/>
+                                    <Button Content="Supprimer"  Style="{StaticResource addButton}" Click="BTN_Supp_Click" />
+
+
                                 </Grid>
                             </Border>
                         </DataTemplate>

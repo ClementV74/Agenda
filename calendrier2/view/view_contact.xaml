@@ -167,7 +167,6 @@
                     <ListBox x:Name="StatusFilterListBox" SelectionChanged="StatusFilterListBox_SelectionChanged" 
 ItemContainerStyle="{StaticResource ListBoxItemStyle}"
 SelectionMode="Single"
-SelectedValue="{Binding Status, Mode=TwoWay}" 
 Background="#FFEEEEEE" BorderBrush="#FFEEEEEE"
 HorizontalContentAlignment="Stretch" 
                HorizontalAlignment="Stretch"
