@@ -3,11 +3,16 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
 
 public class DAO_tache
 {
+    private readonly ContactContext context;
     // Méthode pour récupérer les rappels de la base de données
-
+    public DAO_tache()
+    {
+        context = new ContactContext(); // Initialisez votre contexte de base de données
+    }
     public Todolist GetTodolistByTitle(string titre)
     {
         using (var context = new ContactContext())
@@ -144,4 +149,28 @@ public class DAO_tache
             context.SaveChanges();
         }
     }
+
+    public void MettreAJourEtatTache(int tacheId, bool? etat)
+    {
+        try
+        {
+            // Obtenez la tâche à mettre à jour depuis la base de données
+            Tache tache = context.Taches.FirstOrDefault(t => t.Idtache == tacheId);
+
+            if (tache != null)
+            {
+                // Mettez à jour l'état de la tâche
+                tache.Fait = etat ?? false; // Si etat est null, affectez false
+
+                // Enregistrez les modifications dans la base de données
+                context.SaveChanges();
+            }
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show($"Une erreur s'est produite lors de la mise à jour de l'état de la tâche : {ex.Message}");
+        }
+    }
+
+
 }

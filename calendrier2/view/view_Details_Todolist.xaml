@@ -160,16 +160,18 @@
                                         <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
                                     </Grid.RowDefinitions>
                                     <TextBlock Grid.Row="0" Text="{Binding Description}" FontWeight="Bold" VerticalAlignment="Center"/>
                                     <TextBlock Grid.Row="1" Text="{Binding Temps}" VerticalAlignment="Center"/>
                                     <TextBlock Grid.Row="2" Text="{Binding Lieux}" VerticalAlignment="Center"/>
-                                    <Button Grid.Row="3" Content="Supprimer" Click="BTN_Supp_Click" Style="{StaticResource SmallListViewButtonStyle}" HorizontalAlignment="Right"/>
+                                    <CheckBox Grid.Row="3" IsChecked="{Binding Fait, Mode=TwoWay}" Click="CheckBox_Click"/>
                                 </Grid>
                             </Border>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
+
 
 
 
