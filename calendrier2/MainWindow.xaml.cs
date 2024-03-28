@@ -35,9 +35,6 @@ namespace calendrier2
         }
 
 
-
-
-
         private void BTN_Login_Click(object sender, RoutedEventArgs e)
         {
             string username = TB_Username.Text;

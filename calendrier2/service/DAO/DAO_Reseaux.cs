@@ -76,5 +76,39 @@ namespace calendrier2.service.DAO
             // Récupérer la liste des réseaux sociaux
             return _context.ReseauxSociauxLists.ToList();
         }
+
+        public void AddMissingReseauxSociauxToContacts()
+        {
+            // Récupérer tous les contacts de la base de données
+            var allContacts = _context.Contacts.ToList();
+
+            // Récupérer la liste des réseaux sociaux disponibles
+            var reseauxSociauxList = GetReseauxSociauxList();
+
+            // Parcourir tous les contacts
+            foreach (var contact in allContacts)
+            {
+                // Récupérer les réseaux sociaux associés à ce contact
+                var contactReseauxSociaux = GetContactReseauxSociauxByContact(contact);
+
+                // Récupérer les identifiants des réseaux sociaux associés à ce contact
+                var contactReseauxSociauxIds = contactReseauxSociaux.Select(crs => crs.IdReseau).ToList();
+
+                // Trouver les identifiants des réseaux sociaux manquants
+                var missingReseauxSociauxIds = reseauxSociauxList.Select(r => r.IdReseau).Except(contactReseauxSociauxIds).ToList();
+
+                // Si des réseaux sociaux sont manquants, les ajouter au contact
+                foreach (var reseauId in missingReseauxSociauxIds)
+                {
+                    var reseau = reseauxSociauxList.FirstOrDefault(r => r.IdReseau == reseauId);
+                    if (reseau != null)
+                    {
+                        AddReseauSocialToContact(contact, reseau);
+                    }
+                }
+            }
+        }
+
+
     }
 }

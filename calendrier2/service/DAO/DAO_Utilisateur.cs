@@ -9,11 +9,15 @@ namespace calendrier2.service.DAO
     public class DAO_Utilisateur
     { 
         private ContactContext _dbContext; // Contexte de la base de données
-
+       
         public DAO_Utilisateur(ContactContext dbContext) // Constructeur prenant le contexte de la base de données
         {
             _dbContext = dbContext; // Initialiser le contexte de la base de données
+           
+
         }
+
+        
 
         // Méthode pour vérifier les informations de connexion de l'utilisateur
         public bool VerifierIdentifiants(string nomUtilisateur, string motDePasse)

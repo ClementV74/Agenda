@@ -29,7 +29,7 @@ namespace calendrier2.view
             _selectedContact = selectedContact; // Récupérer le contact sélectionné
 
             NomTextBox.Text = selectedContact.Nom; // Afficher les informations du contact dans les TextBox
-            PrenomTextBox.Text = selectedContact.Prenom; 
+            PrenomTextBox.Text = selectedContact.Prenom;
             EmailTextBox.Text = selectedContact.Email;
             TelTextBox.Text = selectedContact.Tel;
             StatusBox.Text = selectedContact.Status;
@@ -60,17 +60,17 @@ namespace calendrier2.view
             Ecran_Contact.Children.Add(calendrierview);
         }
 
-      
+
         private void BTN_retour_Click(object sender, RoutedEventArgs e)
         {
-            var contactview = new view_contact(); 
+            var contactview = new view_contact();
             Ecran_Contact.Children.Clear();
             Grid.SetColumnSpan(contactview, 2);
             Ecran_Contact.Children.Add(contactview);
 
         }
 
-           private void BTN_AfficherReseauxSociaux_Click(object sender, RoutedEventArgs e)
+        private void BTN_AfficherReseauxSociaux_Click(object sender, RoutedEventArgs e)
         {
             // Instancier la classe DAO_Reseaux avec le contexte approprié
             DAO_Reseaux daoReseaux = new DAO_Reseaux(new ContactContext());
@@ -78,13 +78,18 @@ namespace calendrier2.view
             // Récupérer les réseaux sociaux du contact sélectionné
             List<ContactReseauxSociaux> reseauxSociaux = daoReseaux.GetContactReseauxSociauxByContact(_selectedContact);
 
+            // Vérifier et ajouter les réseaux sociaux manquants pour le contact sélectionné
+            daoReseaux.AddMissingReseauxSociauxToContacts();
+
             // Créer une instance de la fenêtre pop-up en lui passant les réseaux sociaux obtenus
             PopupReseauxSociaux popup = new PopupReseauxSociaux(reseauxSociaux);
 
             // Afficher la fenêtre pop-up
             popup.ShowDialog(); // Utilisation de ShowDialog pour bloquer l'interaction avec la fenêtre parent jusqu'à ce que la pop-up soit fermée
         }
+
+
     }
-    }
+}
 
 
