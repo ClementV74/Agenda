@@ -1,5 +1,6 @@
 ﻿using calendrier2.contact_DB;
 using calendrier2.service.DAO;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -13,13 +14,15 @@ namespace calendrier2.view
 {
     public partial class view_contact : UserControl
     {
-        private DAO_contact _daoContact = new DAO_contact(); // Initialisez votre objet DAO_contact
+        private DAO_contact _daoContact;
+        private DAO_Reseaux daoReseaux;
         private List<string> _statusList;
         private Contact _selectedContact;
-        private ContactContext _dbContext = new ContactContext();
+        private ContactContext _dbContext;
 
         // Propriété pour la liste des contacts
-        public ObservableCollection<Contact> Contacts { get; set; } = new ObservableCollection<Contact>(); // Créez une liste observable pour stocker les contacts
+        public ObservableCollection<Contact> Contacts { get; set; }
+
 
 
         public view_contact()
@@ -32,39 +35,47 @@ namespace calendrier2.view
             // Lier le DataContext de votre UserControl à lui-même pour utiliser le Binding
             this.DataContext = this;
 
-            // Vérifier si la base de données est accessible
-            _daoContact = new DAO_contact();
-            if (_daoContact.IsDatabase_existe())
-            {
-                try
-                {
+            _daoContact = new DAO_contact(); // Initialisez votre objet DAO_contact
+            _dbContext = new ContactContext();
+            daoReseaux = new DAO_Reseaux();
+            Contacts = new ObservableCollection<Contact>(); // Initialisez la liste observable des contacts
+            LoadStatusList(); // Chargez la liste des statuts
+            LoadContacts(); // Chargez les contacts depuis la base de données
 
-                    // Charger les contacts depuis la base de données
-                    Contacts = new ObservableCollection<Contact>(_dbContext.Contacts.ToList());
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Erreur lors du chargement des contacts : " + ex.Message, "Erreur de Chargement", MessageBoxButton.OK, MessageBoxImage.Error);
-                    // Quittez le constructeur si une erreur se produit lors du chargement des contacts
-                    return;
-                }
 
-                try
-                {
-                    // Charger la liste des statuts
-                    LoadStatusList();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Erreur lors du chargement des statuts : " + ex.Message, "Erreur de Chargement", MessageBoxButton.OK, MessageBoxImage.Error);
-                    // Ici, vous pouvez choisir de désactiver certaines fonctionnalités de l'application ou de proposer à l'utilisateur de réessayer la connexion, etc.
-                }
-            }
-            else
-            {
-                MessageBox.Show("Impossible de se connecter à la base de données.", "Erreur de Connexion", MessageBoxButton.OK, MessageBoxImage.Error);
-                // Ici vous pouvez choisir de désactiver certaines fonctionnalités de l'application, ou de proposer à l'utilisateur de réessayer la connexion, etc.
-            }
+
+
+            //if (_daoContact.IsDatabase_existe())
+            //{
+            //    try
+            //    {
+
+            //        // Charger les contacts depuis la base de données
+            //        Contacts = new ObservableCollection<Contact>();
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        MessageBox.Show("Erreur lors du chargement des contacts : " + ex.Message, "Erreur de Chargement", MessageBoxButton.OK, MessageBoxImage.Error);
+            //        // Quittez le constructeur si une erreur se produit lors du chargement des contacts
+            //        return;
+            //    }
+
+            //    try
+            //    {
+            //        // Charger la liste des statuts
+            //        LoadStatusList();
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        MessageBox.Show("Erreur lors du chargement des statuts : " + ex.Message, "Erreur de Chargement", MessageBoxButton.OK, MessageBoxImage.Error);
+            //        // Ici, vous pouvez choisir de désactiver certaines fonctionnalités de l'application ou de proposer à l'utilisateur de réessayer la connexion, etc.
+            //    }
+            //}
+            //else
+            //{
+            //    MessageBox.Show("Impossible de se connecter à la base de données.", "Erreur de Connexion", MessageBoxButton.OK, MessageBoxImage.Error);
+            //    // Ici vous pouvez choisir de désactiver certaines fonctionnalités de l'application, ou de proposer à l'utilisateur de réessayer la connexion, etc.
+            //}
 
         }
 
@@ -83,11 +94,26 @@ namespace calendrier2.view
 
         }
 
+      
+        private void LoadContacts()
+        {
+            try
+            {
+                // Récupérer la liste des contacts depuis la base de données
+                IEnumerable<Contact> contactsFromDatabase = _daoContact.GetContacts();
+
+                // Créer une nouvelle ObservableCollection<Contact> à partir des contacts récupérés
+                Contacts = new ObservableCollection<Contact>(contactsFromDatabase);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erreur lors du chargement des contacts : " + ex.Message, "Erreur de Chargement", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
 
 
 
 
-        // Déclarez une liste pour stocker toutes les catégories sélectionnées
         private void StatusFilterListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // Effacez les contacts actuellement affichés
@@ -105,10 +131,10 @@ namespace calendrier2.view
             else
             {
                 // Parcourez toutes les catégories sélectionnées
-                foreach (string selectedCategory in StatusFilterListBox.SelectedItems)
+                foreach (string selectedStatus in StatusFilterListBox.SelectedItems)
                 {
-                    // Filtrer les contacts en fonction de la catégorie sélectionnée
-                    List<Contact> filteredContacts = _dbContext.Contacts.Where(c => c.Status == selectedCategory).ToList();
+                    // Filtrer les contacts en fonction du statut sélectionné
+                    List<Contact> filteredContacts = _dbContext.Contacts.Where(c => c.Status == selectedStatus).ToList();
 
                     // Ajouter les contacts filtrés à la liste des contacts
                     foreach (var contact in filteredContacts)
@@ -118,6 +144,8 @@ namespace calendrier2.view
                 }
             }
         }
+
+
 
 
 
@@ -164,7 +192,7 @@ namespace calendrier2.view
                 if (result == MessageBoxResult.Yes)
                 {
                     // Supprimer tous les réseaux sociaux liés à ce contact
-                    DAO_Reseaux daoReseaux = new DAO_Reseaux(_dbContext);
+                  
                     daoReseaux.RemoveReseauxSociauxFromContact(contactASupprimer);
 
                     // Supprimer le contact lui-même
@@ -185,7 +213,7 @@ namespace calendrier2.view
             if (DataGridContacts.SelectedItem is Contact contactAModifier)
             {
                 // Récupérer le contact à modifier depuis la base de données
-                Contact contactModifie = _dbContext.Contacts.FirstOrDefault(c => c.IdContact == contactAModifier.IdContact);
+                Contact contactModifie = Contacts.FirstOrDefault(c => c.IdContact == contactAModifier.IdContact);
 
                 if (contactModifie != null)
                 {
@@ -215,8 +243,8 @@ namespace calendrier2.view
         // Méthode pour rafraîchir la liste des contacts
         private void RefreshContacts()
         {
-            Contacts.Clear();
-            foreach (var contact in _dbContext.Contacts.ToList())
+            
+            foreach (var contact in Contacts.ToList())
             {
                 Contacts.Add(contact);
             }

@@ -1,6 +1,7 @@
 ﻿using calendrier2.contact_DB;
 using calendrier2.service.DAO;
 using calendrier2.view;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -10,9 +11,13 @@ namespace calendrier2
 {
     public partial class MainWindow : Window
     {
+
+        private readonly MqttClientManager mqttClientManager;
         public MainWindow()
         {
             InitializeComponent();
+            mqttClientManager = new MqttClientManager("192.168.1.4", "clement", "clem");
+            LoadCredentials();
         }
 
         private void BTN_Login_Click(object sender, RoutedEventArgs e)
@@ -26,11 +31,52 @@ namespace calendrier2
             {
                 // Les informations d'identification sont correctes, redirigez l'utilisateur vers le tableau de bord avec une animation
                 ShowDashboardView();
+
+                // Sauvegarder automatiquement les informations d'identification
+                SaveCredentials(username, password);
+
+                // Éteindre la LED si l'authentification est réussie
+                mqttClientManager.PublishMessage("led/control", "off");
             }
             else
             {
+
+                // Allumer la LED si l'authentification a échoué
+                mqttClientManager.PublishMessage("led/control", "on");
                 // Affiche un message d'erreur
                 MessageBox.Show("Accès refusé. Nom d'utilisateur ou mot de passe incorrect.", "Erreur d'authentification", MessageBoxButton.OK, MessageBoxImage.Error);
+
+            }
+        }
+
+        private void SaveCredentials(string username, string password)
+        {
+            // Accéder au fichier de configuration intégré en tant que ressource
+            string configFile = "Ressources.config.txt";
+
+            // Écriture des informations d'identification dans le fichier de configuration
+            using (StreamWriter writer = new StreamWriter(configFile))
+            {
+                writer.WriteLine(username);
+                writer.WriteLine(password);
+            }
+        }
+
+        private void LoadCredentials()
+        {
+            // Accéder au fichier de configuration intégré en tant que ressource
+            string configFile = "Ressources.config.txt";
+
+            // Vérification de l'existence du fichier de configuration
+            if (File.Exists(configFile))
+            {
+                // Lecture des informations d'identification depuis le fichier de configuration
+                string[] lines = File.ReadAllLines(configFile);
+                if (lines.Length >= 2)
+                {
+                    TB_Username.Text = lines[0];
+                    TB_Password.Password = lines[1];
+                }
             }
         }
 
@@ -61,7 +107,9 @@ namespace calendrier2
         private void Register_Click(object sender, MouseButtonEventArgs e)
         {
             var registerView = new view_register(new ContactContext());
+
             Ecran.Children.Clear();
+            Grid.SetColumnSpan(registerView, 2);
             Ecran.Children.Add(registerView);
         }
     }

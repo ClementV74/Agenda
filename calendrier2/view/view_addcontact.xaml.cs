@@ -99,7 +99,7 @@ namespace calendrier2.view
             dao.AddContact(newContact);
 
             // Récupérer la liste des réseaux sociaux disponibles
-            DAO_Reseaux daoReseaux = new DAO_Reseaux(new ContactContext());
+            DAO_Reseaux daoReseaux = new DAO_Reseaux();
             var reseauxSociauxList = daoReseaux.GetReseauxSociauxList();
 
             // Ajouter tous les réseaux sociaux disponibles au nouveau contact

@@ -27,6 +27,13 @@ namespace calendrier2.service.DAO
             }
         }
 
+        // Méthode pour récupérer la liste de tous les contacts
+        public IEnumerable<Contact> GetContacts()
+        {
+            return _dbContext.Contacts.ToList(); // Récupérer tous les contacts de la base de données
+        }
+
+
         // Méthode pour mettre à jour un contact existant
         public void UpdateContact(Contact updatedContact) // Prend en paramètre un objet Contact mis à jour
         {

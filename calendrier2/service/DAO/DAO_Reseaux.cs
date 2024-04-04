@@ -9,9 +9,9 @@ namespace calendrier2.service.DAO
     {
         private readonly ContactContext _context;
 
-        public DAO_Reseaux(ContactContext context)
+        public DAO_Reseaux()
         {
-            _context = context;
+            _context = new ContactContext();
         }
 
         public List<ContactReseauxSociaux> GetContactReseauxSociauxByContact(Contact contact)

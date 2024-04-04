@@ -73,7 +73,7 @@ namespace calendrier2.view
         private void BTN_AfficherReseauxSociaux_Click(object sender, RoutedEventArgs e)
         {
             // Instancier la classe DAO_Reseaux avec le contexte approprié
-            DAO_Reseaux daoReseaux = new DAO_Reseaux(new ContactContext());
+            DAO_Reseaux daoReseaux = new DAO_Reseaux();
 
             // Récupérer les réseaux sociaux du contact sélectionné
             List<ContactReseauxSociaux> reseauxSociaux = daoReseaux.GetContactReseauxSociauxByContact(_selectedContact);

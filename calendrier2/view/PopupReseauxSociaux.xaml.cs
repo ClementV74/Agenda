@@ -23,7 +23,7 @@ namespace calendrier2.view
 
         private void Button_Retour_Click(object sender, RoutedEventArgs e)
         {
-            var daoReseaux = new DAO_Reseaux(new ContactContext());
+            var daoReseaux = new DAO_Reseaux();
             daoReseaux.SaveChangesAndUpdateReseaux(_reseauxSociaux);
 
             // Fermer la fenêtre

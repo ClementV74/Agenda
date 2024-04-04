@@ -10,6 +10,7 @@
   <ItemGroup>
     <PackageReference Include="Google.Apis.Auth" Version="1.67.0" />
     <PackageReference Include="Google.Apis.Calendar.v3" Version="1.67.0.3297" />
+    <PackageReference Include="M2Mqtt" Version="4.3.0" />
     <PackageReference Include="MahApps.Metro" Version="2.4.10" />
     <PackageReference Include="MahApps.Metro.IconPacks" Version="4.11.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.16">
@@ -20,9 +21,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Ressource\config.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="service\credentials.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Ressource\" />
   </ItemGroup>
 
 </Project>
