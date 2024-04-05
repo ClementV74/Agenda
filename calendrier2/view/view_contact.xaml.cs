@@ -42,46 +42,15 @@ namespace calendrier2.view
             LoadStatusList(); // Chargez la liste des statuts
             LoadContacts(); // Chargez les contacts depuis la base de données
 
-
-
-
-            //if (_daoContact.IsDatabase_existe())
-            //{
-            //    try
-            //    {
-
-            //        // Charger les contacts depuis la base de données
-            //        Contacts = new ObservableCollection<Contact>();
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        MessageBox.Show("Erreur lors du chargement des contacts : " + ex.Message, "Erreur de Chargement", MessageBoxButton.OK, MessageBoxImage.Error);
-            //        // Quittez le constructeur si une erreur se produit lors du chargement des contacts
-            //        return;
-            //    }
-
-            //    try
-            //    {
-            //        // Charger la liste des statuts
-            //        LoadStatusList();
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        MessageBox.Show("Erreur lors du chargement des statuts : " + ex.Message, "Erreur de Chargement", MessageBoxButton.OK, MessageBoxImage.Error);
-            //        // Ici, vous pouvez choisir de désactiver certaines fonctionnalités de l'application ou de proposer à l'utilisateur de réessayer la connexion, etc.
-            //    }
-            //}
-            //else
-            //{
-            //    MessageBox.Show("Impossible de se connecter à la base de données.", "Erreur de Connexion", MessageBoxButton.OK, MessageBoxImage.Error);
-            //    // Ici vous pouvez choisir de désactiver certaines fonctionnalités de l'application, ou de proposer à l'utilisateur de réessayer la connexion, etc.
-            //}
-
+  
         }
 
 
         private void LoadStatusList()
         {
+       
+
+
             try
             {
                 _statusList = _daoContact.GetStatusList(); // Appel de la méthode dans votre DAO pour récupérer la liste des statuts

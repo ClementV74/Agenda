@@ -157,10 +157,10 @@
                             <Border BorderBrush="{StaticResource DividerColor}" BorderThickness="1" Margin="0,0,0,10" Padding="10" CornerRadius="5">
                                 <Grid>
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*"/>
                                     </Grid.RowDefinitions>
                                     <TextBlock Grid.Row="0" Text="{Binding Description}" FontWeight="Bold" VerticalAlignment="Center"/>
                                     <TextBlock Grid.Row="1" Text="{Binding Temps}" VerticalAlignment="Center"/>

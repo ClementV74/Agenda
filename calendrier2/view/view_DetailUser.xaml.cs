@@ -23,9 +23,13 @@ namespace calendrier2.view
     public partial class view_DetailUser : UserControl
     {
         private Contact _selectedContact;
+        private List<ContactReseauxSociaux> _reseauxSociaux;
+        private DAO_Reseaux _daoReseaux; // Ajout d'un champ pour stocker l'instance de DAO_Reseaux
+
         public view_DetailUser(Contact selectedContact)
         {
             InitializeComponent();
+
             _selectedContact = selectedContact; // Récupérer le contact sélectionné
 
             NomTextBox.Text = selectedContact.Nom; // Afficher les informations du contact dans les TextBox
@@ -34,8 +38,15 @@ namespace calendrier2.view
             TelTextBox.Text = selectedContact.Tel;
             StatusBox.Text = selectedContact.Status;
 
+            // Instancier DAO_Reseaux
+            _daoReseaux = new DAO_Reseaux();
 
+            // Récupérer et afficher les réseaux sociaux du contact sélectionné
+            _reseauxSociaux = _daoReseaux.GetContactReseauxSociauxByContact(_selectedContact);
+            DataGridReseaux.ItemsSource = _reseauxSociaux;
         }
+
+
 
         private void BTN_Dashboard_Click(object sender, RoutedEventArgs e)
         {
@@ -63,10 +74,15 @@ namespace calendrier2.view
 
         private void BTN_retour_Click(object sender, RoutedEventArgs e)
         {
+
+            var daoReseaux = new DAO_Reseaux();
+            daoReseaux.SaveChangesAndUpdateReseaux(_reseauxSociaux);
+
             var contactview = new view_contact();
             Ecran_Contact.Children.Clear();
             Grid.SetColumnSpan(contactview, 2);
             Ecran_Contact.Children.Add(contactview);
+
 
         }
 
@@ -87,6 +103,12 @@ namespace calendrier2.view
             // Afficher la fenêtre pop-up
             popup.ShowDialog(); // Utilisation de ShowDialog pour bloquer l'interaction avec la fenêtre parent jusqu'à ce que la pop-up soit fermée
         }
+
+   
+
+
+
+
 
 
     }

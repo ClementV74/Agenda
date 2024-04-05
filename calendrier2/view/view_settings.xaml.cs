@@ -2,6 +2,7 @@
 using Google.Apis.Calendar.v3;
 using Google.Apis.Util.Store;
 using System;
+using System.Configuration;
 using System.Diagnostics;
 using System.Threading;
 using System.Windows;
@@ -85,7 +86,11 @@ namespace calendrier2.view
             {
                 MessageBox.Show($"Une erreur s'est produite lors de l'ouverture de la page Google : {ex.Message}"); // Affichez un message d'erreur si une exception est levée
             }
-        }
+
+       
+
+      
+    }
 
         private void BTN_Reseau_Click(object sender, RoutedEventArgs e)
         {
@@ -93,11 +98,9 @@ namespace calendrier2.view
             Ecran_Principale.Children.Clear();
             Grid.SetColumnSpan(reseauview, 2);
             Ecran_Principale.Children.Add(reseauview);
-
-
         }
     }
-}
+    }
 
 
 

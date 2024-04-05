@@ -1,4 +1,5 @@
 ﻿using calendrier2.contact_DB;
+using calendrier2.service;
 using calendrier2.service.DAO;
 using calendrier2.view;
 using System.IO;
@@ -12,12 +13,12 @@ namespace calendrier2
     public partial class MainWindow : Window
     {
 
-        private readonly MqttClientManager mqttClientManager;
+        private readonly MqttClientManager mqttClientManager; // Gestionnaire de client MQTT
         public MainWindow()
         {
-            InitializeComponent();
-            mqttClientManager = new MqttClientManager("192.168.1.4", "clement", "clem");
-            LoadCredentials();
+            InitializeComponent(); // Initialiser les composants de l'interface utilisateur
+            mqttClientManager = new MqttClientManager("172.31.254.69", "clement", "clem"); // Créer une instance de MqttClientManager
+            LoadCredentials(); // Charger les informations d'identification sauvegardées
         }
 
         private void BTN_Login_Click(object sender, RoutedEventArgs e)
@@ -25,15 +26,15 @@ namespace calendrier2
             string username = TB_Username.Text;
             string password = TB_Password.Password;
 
-            DAO_Utilisateur daoUtilisateur = new DAO_Utilisateur(new ContactContext());
+            DAO_Utilisateur daoUtilisateur = new DAO_Utilisateur(new ContactContext()); // Créer une instance de DAO_Utilisateur
 
             if (daoUtilisateur.VerifyCredentials(username, password))
             {
                 // Les informations d'identification sont correctes, redirigez l'utilisateur vers le tableau de bord avec une animation
-                ShowDashboardView();
+                ShowDashboardView(); // Afficher le tableau de bord
 
                 // Sauvegarder automatiquement les informations d'identification
-                SaveCredentials(username, password);
+                SaveCredentials(username, password); 
 
                 // Éteindre la LED si l'authentification est réussie
                 mqttClientManager.PublishMessage("led/control", "off");
@@ -42,7 +43,7 @@ namespace calendrier2
             {
 
                 // Allumer la LED si l'authentification a échoué
-                mqttClientManager.PublishMessage("led/control", "on");
+                mqttClientManager.PublishMessage("led/control", "on"); 
                 // Affiche un message d'erreur
                 MessageBox.Show("Accès refusé. Nom d'utilisateur ou mot de passe incorrect.", "Erreur d'authentification", MessageBoxButton.OK, MessageBoxImage.Error);
 
@@ -52,7 +53,7 @@ namespace calendrier2
         private void SaveCredentials(string username, string password)
         {
             // Accéder au fichier de configuration intégré en tant que ressource
-            string configFile = "Ressources.config.txt";
+            string configFile = "Ressources.config.txt"; 
 
             // Écriture des informations d'identification dans le fichier de configuration
             using (StreamWriter writer = new StreamWriter(configFile))

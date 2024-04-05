@@ -90,8 +90,8 @@ namespace calendrier2.service.DAO
         {
             try
             {
-                _dbContext.Database.GetConnectionString();
-                _dbContext.Database.CanConnect();
+                _dbContext.Database.GetConnectionString(); // Vérifier la chaîne de connexion
+                _dbContext.Database.CanConnect(); // Vérifier la connexion à la base de données
                 return true;
             }
             catch (Exception ex)

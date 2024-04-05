@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using Microsoft.EntityFrameworkCore;
+
+
 
 namespace calendrier2.contact_DB;
 
@@ -28,8 +31,26 @@ public partial class ContactContext : DbContext
     public virtual DbSet<Utilisateur> Utilisateurs { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-         => optionsBuilder.UseMySql("server=mysql-clementvabre.alwaysdata.net;port=3306;user=352900;password=Clementvabre74;database=clementvabre_contact", Microsoft.EntityFrameworkCore.ServerVersion.Parse("10.6.17-mariadb"));
+    {
+        if (!optionsBuilder.IsConfigured)
+        {
+            string host = ConfigurationManager.AppSettings["host"];
+            string port = ConfigurationManager.AppSettings["port"];
+            string user = ConfigurationManager.AppSettings["user"];
+            string password = ConfigurationManager.AppSettings["password"];
+            string database = ConfigurationManager.AppSettings["database"];
+            string mysqlVer = ConfigurationManager.AppSettings["mysqlVer"];
+            // Ajoutez les autres variables nécessaires ici
+
+            string connectionString = $"server={host};port={port};user={user};password={password};database={database}";
+            optionsBuilder.UseMySql(connectionString, Microsoft.EntityFrameworkCore.ServerVersion.Parse(mysqlVer));
+        }
+    }
+
+
+    //    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+    //         => optionsBuilder.UseMySql("server=mysql-clementvabre.alwaysdata.net;port=3306;user=352900;password=Clementvabre74;database=clementvabre_contact", Microsoft.EntityFrameworkCore.ServerVersion.Parse("10.6.17-mariadb"));
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
