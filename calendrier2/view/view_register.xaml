@@ -80,7 +80,7 @@
 
     <Grid x:Name="Ecran_Register">
         <!-- Fond de l'écran -->
-        <Border Background="{StaticResource BackgroundGradient}">
+        <Border Background="{StaticResource BackgroundGradient}" Margin="0,4,0,-4">
             <!-- Contenu de l'écran -->
             <Grid>
                 <Grid.RowDefinitions>
@@ -95,23 +95,19 @@
                 <TextBlock Grid.Row="0" Text="Inscription" FontSize="24" Foreground="White" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" />
 
                 <!-- Zone de texte pour le nom d'utilisateur -->
-                <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Height="90" Width="394">
                     <TextBlock Text="Nom d'utilisateur : " Foreground="White" Margin="5" VerticalAlignment="Center"/>
-                    <TextBox  Height="30" Width="200" Name="TB_Username" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                    <TextBox  Height="30" Width="200" Name="TB_Username" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10"/>
                 </StackPanel>
 
                 <!-- Zone de texte pour le mot de passe -->
-                <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Height="89" Width="382">
                     <TextBlock Text="Mot de passe : " Foreground="White" Margin="5" VerticalAlignment="Center"/>
-                    <PasswordBox  Height="30" Width="200" Name="TB_Password" VerticalAlignment="Stretch"/>
+                    <PasswordBox  Height="30" Width="200" Name="TB_Password" VerticalAlignment="Stretch" Margin="25"/>
                 </StackPanel>
 
                 <!-- Zone de texte pour la confirmation du mot de passe -->
-                <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <TextBlock Text="Confirmer mot de passe : " Foreground="White" Margin="10" VerticalAlignment="Center"/>
-                    <PasswordBox  Height="30" Width="200" Name="TB_ConfirmPassword" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
-                </StackPanel>
-
+                
 
                 <!-- Bouton pour soumettre le formulaire -->
                 <Button Grid.Row="4" Content="S'inscrire" Style="{StaticResource addButton}" Width="100" Click="Register_Click" HorizontalAlignment="Center" VerticalAlignment="Center" />

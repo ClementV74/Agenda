@@ -21,15 +21,8 @@ namespace calendrier2.view
         {
             string username = TB_Username.Text;
             string password = TB_Password.Password;
-            string confirmPassword = TB_ConfirmPassword.Password;
-
-            // Vérifier si les mots de passe correspondent
-            if (password != confirmPassword)
-            {
-                MessageBox.Show("Les mots de passe ne correspondent pas.", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-
+         
+         
             try
             {
                 // Ajouter l'utilisateur à la base de données en utilisant le DAO utilisateur
@@ -41,7 +34,7 @@ namespace calendrier2.view
                 // Effacer les champs de saisie après l'ajout
                 TB_Username.Text = "";
                 TB_Password.Password = "";
-                TB_ConfirmPassword.Password = "";
+           
 
                 MainWindow mainWindow = new MainWindow();
                 mainWindow.Show();
