@@ -97,11 +97,7 @@ namespace calendrier2.view
             // Vérifier et ajouter les réseaux sociaux manquants pour le contact sélectionné
             daoReseaux.AddMissingReseauxSociauxToContacts();
 
-            // Créer une instance de la fenêtre pop-up en lui passant les réseaux sociaux obtenus
-            PopupReseauxSociaux popup = new PopupReseauxSociaux(reseauxSociaux);
-
-            // Afficher la fenêtre pop-up
-            popup.ShowDialog(); // Utilisation de ShowDialog pour bloquer l'interaction avec la fenêtre parent jusqu'à ce que la pop-up soit fermée
+        
         }
 
    

@@ -2,24 +2,58 @@
 using calendrier2.service;
 using calendrier2.service.DAO;
 using calendrier2.view;
+using System;
 using System.IO;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
+using uPLibrary.Networking.M2Mqtt;
+using uPLibrary.Networking.M2Mqtt.Messages;
 
 namespace calendrier2
 {
     public partial class MainWindow : Window
     {
 
-        private readonly MqttClientManager mqttClientManager; // Gestionnaire de client MQTT
+        private MqttClient mqttClient;
+
         public MainWindow()
         {
-            InitializeComponent(); // Initialiser les composants de l'interface utilisateur
-            mqttClientManager = new MqttClientManager("172.31.254.69", "clement", "clem"); // Créer une instance de MqttClientManager
-            LoadCredentials(); // Charger les informations d'identification sauvegardées
+            InitializeComponent();
+            mqttClient = new MqttClient("192.168.1.4"); // Adresse IP du broker MQTT
+            string clientId = Guid.NewGuid().ToString();
+
+            // Set username and password
+            mqttClient.Connect(clientId, "clement", "clem");
+
+            // Subscribe to topics
+            mqttClient.MqttMsgPublishReceived += MqttClient_MqttMsgPublishReceived;
+            mqttClient.Subscribe(new string[] { "authentification" }, new byte[] { MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE });
         }
+
+        private void MqttClient_MqttMsgPublishReceived(object sender, MqttMsgPublishEventArgs e)
+        {
+            string message = Encoding.UTF8.GetString(e.Message);
+            if (e.Topic == "authentification" && message == "on")
+            {
+                Dispatcher.Invoke(() =>
+                {
+                    Ecran.Children.Clear();
+                    var dashboardView = new view_dashboard();
+                    Grid.SetColumnSpan(dashboardView, 2);
+                    Ecran.Children.Add(dashboardView);
+                });
+            }
+
+            if (e.Topic == "authentification" && message == "off")
+            {
+               MessageBox.Show("Accès refusé carte invalide", "Erreur d'authentification", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+
 
         private void BTN_Login_Click(object sender, RoutedEventArgs e)
         {
@@ -37,13 +71,11 @@ namespace calendrier2
                 SaveCredentials(username, password); 
 
                 // Éteindre la LED si l'authentification est réussie
-                mqttClientManager.PublishMessage("led/control", "off");
             }
             else
             {
 
-                // Allumer la LED si l'authentification a échoué
-                mqttClientManager.PublishMessage("led/control", "on"); 
+               
                 // Affiche un message d'erreur
                 MessageBox.Show("Accès refusé. Nom d'utilisateur ou mot de passe incorrect.", "Erreur d'authentification", MessageBoxButton.OK, MessageBoxImage.Error);
 

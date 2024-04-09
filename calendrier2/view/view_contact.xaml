@@ -146,32 +146,22 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
+
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
                 <!-- Header -->
-                
+
                 <StackPanel Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Bottom">
-                    <TextBlock Text="Contacts" Style="{StaticResource HeaderTextBlockStyle}"/>
-
-
-                    <Button Content="+ Ajouter un contact" Style="{StaticResource addButton}" Click="BTN_AddContact_Click"/>
-                   
-                    <Button Content="Modifier" Style="{StaticResource ButtonStyle}" Click="BTN_Modifier_CLick" Width="64"></Button>
-
-                   
-
-
-
-                    <!-- Search bar and other header elements would go here -->
+                    <TextBlock Text=" " Style="{StaticResource HeaderTextBlockStyle}" Width="2"/>
                     <ListBox x:Name="StatusFilterListBox" SelectionChanged="StatusFilterListBox_SelectionChanged" 
 ItemContainerStyle="{StaticResource ListBoxItemStyle}"
 SelectionMode="Single"
 Background="#FFEEEEEE" BorderBrush="#FFEEEEEE"
-HorizontalContentAlignment="Stretch" 
-               HorizontalAlignment="Stretch"
+HorizontalContentAlignment="Stretch"
+
                
-               ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+               ScrollViewer.HorizontalScrollBarVisibility="Disabled" Width="173">
 
                         <ListBox.ItemsPanel>
                             <ItemsPanelTemplate>
@@ -181,6 +171,21 @@ HorizontalContentAlignment="Stretch"
                         </ListBox.ItemsPanel>
 
                     </ListBox>
+
+
+                    <Button Content="+ Ajouter un contact" Style="{StaticResource addButton}" Click="BTN_AddContact_Click"/>
+
+                    <Button Content="Modifier" Style="{StaticResource ButtonStyle}" Click="BTN_Modifier_CLick" Width="64"/>
+
+                    <Button Content="Details" Style="{StaticResource ButtonStyle}" Click="BTN_Details_Click" Width="49" />
+
+
+
+
+
+
+
+                    <!-- Search bar and other header elements would go here -->
                 </StackPanel>
 
 
@@ -225,11 +230,10 @@ HorizontalContentAlignment="Stretch"
                         <Label Content="Recherche" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         <TextBox x:Name="SearchTextBox" TextChanged="TB_Search" Margin="10" Width="93" />
 
-                        <Button Content="Details" Style="{StaticResource ButtonStyle}" Click="BTN_Details_Click" Width="49" Height="22"/>
-                        
-                        
+
+
                     </StackPanel>
-                   
+
 
                 </StackPanel>
 
