@@ -22,7 +22,7 @@ namespace calendrier2
         public MainWindow()
         {
             InitializeComponent();
-            mqttClient = new MqttClient("192.168.1.4"); // Adresse IP du broker MQTT
+            mqttClient = new MqttClient("172.31.146.49"); // Adresse IP du broker MQTT
             string clientId = Guid.NewGuid().ToString();
 
             LoadCredentials(); // Charger les informations d'identification sauvegardées

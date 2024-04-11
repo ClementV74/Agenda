@@ -17,7 +17,7 @@ namespace calendrier2.view
         private DAO_contact _daoContact;
         private DAO_Reseaux daoReseaux;
         private List<string> _statusList;
-        private Contact _selectedContact;
+      
         private ContactContext _dbContext;
 
         // Propriété pour la liste des contacts

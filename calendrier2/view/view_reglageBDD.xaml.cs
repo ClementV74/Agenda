@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,25 +20,47 @@ namespace calendrier2.view
     /// <summary>
     /// Logique d'interaction pour view_reglageBDD.xaml
     /// </summary>
+    
     public partial class view_reglageBDD : UserControl
     {
+       
         public view_reglageBDD()
         {
             InitializeComponent();
+            TB_Database.Text = ConfigurationManager.AppSettings["database"];
+            TB_Host.Text = ConfigurationManager.AppSettings["host"];
+            TB_Password.Text = ConfigurationManager.AppSettings["password"];
+           
+            TB_User.Text = ConfigurationManager.AppSettings["user"];
+
+
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void BTN_Save_Click(object sender, RoutedEventArgs e)
         {
-            string host = TB_Host.Text;
-            string user = TB_User.Text;
-            string password = TB_Password.Text;
-            string database = TB_Database.Text;
+            string ServerName = TB_Host.Text;
+            string Username = TB_User.Text;
+            string Password = TB_Password.Text;
+            string Database = TB_Database.Text;
+      
 
-            // Vous pouvez également valider les entrées utilisateur ici
 
-            BDD_modifier bddModifier = new BDD_modifier();
-            bddModifier.ModifierConnexionBDD(host, "port", user, password, database);
+            Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            config.AppSettings.Settings["host"].Value = ServerName;
+            config.AppSettings.Settings["user"].Value = Username;
+            config.AppSettings.Settings["password"].Value = Password;
+            config.Save(ConfigurationSaveMode.Modified);
+            ConfigurationManager.RefreshSection("appSettings");
+
+            Ecran.Children.Clear();
+            var dashboardView = new view_dashboard();
+            Grid.SetColumnSpan(dashboardView, 2);
+            Ecran.Children.Add(dashboardView);
+
         }
+
+      
     }
 }
 

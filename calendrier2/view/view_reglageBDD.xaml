@@ -6,17 +6,18 @@
              xmlns:local="clr-namespace:calendrier2.view"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Background="AliceBlue">
+    <Grid Background="AliceBlue" x:Name="Ecran">
         <StackPanel Margin="20">
             <TextBlock Text="Hôte:"/>
             <TextBox x:Name="TB_Host" Margin="0 5"/>
+            
             <TextBlock Text="Nom d'utilisateur:"/>
             <TextBox x:Name="TB_User" Margin="0 5"/>
             <TextBlock Text="Mot de passe:"/>
-            <TextBox x:Name="TB_Password" Margin="0 5" />
+            <TextBox x:Name="TB_Password" Margin="0 5"  />
             <TextBlock Text="Nom de la base de données:"/>
             <TextBox x:Name="TB_Database" Margin="0 5" />
-            <Button Content="Enregistrer" Click="Button_Click" HorizontalAlignment="Center"/>
+            <Button Content="Enregistrer" Click="BTN_Save_Click" HorizontalAlignment="Center" Style="{StaticResource addButton}" />
         </StackPanel>
     </Grid>
 </UserControl>
