@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using calendrier2.service;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -11,6 +12,7 @@ public partial class ContactContext : DbContext
 {
     public ContactContext()
     {
+        BDD_modifier bDD_Modifier = new BDD_modifier();
     }
 
     public ContactContext(DbContextOptions<ContactContext> options)
@@ -40,7 +42,7 @@ public partial class ContactContext : DbContext
             string password = ConfigurationManager.AppSettings["password"];
             string database = ConfigurationManager.AppSettings["database"];
             string mysqlVer = ConfigurationManager.AppSettings["mysqlVer"];
-            // Ajoutez les autres variables nécessaires ici
+            
 
             string connectionString = $"server={host};port={port};user={user};password={password};database={database}";
             optionsBuilder.UseMySql(connectionString, Microsoft.EntityFrameworkCore.ServerVersion.Parse(mysqlVer));

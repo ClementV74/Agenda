@@ -25,6 +25,8 @@ namespace calendrier2
             mqttClient = new MqttClient("192.168.1.4"); // Adresse IP du broker MQTT
             string clientId = Guid.NewGuid().ToString();
 
+            LoadCredentials(); // Charger les informations d'identification sauvegardées
+
             // Set username and password
             mqttClient.Connect(clientId, "clement", "clem");
 
@@ -36,7 +38,7 @@ namespace calendrier2
         private void MqttClient_MqttMsgPublishReceived(object sender, MqttMsgPublishEventArgs e)
         {
             string message = Encoding.UTF8.GetString(e.Message);
-            if (e.Topic == "authentification" && message == "on")
+            if (e.Topic == "authentification" && message == "ok")
             {
                 Dispatcher.Invoke(() =>
                 {
@@ -50,6 +52,8 @@ namespace calendrier2
             if (e.Topic == "authentification" && message == "off")
             {
                MessageBox.Show("Accès refusé carte invalide", "Erreur d'authentification", MessageBoxButton.OK, MessageBoxImage.Error);
+               //ajoute un delais de 3 sec
+               System.Threading.Thread.Sleep(3000);
             }
         }
 
@@ -70,7 +74,7 @@ namespace calendrier2
                 // Sauvegarder automatiquement les informations d'identification
                 SaveCredentials(username, password); 
 
-                // Éteindre la LED si l'authentification est réussie
+        
             }
             else
             {
