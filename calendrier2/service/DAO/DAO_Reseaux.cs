@@ -9,9 +9,9 @@ namespace calendrier2.service.DAO
     {
         private readonly ContactContext _context;
 
-        public DAO_Reseaux(ContactContext context)
+        public DAO_Reseaux()
         {
-            _context = context;
+            _context = new ContactContext();
         }
 
         public List<ContactReseauxSociaux> GetContactReseauxSociauxByContact(Contact contact)
@@ -76,5 +76,52 @@ namespace calendrier2.service.DAO
             // Récupérer la liste des réseaux sociaux
             return _context.ReseauxSociauxLists.ToList();
         }
+
+        public void AddMissingReseauxSociauxToContacts()
+        {
+            // Récupérer tous les contacts de la base de données
+            var allContacts = _context.Contacts.ToList();
+
+            // Récupérer la liste des réseaux sociaux disponibles
+            var reseauxSociauxList = GetReseauxSociauxList();
+
+            // Parcourir tous les contacts
+            foreach (var contact in allContacts)
+            {
+                // Récupérer les réseaux sociaux associés à ce contact
+                var contactReseauxSociaux = GetContactReseauxSociauxByContact(contact);
+
+                // Récupérer les identifiants des réseaux sociaux associés à ce contact
+                var contactReseauxSociauxIds = contactReseauxSociaux.Select(crs => crs.IdReseau).ToList();
+
+                // Trouver les identifiants des réseaux sociaux manquants
+                var missingReseauxSociauxIds = reseauxSociauxList.Select(r => r.IdReseau).Except(contactReseauxSociauxIds).ToList();
+
+                // Si des réseaux sociaux sont manquants, les ajouter au contact
+                foreach (var reseauId in missingReseauxSociauxIds)
+                {
+                    var reseau = reseauxSociauxList.FirstOrDefault(r => r.IdReseau == reseauId);
+                    if (reseau != null)
+                    {
+                        AddReseauSocialToContact(contact, reseau);
+                    }
+                }
+            }
+        }
+
+        public void RemoveReseauxSociauxFromContact(Contact contact)
+        {
+            // Recherche des réseaux sociaux liés au contact
+            var reseauxSociaux = _context.ContactReseauxSociauxes
+                .Where(crs => crs.IdContact == contact.IdContact)
+                .ToList();
+
+            // Suppression des réseaux sociaux associés au contact
+            _context.ContactReseauxSociauxes.RemoveRange(reseauxSociaux);
+            _context.SaveChanges();
+        }
+
+
+
     }
 }

@@ -27,6 +27,13 @@ namespace calendrier2.service.DAO
             }
         }
 
+        // Méthode pour récupérer la liste de tous les contacts
+        public IEnumerable<Contact> GetContacts()
+        {
+            return _dbContext.Contacts.ToList(); // Récupérer tous les contacts de la base de données
+        }
+
+
         // Méthode pour mettre à jour un contact existant
         public void UpdateContact(Contact updatedContact) // Prend en paramètre un objet Contact mis à jour
         {
@@ -55,6 +62,8 @@ namespace calendrier2.service.DAO
             if (contactToDelete != null) // Si le contact existe
             {
                 _dbContext.Contacts.Remove(contactToDelete); // Supprimer le contact du contexte
+               
+                
                 _dbContext.SaveChanges(); // Enregistrer les modifications dans la base de données
             }
             else
@@ -81,8 +90,8 @@ namespace calendrier2.service.DAO
         {
             try
             {
-                _dbContext.Database.GetConnectionString();
-                _dbContext.Database.CanConnect();
+                _dbContext.Database.GetConnectionString(); // Vérifier la chaîne de connexion
+                _dbContext.Database.CanConnect(); // Vérifier la connexion à la base de données
                 return true;
             }
             catch (Exception ex)

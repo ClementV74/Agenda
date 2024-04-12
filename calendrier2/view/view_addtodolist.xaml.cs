@@ -63,55 +63,49 @@ namespace calendrier2.view
 
         private void BTN_AddRappel_Click(object sender, RoutedEventArgs e)
         {
-            // Récupérer les informations des TextBox
+            // Récupérer les valeurs des champs de saisie
+            string titre = TB_Titre.Text;
             string description = TB_Description.Text;
-            TimeOnly? temps;
-
-            // Essayer de convertir le texte de la TextBox en un objet TimeOnly
-            if (!TimeOnly.TryParse(TB_Heure.Text, out TimeOnly heure))
+            TimeOnly? heure = null;
+            if (TimeOnly.TryParse(TB_Heure.Text, out TimeOnly parsedTime))
             {
-                // La conversion a échoué, afficher un message à l'utilisateur et quitter la méthode
-                MessageBox.Show("Format d'heure invalide. Veuillez saisir une heure valide au format HH:mm:ss");
-                return;
+                heure = parsedTime;
             }
-            else
-            {
-                // La conversion a réussi, utiliser la valeur convertie
-                temps = heure;
-            }
-
             string lieu = TB_Lieux.Text;
 
-            try
-            {
-                // Créer une instance de la classe Tache et ajouter la nouvelle tâche à la base de données
-                Tache nouvelleTache = new Tache
-                {
-                    Description = description,
-                    Temps = temps,
-                    Lieux = lieu
-                    // Ajoutez d'autres propriétés si nécessaire
-                };
+            // Utiliser le DAO pour ajouter le nouvel événement à la base de données
+            DAO_tache dao = new DAO_tache();
 
-                // Ajouter la nouvelle tâche en utilisant votre DAO
-                DAO_tache daoTache = new DAO_tache();
-                daoTache.AjouterTache(nouvelleTache);
-
-                // Rediriger l'utilisateur vers la vue view_contact
-                var contactview = new view_contact();
-                Ecran_Contact.Children.Clear();
-                Grid.SetColumnSpan(contactview, 2);
-                Ecran_Contact.Children.Add(contactview);
-            }
-            catch (Exception ex)
+            // Recherchez la Todolist correspondante dans la base de données ou créez-en une nouvelle si elle n'existe pas
+            Todolist todolist = dao.GetTodolistByTitle(titre);
+            if (todolist == null)
             {
-                // Gérer toute exception qui pourrait survenir lors de l'ajout de la tâche
-                MessageBox.Show($"Une erreur s'est produite lors de l'ajout de la tâche : {ex.Message}", "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+                // Si la Todolist n'existe pas, créez-en une nouvelle
+                todolist = dao.AjouterTodolist(titre);
             }
+
+            // Créer une nouvelle tâche associée à cette Todolist
+            Tache nouvelleTache = new Tache
+            {
+                Description = description,
+                Temps = heure,
+                Lieux = lieu,
+                TodolistIdtodolist = todolist.Idtodolist
+            };
+
+            // Ajouter la nouvelle tâche à la base de données
+            dao.AjouterTache(nouvelleTache);
+
+            // Rafraîchir ou actualiser l'interface utilisateur si nécessaire
+            // Par exemple, effacer les champs de saisie ou afficher un message de confirmation
+            TB_Titre.Text = "";
+            TB_Description.Text = "";
+            TB_Heure.Text = "";
+            TB_Lieux.Text = "";
+
+            // Vous pouvez également ajouter du code pour afficher un message de confirmation à l'utilisateur
+            MessageBox.Show("Rappel ajouté avec succès !");
         }
-
-
-
 
 
 

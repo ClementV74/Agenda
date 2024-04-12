@@ -23,7 +23,7 @@ namespace calendrier2.service
 
             string credentialsPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "service", "credentials.json"); // Chemin d'accès au fichier de clés
              
-            using (var stream = new FileStream(credentialsPath, FileMode.Open, FileAccess.Read)) 
+            using (var stream = new FileStream(credentialsPath, FileMode.Open, FileAccess.Read))  // Ouvrir le fichier de clés
             {
                 string credPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "service", "token.json");     // Chemin d'accès au fichier de jetons
 
@@ -44,6 +44,8 @@ namespace calendrier2.service
 
             return service;
         }
+
+     
 
     }
 

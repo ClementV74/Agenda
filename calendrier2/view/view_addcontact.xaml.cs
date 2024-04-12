@@ -88,7 +88,6 @@ namespace calendrier2.view
                 newContact.Status += "Travail, ";
             }
 
-
             // Supprimer la virgule supplémentaire à la fin de la chaîne de statut
             if (!string.IsNullOrEmpty(newContact.Status))
             {
@@ -99,6 +98,16 @@ namespace calendrier2.view
             DAO_contact dao = new DAO_contact();
             dao.AddContact(newContact);
 
+            // Récupérer la liste des réseaux sociaux disponibles
+            DAO_Reseaux daoReseaux = new DAO_Reseaux();
+            var reseauxSociauxList = daoReseaux.GetReseauxSociauxList();
+
+            // Ajouter tous les réseaux sociaux disponibles au nouveau contact
+            foreach (var reseau in reseauxSociauxList)
+            {
+                daoReseaux.AddReseauSocialToContact(newContact, reseau);
+            }
+
             var contactview = new view_contact(); // Assurez-vous de remplacer DashboardView par le nom de votre classe de vue du tableau de bord
 
             // Remplace le contenu des deux parties de la grille
@@ -106,6 +115,7 @@ namespace calendrier2.view
             Grid.SetColumnSpan(contactview, 2);
             Ecran_Contact.Children.Add(contactview);
         }
+
 
         private void BTN_retour_Click(object sender, RoutedEventArgs e)
         {

@@ -118,17 +118,17 @@
 
                 </StackPanel>
                 <StackPanel Grid.Row="1" Margin="20" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <Grid Height="329" Width="355">
+                    <Grid Height="315" Width="381">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="10"/>
+                            <ColumnDefinition Width="010"/>
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="10"/>
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="10"/>
                             <ColumnDefinition Width="Auto"/>
-                            
-                            
+
+
                         </Grid.ColumnDefinitions>
 
                         <Grid.RowDefinitions>
@@ -141,26 +141,34 @@
                         </Grid.RowDefinitions>
 
                         <TextBlock Grid.Row="0" Grid.Column="0" Text="Nom" Foreground="{StaticResource TextColor}" VerticalAlignment="Center"/>
-                        <TextBox x:Name="NomTextBox"  Grid.Row="0" Grid.Column="2" Margin="0,0,10,10" Width="200" Height="40" BorderBrush="{StaticResource AccentColor}" BorderThickness="1" HorizontalAlignment="Stretch"/>
+                        <TextBox x:Name="NomTextBox"  Grid.Row="0" Grid.Column="2" Margin="0,0,10,10" Width="200" Height="25" BorderBrush="{StaticResource AccentColor}" BorderThickness="1" HorizontalAlignment="Stretch"/>
 
                         <TextBlock Grid.Row="1" Grid.Column="0" Text="Prénom" Foreground="{StaticResource TextColor}" VerticalAlignment="Center"/>
-                        <TextBox x:Name="PrenomTextBox"  Grid.Row="1" Grid.Column="2" Margin="0,0,10,10" Width="200" Height="40" BorderBrush="{StaticResource AccentColor}" BorderThickness="1" HorizontalAlignment="Stretch"/>
+                        <TextBox x:Name="PrenomTextBox"  Grid.Row="1" Grid.Column="2" Margin="0,0,10,10" Width="200" Height="25" BorderBrush="{StaticResource AccentColor}" BorderThickness="1" HorizontalAlignment="Stretch"/>
 
                         <TextBlock Grid.Row="2" Grid.Column="0" Text="Email" Foreground="{StaticResource TextColor}" VerticalAlignment="Center"/>
-                        <TextBox x:Name="EmailTextBox"  Grid.Row="2" Grid.Column="2" Margin="0,0,10,10" Width="200" Height="40" BorderBrush="{StaticResource AccentColor}" BorderThickness="1" HorizontalAlignment="Stretch"/>
+                        <TextBox x:Name="EmailTextBox"  Grid.Row="2" Grid.Column="2" Margin="0,0,10,10" Width="200" Height="25" BorderBrush="{StaticResource AccentColor}" BorderThickness="1" HorizontalAlignment="Stretch"/>
 
                         <TextBlock Grid.Row="3" Grid.Column="0" Text="Téléphone" Foreground="{StaticResource TextColor}" VerticalAlignment="Center"/>
-                        <TextBox x:Name="TelTextBox"  Grid.Row="3" Grid.Column="2" Margin="0,0,10,10" Width="200" Height="40" BorderBrush="{StaticResource AccentColor}" BorderThickness="1" HorizontalAlignment="Stretch"/>
+                        <TextBox x:Name="TelTextBox"  Grid.Row="3" Grid.Column="2" Margin="0,0,10,10" Width="200" Height="25" BorderBrush="{StaticResource AccentColor}" BorderThickness="1" HorizontalAlignment="Stretch"/>
 
                         <TextBlock Grid.Row="4" Grid.Column="0" Text="Status" Foreground="{StaticResource TextColor}" VerticalAlignment="Center"/>
-                        <TextBox x:Name="StatusBox"  Grid.Row="4" Grid.Column="2" Margin="0,0,10,10" Width="200" Height="40" BorderBrush="{StaticResource AccentColor}" BorderThickness="1" HorizontalAlignment="Stretch"/>
+                        <TextBox x:Name="StatusBox"  Grid.Row="4" Grid.Column="2" Margin="0,0,10,10" Width="200" Height="25" BorderBrush="{StaticResource AccentColor}" BorderThickness="1" HorizontalAlignment="Stretch"/>
 
-                        <Button Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="4" Content="Afficher Réseaux Sociaux" Style="{StaticResource ButtonStyle}" Click="BTN_AfficherReseauxSociaux_Click"/>
-
+                        <!--<Button Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="4" Content="Afficher Réseaux Sociaux" Style="{StaticResource ButtonStyle}" Click="BTN_AfficherReseauxSociaux_Click"/>-->
+                     
+                            <DataGrid x:Name="DataGridReseaux" AutoGenerateColumns="False" Grid.Row="5" Grid.ColumnSpan="7" Margin="0,0,-45,0">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Nom Réseau" Binding="{Binding IdReseauNavigation.NomReseau}" Width="150" />
+                                <DataGridTextColumn Header="Pseudo" Binding="{Binding Pseudo}" Width="100" />
+                                <DataGridTextColumn Header="URL" Binding="{Binding Url}" Width="100"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                     
 
 
                     </Grid>
-                    
+
                 </StackPanel>
 
 

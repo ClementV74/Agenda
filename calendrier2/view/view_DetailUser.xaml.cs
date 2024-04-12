@@ -23,19 +23,30 @@ namespace calendrier2.view
     public partial class view_DetailUser : UserControl
     {
         private Contact _selectedContact;
+        private List<ContactReseauxSociaux> _reseauxSociaux;
+        private DAO_Reseaux _daoReseaux; // Ajout d'un champ pour stocker l'instance de DAO_Reseaux
+
         public view_DetailUser(Contact selectedContact)
         {
             InitializeComponent();
+
             _selectedContact = selectedContact; // Récupérer le contact sélectionné
 
             NomTextBox.Text = selectedContact.Nom; // Afficher les informations du contact dans les TextBox
-            PrenomTextBox.Text = selectedContact.Prenom; 
+            PrenomTextBox.Text = selectedContact.Prenom;
             EmailTextBox.Text = selectedContact.Email;
             TelTextBox.Text = selectedContact.Tel;
             StatusBox.Text = selectedContact.Status;
 
+            // Instancier DAO_Reseaux
+            _daoReseaux = new DAO_Reseaux();
 
+            // Récupérer et afficher les réseaux sociaux du contact sélectionné
+            _reseauxSociaux = _daoReseaux.GetContactReseauxSociauxByContact(_selectedContact);
+            DataGridReseaux.ItemsSource = _reseauxSociaux;
         }
+
+
 
         private void BTN_Dashboard_Click(object sender, RoutedEventArgs e)
         {
@@ -60,31 +71,43 @@ namespace calendrier2.view
             Ecran_Contact.Children.Add(calendrierview);
         }
 
-      
+
         private void BTN_retour_Click(object sender, RoutedEventArgs e)
         {
-            var contactview = new view_contact(); 
+
+            var daoReseaux = new DAO_Reseaux();
+            daoReseaux.SaveChangesAndUpdateReseaux(_reseauxSociaux);
+
+            var contactview = new view_contact();
             Ecran_Contact.Children.Clear();
             Grid.SetColumnSpan(contactview, 2);
             Ecran_Contact.Children.Add(contactview);
 
+
         }
 
-           private void BTN_AfficherReseauxSociaux_Click(object sender, RoutedEventArgs e)
+        private void BTN_AfficherReseauxSociaux_Click(object sender, RoutedEventArgs e)
         {
             // Instancier la classe DAO_Reseaux avec le contexte approprié
-            DAO_Reseaux daoReseaux = new DAO_Reseaux(new ContactContext());
+            DAO_Reseaux daoReseaux = new DAO_Reseaux();
 
             // Récupérer les réseaux sociaux du contact sélectionné
             List<ContactReseauxSociaux> reseauxSociaux = daoReseaux.GetContactReseauxSociauxByContact(_selectedContact);
 
-            // Créer une instance de la fenêtre pop-up en lui passant les réseaux sociaux obtenus
-            PopupReseauxSociaux popup = new PopupReseauxSociaux(reseauxSociaux);
+            // Vérifier et ajouter les réseaux sociaux manquants pour le contact sélectionné
+            daoReseaux.AddMissingReseauxSociauxToContacts();
 
-            // Afficher la fenêtre pop-up
-            popup.ShowDialog(); // Utilisation de ShowDialog pour bloquer l'interaction avec la fenêtre parent jusqu'à ce que la pop-up soit fermée
+        
         }
+
+   
+
+
+
+
+
+
     }
-    }
+}
 
 

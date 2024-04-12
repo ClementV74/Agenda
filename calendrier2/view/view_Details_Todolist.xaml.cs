@@ -126,7 +126,21 @@ namespace calendrier2.view
 
         }
 
-        
+        private void CheckBox_Click(object sender, RoutedEventArgs e)
+        {
+            CheckBox checkBox = (CheckBox)sender;
+            Tache tache = (Tache)checkBox.DataContext;
+
+            // Mettre à jour la valeur de la tâche dans la base de données
+            daoTache.MettreAJourEtatTache(tache.Idtache, checkBox.IsChecked);
+
+            // Appelez AfficherRappels avec l'ID de la liste de tâches
+            
+        }
+
+
+
+
     }
 }
 

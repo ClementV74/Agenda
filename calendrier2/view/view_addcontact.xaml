@@ -163,9 +163,9 @@
 
 
                         <StackPanel controls:Grid.Row="5" Grid.Column="2" Orientation="Horizontal" Margin="20,10,10,10">
-                            <CheckBox x:Name="FamilleCheckBox" Content="Famille" />
-                            <CheckBox x:Name="AmiCheckBox" Content="Ami" />
-                            <CheckBox x:Name="TravailCheckBox" Content="Travail"  />
+                            <CheckBox x:Name="FamilleCheckBox" Content="Famille " />
+                            <CheckBox x:Name="AmiCheckBox" Content="Ami " />
+                            <CheckBox x:Name="TravailCheckBox" Content="Travail "  />
                         </StackPanel>
 
 

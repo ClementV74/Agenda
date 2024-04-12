@@ -2,6 +2,7 @@
 using Google.Apis.Calendar.v3;
 using Google.Apis.Util.Store;
 using System;
+using System.Configuration;
 using System.Diagnostics;
 using System.Threading;
 using System.Windows;
@@ -72,20 +73,16 @@ namespace calendrier2.view
 
         private void BTN_Database_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                ProcessStartInfo psi = new ProcessStartInfo // Ouvrir phpMyAdmin
-                {
-                    FileName = "https://phpmyadmin.alwaysdata.com/", 
-                    UseShellExecute = true // Ouvrir dans le navigateur par défaut
-                };
-                Process.Start(psi); // Ouvrir la page
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Une erreur s'est produite lors de l'ouverture de la page Google : {ex.Message}"); // Affichez un message d'erreur si une exception est levée
-            }
-        }
+          var reglage = new view_reglageBDD();
+            Ecran_Principale.Children.Clear();
+            Grid.SetColumnSpan(reglage, 2);
+            Ecran_Principale.Children.Add(reglage);
+
+
+       
+
+      
+    }
 
         private void BTN_Reseau_Click(object sender, RoutedEventArgs e)
         {
@@ -93,11 +90,9 @@ namespace calendrier2.view
             Ecran_Principale.Children.Clear();
             Grid.SetColumnSpan(reseauview, 2);
             Ecran_Principale.Children.Add(reseauview);
-
-
         }
     }
-}
+    }
 
 
 

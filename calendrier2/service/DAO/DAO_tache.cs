@@ -3,10 +3,43 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
 
 public class DAO_tache
 {
+    private readonly ContactContext context;
     // Méthode pour récupérer les rappels de la base de données
+    public DAO_tache()
+    {
+        context = new ContactContext(); // Initialisez votre contexte de base de données
+    }
+    public Todolist GetTodolistByTitle(string titre)
+    {
+        using (var context = new ContactContext())
+        {
+            return context.Todolists.FirstOrDefault(t => t.Name == titre);
+        }
+    }
+
+    public Todolist AjouterTodolist(string titre)
+    {
+        using (var context = new ContactContext())
+        {
+            // Création d'une nouvelle Todolist avec le titre spécifié
+            Todolist todolist = new Todolist { Name = titre };
+
+            // Ajout de la Todolist à la base de données
+            context.Todolists.Add(todolist);
+
+            // Enregistrement des modifications dans la base de données
+            context.SaveChanges();
+
+            // Retour de la Todolist nouvellement créée
+            return todolist;
+        }
+    }
+
+
     public List<Tache> GetRappels()
     {
         using (var context = new ContactContext())
@@ -59,9 +92,9 @@ public class DAO_tache
             context.Taches.Add(nouvelEvenement);
             context.SaveChanges();
         }
-        }
+    }
 
-        public void ModifierEvenement(int id, string titre, string description, TimeOnly? heure, string lieu) // Ajoutez les paramètres nécessaires
+    public void ModifierEvenement(int id, string titre, string description, TimeOnly? heure, string lieu) // Ajoutez les paramètres nécessaires
     {
         using (var context = new ContactContext())
         {
@@ -116,4 +149,28 @@ public class DAO_tache
             context.SaveChanges();
         }
     }
+
+    public void MettreAJourEtatTache(int tacheId, bool? etat)
+    {
+        try
+        {
+            // Obtenez la tâche à mettre à jour depuis la base de données
+            Tache tache = context.Taches.FirstOrDefault(t => t.Idtache == tacheId);
+
+            if (tache != null)
+            {
+                // Mettez à jour l'état de la tâche
+                tache.Fait = etat ?? false; // Si etat est null, affectez false
+
+                // Enregistrez les modifications dans la base de données
+                context.SaveChanges();
+            }
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show($"Une erreur s'est produite lors de la mise à jour de l'état de la tâche : {ex.Message}");
+        }
+    }
+
+
 }

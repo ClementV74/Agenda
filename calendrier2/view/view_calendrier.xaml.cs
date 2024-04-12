@@ -6,6 +6,7 @@ using Google.Apis.Services;
 using Google.Apis.Util.Store;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
@@ -46,19 +47,19 @@ namespace calendrier2.view
         private void DisplayEvents(Events events)
         {
             // Créer une nouvelle liste pour stocker les descriptions des événements
-            List<string> eventDescriptions = new List<string>();
+            ObservableCollection<string> eventDescriptions = new ObservableCollection<string>();
 
             // Vérifier s'il y a des événements à afficher
-            if (events.Items != null && events.Items.Count > 0)
+            if (events.Items != null && events.Items.Count > 0) // S'il y a des événements à afficher
             {
-                foreach (var eventItem in events.Items)
+                foreach (var eventItem in events.Items) // Parcourir les événements
                 {
-                    string description = eventItem.Summary;
+                    string description = eventItem.Summary; // Description de l'événement
                     if (eventItem.Start.DateTime != null)
                     {
                         description += $" - {eventItem.Start.DateTime}";
                     }
-                    else if (eventItem.Start.Date != null)
+                    else if (eventItem.Start.Date != null) // Si seule la date de début est définie
                     {
                         description += $" - {eventItem.Start.Date}";
                     }
@@ -76,14 +77,14 @@ namespace calendrier2.view
 
 
 
-        private async void DisplayCurrentMonth()
+        private async void DisplayCurrentMonth() // Afficher le mois actuel
         {
-            MonthTextBlock.Text = _currentMonth.ToString("MMMM yyyy");
+            MonthTextBlock.Text = _currentMonth.ToString("MMMM yyyy"); // Afficher le mois et l'année actuels
 
             try
             {
-                Events events = await GetEventsForMonthAsync(_currentMonth);
-                DisplayEvents(events);
+                Events events = await GetEventsForMonthAsync(_currentMonth); // Récupérer les événements pour le mois actuel
+                DisplayEvents(events); // Afficher les événements
             }
             catch (Exception ex)
             {
@@ -91,55 +92,55 @@ namespace calendrier2.view
             }
         }
 
-        private async Task<Events> GetEventsForMonthAsync(DateTime month)
+        private async Task<Events> GetEventsForMonthAsync(DateTime month) // Récupérer les événements pour un mois donné
         {
-            DateTime startOfMonth = new DateTime(month.Year, month.Month, 1);
-            DateTime endOfMonth = startOfMonth.AddMonths(1).AddDays(-1);
+            DateTime startOfMonth = new DateTime(month.Year, month.Month, 1); // Premier jour du mois
+            DateTime endOfMonth = startOfMonth.AddMonths(1).AddDays(-1); // Dernier jour du mois
 
-            EventsResource.ListRequest request = _calendarService.Events.List("primary");
-            request.TimeMin = startOfMonth;
-            request.TimeMax = endOfMonth;
-            request.SingleEvents = true;
-            request.OrderBy = EventsResource.ListRequest.OrderByEnum.StartTime;
+            EventsResource.ListRequest request = _calendarService.Events.List("primary"); // primary = calendrier par défaut
+            request.TimeMin = startOfMonth; // Date minimale
+            request.TimeMax = endOfMonth; // Date maximale
+            request.SingleEvents = true; // Événements uniques
+            request.OrderBy = EventsResource.ListRequest.OrderByEnum.StartTime; // Trier par date de début
 
-            return await request.ExecuteAsync();
+            return await request.ExecuteAsync(); // Exécuter la requête de manière asynchrone
         }
 
-        private void AfficherEvenements()
+        private void AfficherEvenements() // Afficher les événements à partir de Google Calendar
         {
             // Définir les paramètres de la requête pour récupérer les événements
-            EventsResource.ListRequest request = _calendarService.Events.List("primary");
-            request.TimeMin = DateTime.Now;
-            request.ShowDeleted = false;
-            request.SingleEvents = true;
-            request.MaxResults = 10;
+            EventsResource.ListRequest request = _calendarService.Events.List("primary"); // primary = calendrier par défaut
+            request.TimeMin = DateTime.Now; // Date minimale
+            request.ShowDeleted = false; // Ne pas afficher les événements supprimés
+            request.SingleEvents = true; // Événements uniques
+            request.MaxResults = 10; // Nombre maximum d'événements à récupérer
             request.OrderBy = EventsResource.ListRequest.OrderByEnum.StartTime;
 
             // Récupérer les événements à partir de Google Calendar
             Events events = request.Execute();
 
             // Afficher les événements dans le ListBox
-            if (events.Items != null && events.Items.Count > 0)
+            if (events.Items != null && events.Items.Count > 0) // S'il y a des événements à afficher
             {
-                List<string> eventDescriptions = new List<string>();
-                foreach (var eventItem in events.Items)
+                List<string> eventDescriptions = new List<string>(); // Créer une nouvelle liste pour stocker les descriptions des événements
+                foreach (var eventItem in events.Items) // Parcourir les événements
                 {
-                    string description = eventItem.Summary;
-                    if (eventItem.Start.DateTime != null)
+                    string description = eventItem.Summary; // Description de l'événement
+                    if (eventItem.Start.DateTime != null) // Si la date et l'heure de début sont définies
                     {
-                        description += $" - {eventItem.Start.DateTime}";
+                        description += $" - {eventItem.Start.DateTime}"; // Ajouter la date et l'heure de début à la description
                     }
-                    else if (eventItem.Start.Date != null)
+                    else if (eventItem.Start.Date != null) // Si seule la date de début est définie
                     {
-                        description += $" - {eventItem.Start.Date}";
+                        description += $" - {eventItem.Start.Date}"; // Ajouter la date de début à la description
                     }
-                    eventDescriptions.Add(description);
+                    eventDescriptions.Add(description); // Ajouter la description de l'événement à la liste
                 }
-                EventsListBox.ItemsSource = eventDescriptions;
+                EventsListBox.ItemsSource = eventDescriptions; // Affecter la liste des descriptions des événements à la source de données de la liste box
             }
             else
             {
-                EventsListBox.Items.Add("Aucun événement trouvé.");
+                EventsListBox.Items.Add("Aucun événement trouvé."); 
             }
         }
 
@@ -177,28 +178,14 @@ namespace calendrier2.view
         static string[] Scopes = { CalendarService.Scope.Calendar };
         static string ApplicationName = "Calendrier";
 
-        public void AuthentifierEtObtenirEvenements()
+        public void AuthentifierEtObtenirEvenements() // Authentifier l'utilisateur et obtenir les événements du calendrier
         {
-            UserCredential credential;
-
-            // Charger les identifiants du client
-            using (var stream =
-                new FileStream("credentials.json", FileMode.Open, FileAccess.Read))
-            {
-                string credPath = "token.json";
-                credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
-                    GoogleClientSecrets.Load(stream).Secrets,
-                    Scopes,
-                    "user",
-                    CancellationToken.None,
-                    new FileDataStore(credPath, true)).Result;
-                Console.WriteLine("Credential file saved to: " + credPath);
-            }
+            
 
             // Créer le service Google Calendar
             var service = new CalendarService(new BaseClientService.Initializer()
             {
-                HttpClientInitializer = credential,
+              
                 ApplicationName = ApplicationName,
             });
 
@@ -209,7 +196,7 @@ namespace calendrier2.view
             {
                 foreach (var eventItem in events.Items)
                 {
-                    Console.WriteLine("{0} ({1})", eventItem.Summary, eventItem.Start?.DateTime);
+                    Console.WriteLine("{0} ({1})", eventItem.Summary, eventItem.Start?.DateTime); // Afficher le nom et la date de début de l'événement
                 }
             }
             else
@@ -218,7 +205,7 @@ namespace calendrier2.view
             }
         }
 
-        private void ConnectGoogleCalendarButton_Click(object sender, RoutedEventArgs e)
+        private void ConnectGoogleCalendarButton_Click(object sender, RoutedEventArgs e) // Bouton de connexion à Google Calendar
         {
             try
             {
