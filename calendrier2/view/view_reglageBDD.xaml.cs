@@ -13,24 +13,29 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using calendrier2.Model;
 using calendrier2.service;
+using calendrier2.service.DAO;
+
 
 namespace calendrier2.view
 {
     /// <summary>
     /// Logique d'interaction pour view_reglageBDD.xaml
     /// </summary>
-    
+
     public partial class view_reglageBDD : UserControl
     {
-       
+        BDD_Connexion bDD_Connexion;
         public view_reglageBDD()
         {
             InitializeComponent();
+
+            bDD_Connexion = new BDD_Connexion();
+         
             TB_Database.Text = ConfigurationManager.AppSettings["database"];
             TB_Host.Text = ConfigurationManager.AppSettings["host"];
             TB_Password.Text = ConfigurationManager.AppSettings["password"];
-           
             TB_User.Text = ConfigurationManager.AppSettings["user"];
 
 
@@ -38,21 +43,16 @@ namespace calendrier2.view
 
         private void BTN_Save_Click(object sender, RoutedEventArgs e)
         {
-            string ServerName = TB_Host.Text;
-            string Username = TB_User.Text;
-            string Password = TB_Password.Text;
-            string Database = TB_Database.Text;
-      
+            bDD_Connexion.ServerName = TB_Host.Text;
+            bDD_Connexion.Username = TB_User.Text;
+            bDD_Connexion.Password = TB_Password.Text;
+            bDD_Connexion.Database = TB_Database.Text;
+
+        
+            bDD_Connexion.SaveSettings();
 
 
-            Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-            ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-            config.AppSettings.Settings["host"].Value = ServerName;
-            config.AppSettings.Settings["user"].Value = Username;
-            config.AppSettings.Settings["password"].Value = Password;
-            config.Save(ConfigurationSaveMode.Modified);
-            ConfigurationManager.RefreshSection("appSettings");
-
+          
             Ecran.Children.Clear();
             var dashboardView = new view_dashboard();
             Grid.SetColumnSpan(dashboardView, 2);

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using calendrier2.Model;
 using calendrier2.service;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,10 +9,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace calendrier2.contact_DB;
 
+
 public partial class ContactContext : DbContext
 {
+    BDD_Connexion bDD_Connexion;
     public ContactContext()
     {
+        bDD_Connexion = new BDD_Connexion();
      
     }
 
@@ -36,16 +40,16 @@ public partial class ContactContext : DbContext
     {
         if (!optionsBuilder.IsConfigured)
         {
-            string host = ConfigurationManager.AppSettings["host"];
-            string port = ConfigurationManager.AppSettings["port"];
-            string user = ConfigurationManager.AppSettings["user"];
-            string password = ConfigurationManager.AppSettings["password"];
-            string database = ConfigurationManager.AppSettings["database"];
-            string mysqlVer = ConfigurationManager.AppSettings["mysqlVer"];
+            //string host = ConfigurationManager.AppSettings["host"];
+            //string port = ConfigurationManager.AppSettings["port"];
+            //string user = ConfigurationManager.AppSettings["user"];
+            //string password = ConfigurationManager.AppSettings["password"];
+            //string database = ConfigurationManager.AppSettings["database"];
+            //string mysqlVer = ConfigurationManager.AppSettings["mysqlVer"];
             
 
-            string connectionString = $"server={host};port=3306;user={user};password={password};database={database}";
-            optionsBuilder.UseMySql(connectionString, Microsoft.EntityFrameworkCore.ServerVersion.Parse(mysqlVer));
+            //string connectionString = $"server={host};port=3306;user={user};password={password};database={database}";
+            optionsBuilder.UseMySql(bDD_Connexion.ConString, Microsoft.EntityFrameworkCore.ServerVersion.Parse(bDD_Connexion.mysqlVer));
         }
     }
 

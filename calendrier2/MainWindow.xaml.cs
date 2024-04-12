@@ -1,5 +1,4 @@
 ﻿using calendrier2.contact_DB;
-using calendrier2.service;
 using calendrier2.service.DAO;
 using calendrier2.view;
 using System;
@@ -22,17 +21,24 @@ namespace calendrier2
         public MainWindow()
         {
             InitializeComponent();
-            mqttClient = new MqttClient("172.31.146.49"); // Adresse IP du broker MQTT
-            string clientId = Guid.NewGuid().ToString();
+
 
             LoadCredentials(); // Charger les informations d'identification sauvegardées
 
+            try { 
+            mqttClient = new MqttClient("172.31.146.49"); // Adresse IP du broker MQTT
+            string clientId = Guid.NewGuid().ToString();
             // Set username and password
             mqttClient.Connect(clientId, "clement", "clem");
 
             // Subscribe to topics
             mqttClient.MqttMsgPublishReceived += MqttClient_MqttMsgPublishReceived;
             mqttClient.Subscribe(new string[] { "authentification" }, new byte[] { MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE });
+            }
+                catch (Exception ex)
+            {
+                    MessageBox.Show($"Erreur lors de la connexion au serveur MQTT : {ex.Message}");
+                }
         }
 
         private void MqttClient_MqttMsgPublishReceived(object sender, MqttMsgPublishEventArgs e)
@@ -51,9 +57,9 @@ namespace calendrier2
 
             if (e.Topic == "authentification" && message == "off")
             {
-               MessageBox.Show("Accès refusé carte invalide", "Erreur d'authentification", MessageBoxButton.OK, MessageBoxImage.Error);
-               //ajoute un delais de 3 sec
-               System.Threading.Thread.Sleep(3000);
+                MessageBox.Show("Accès refusé carte invalide", "Erreur d'authentification", MessageBoxButton.OK, MessageBoxImage.Error);
+                //ajoute un delais de 3 sec
+                System.Threading.Thread.Sleep(3000);
             }
         }
 
@@ -72,14 +78,14 @@ namespace calendrier2
                 ShowDashboardView(); // Afficher le tableau de bord
 
                 // Sauvegarder automatiquement les informations d'identification
-                SaveCredentials(username, password); 
+                SaveCredentials(username, password);
 
-        
+
             }
             else
             {
 
-               
+
                 // Affiche un message d'erreur
                 MessageBox.Show("Accès refusé. Nom d'utilisateur ou mot de passe incorrect.", "Erreur d'authentification", MessageBoxButton.OK, MessageBoxImage.Error);
 
@@ -89,7 +95,7 @@ namespace calendrier2
         private void SaveCredentials(string username, string password)
         {
             // Accéder au fichier de configuration intégré en tant que ressource
-            string configFile = "Ressources.config.txt"; 
+            string configFile = "Ressources.config.txt";
 
             // Écriture des informations d'identification dans le fichier de configuration
             using (StreamWriter writer = new StreamWriter(configFile))
